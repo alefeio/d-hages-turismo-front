@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import logo from '~/assets/logo.png';
 import iconav from '~/assets/icon-nav2.png';
 import iconavx from '~/assets/icon-nav_x2.png';
 
+import { logout } from '~/store/modules/auth/actions';
+
 import { Container, Content, Profile, Img, Nav } from './styles';
 
 import { store } from '~/store';
 
 export default function Header() {
+  const dispatch = useDispatch();
+
   const [checked, setChecked] = useState(false);
   const [perfil, setPerfil] = useState();
 
@@ -36,14 +40,16 @@ export default function Header() {
     );
   };
 
+  function handleLogout() {
+    dispatch(logout());
+  }
+
   return (
     <Container>
       <Content>
-        <div>
-          <Link to="/#home" onClick={altChecked}>
-            <img src={logo} alt="HCS Aviation" />
-          </Link>
-        </div>
+        <Link to="/#home" onClick={altChecked}>
+          <img src={logo} alt="HCS Aviation" />
+        </Link>
         <Toggle />
         <Nav exibir={checked}>
           <ul>
@@ -98,6 +104,7 @@ export default function Header() {
               <strong>{perfil && perfil.nome}</strong>
               <Link to="/perfil">Meu perfil</Link> <br />
               <Link to="/contatoforms">Msgs Contato</Link>
+              <Link onClick={handleLogout}>Sair</Link>
             </div>
           </Profile>
         )}

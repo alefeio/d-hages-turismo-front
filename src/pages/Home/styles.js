@@ -10,11 +10,21 @@ export const Container = styled.div`
 `;
 
 export const Banner = styled.div`
-  width: 100%;
+  width: 100vw;
+  height: 85vh;
+  overflow: hidden;
 
-  img {
+  div {
     height: 100%;
     width: 100%;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  @media(max-width: 600px) {
+    height: 30vh;
   }
 `;
 

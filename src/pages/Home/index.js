@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Slider from "react-slick";
 import { Form, Input, Textarea } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import api from '~/services/api';
 
@@ -42,6 +46,39 @@ const schema = Yup.object().shape({
 });
 
 export default function Home() {
+  const [banners, setBanners] = useState([]);
+
+  async function loadBanners() {
+    const response = await api.get('banner');
+
+    console.log(`data: ${JSON.stringify(response.data)}`);
+
+    setBanners(response.data);
+  }
+
+  function SimpleSlider() {
+    var settings = {
+      dots: true,
+      infinite: true,
+      speed: 7000,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplaySpeed: 10000,
+      autoplay: true,
+      centerPadding: 0,
+      fade: true
+    };
+    return (
+      <Slider {...settings}>
+        {banners.map(banner => (
+          <div>
+            <img src={banner.imagem.url} alt={banner.titulo} />
+          </div>
+        ))}
+      </Slider>
+    );
+  }
+
   async function handleSubmit({ nome, email, telefone, mensagem }) {
     try {
       await api.post('trabalhe', {
@@ -59,10 +96,14 @@ export default function Home() {
     }
   }
 
+  useEffect(() => {
+    !banners.length && loadBanners();
+  }, [banners]);
+
   return (
     <Container>
       <Banner id="home">
-        <img src={b01} alt="" />
+        <SimpleSlider />
       </Banner>
       <Quemsomos id="sobre">
         <div>

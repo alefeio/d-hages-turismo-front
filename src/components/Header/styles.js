@@ -14,11 +14,16 @@ export const Img = styled.img`
 `;
 
 export const Container = styled.div`
-  padding: 80px 2rem;
+  height: 15vh;
+  padding: 1rem;
   background: #000;
   /* position: fixed;
   top: 0;
   z-index: 100; */
+
+  @media(max-width: 600px) {
+    height: 12vh;
+  }
 `;
 
 export const Content = styled.div`
@@ -29,16 +34,12 @@ export const Content = styled.div`
   width: 100%;
   max-width: 1300px;
 
-  > div {
-    max-height: 90px;
-    max-width: 250px;
-    min-width: 100px;
-    flex: 1;
-    margin-right: 50px;
-
+  a {
     img {
-      width: 100%;
-      height: 100%;
+      max-height: 90px;
+      max-width: 250px;
+      min-width: 100px;
+      margin-right: 50px;
     }
   }
 `;
