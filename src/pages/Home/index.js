@@ -11,14 +11,21 @@ import "slick-carousel/slick/slick-theme.css";
 import api from '~/services/api';
 
 import logo from '~/assets/logo.png';
-import b01 from '~/assets/home01.jpg';
-import b02 from '~/assets/home02.jpg';
-import b03 from '~/assets/home03.jpg';
-import b04 from '~/assets/home04.jpg';
-import b05 from '~/assets/home05.jpg';
-import b06 from '~/assets/home06.jpg';
-import b07 from '~/assets/home07.jpg';
-import aero from '~/assets/aeronaves.jpg';
+import onibus from '~/assets/home/onibus.jpg';
+import wpp from '~/assets/wpp.png';
+import depoimento1 from '~/assets/home/depoimento1.webm';
+import depoimento2 from '~/assets/home/depoimento2.webm';
+import depoimento3 from '~/assets/home/depoimento3.webm';
+import dep1 from '~/assets/home/dep1.png';
+import dep2 from '~/assets/home/dep2.png';
+import dep3 from '~/assets/home/dep3.png';
+import dep4 from '~/assets/home/dep4.png';
+import dep5 from '~/assets/home/dep5.png';
+import dep6 from '~/assets/home/dep6.png';
+import dep7 from '~/assets/home/dep7.png';
+import dep8 from '~/assets/home/dep8.png';
+import dep9 from '~/assets/home/dep9.png';
+import dep10 from '~/assets/home/dep10.png';
 import icotaxi from '~/assets/ico-taxiaereo.jpg';
 import icofrete from '~/assets/ico-fretamento.jpg';
 import icomanut from '~/assets/ico-manutencao.jpg';
@@ -30,12 +37,14 @@ import mapa from '~/assets/mapa.jpg';
 import {
   Banner,
   Quemsomos,
-  Aeronaves,
+  Depoimentos,
   Produtos,
   Porque,
   Ondeestamos,
   Trabalhe,
   Container,
+  WhatsApp,
+  Email
 } from './styles';
 
 const schema = Yup.object().shape({
@@ -47,9 +56,11 @@ const schema = Yup.object().shape({
 
 export default function Home() {
   const [banners, setBanners] = useState([]);
+  const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages");
+  const [email, setEmail] = useState("");
 
   async function loadBanners() {
-    const response = await api.get('banner');
+    const response = await api.get('banners');
 
     console.log(`data: ${JSON.stringify(response.data)}`);
 
@@ -60,21 +71,170 @@ export default function Home() {
     var settings = {
       dots: true,
       infinite: true,
-      speed: 7000,
+      speed: 5000,
       slidesToShow: 1,
       slidesToScroll: 1,
-      autoplaySpeed: 10000,
+      autoplaySpeed: 5000,
       autoplay: true,
       centerPadding: 0,
-      fade: true
+      fade: true,
+      pauseOnHover: false
     };
     return (
       <Slider {...settings}>
         {banners.map(banner => (
           <div>
-            <img src={banner.imagem.url} alt={banner.titulo} />
+            {(
+              banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'webm'
+              || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'mp4'
+              || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'mov'
+              || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'wmv'
+              || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'avi'
+              || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'html5'
+            )
+              ? (
+                <video autoplay="autoplay" loop="loop" muted>
+                  <source src={banner.imagem.url} type="video/mp4" />
+                  <object data="">
+                    <embed src={banner.imagem.url} />
+                  </object>
+                </video>
+              ) : (
+                <img src={banner.imagem.url} alt={banner.titulo} />
+              )
+            }
           </div>
         ))}
+      </Slider>
+    );
+  }
+
+  function SimpleSlider2() {
+    var settings = {
+      dots: true,
+      infinite: true,
+      speed: 1000,
+      slidesToShow: 3,
+      slidesToScroll: 3,
+      centerPadding: 0,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            infinite: true,
+            dots: true,
+            centerMode: true,
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            initialSlide: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    };
+    return (
+      <Slider {...settings}>
+        <section>
+          <video controls>
+            <source src={depoimento2} type="video/mp4" />
+            <object data="">
+              <embed src={depoimento2} />
+            </object>
+          </video>
+        </section>
+        <section>
+          <video controls>
+            <source src={depoimento1} type="video/mp4" />
+            <object data="">
+              <embed src={depoimento1} />
+            </object>
+          </video>
+        </section>
+        <section>
+          <video controls>
+            <source src={depoimento3} type="video/mp4" />
+            <object data="">
+              <embed src={depoimento3} />
+            </object>
+          </video>
+        </section>
+      </Slider>
+    );
+  }
+
+  function SimpleSlider3() {
+    var settings = {
+      dots: true,
+      infinite: true,
+      speed: 1000,
+      slidesToShow: 2,
+      slidesToScroll: 2,
+      centerPadding: 0,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            infinite: true,
+            dots: true,
+            centerMode: true,
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    };
+    return (
+      <Slider {...settings}>
+        <section>
+          <img src={dep1} alt="" />
+        </section>
+        <section>
+          <img src={dep2} alt="" />
+        </section>
+        <section>
+          <img src={dep3} alt="" />
+        </section>
+        <section>
+          <img src={dep4} alt="" />
+        </section>
+        <section>
+          <img src={dep5} alt="" />
+        </section>
+        <section>
+          <img src={dep6} alt="" />
+        </section>
+        <section>
+          <img src={dep7} alt="" />
+        </section>
+        <section>
+          <img src={dep8} alt="" />
+        </section>
+        <section>
+          <img src={dep9} alt="" />
+        </section>
+        <section>
+          <img src={dep10} alt="" />
+        </section>
       </Slider>
     );
   }
@@ -102,42 +262,50 @@ export default function Home() {
 
   return (
     <Container>
+      <WhatsApp>
+        <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
+        <a href={`https://wa.me//5591982651414?text=${textWpp}`} target='_blank'>
+          <img src={wpp} alt="Logo HCS" />
+        </a>
+      </WhatsApp>
       <Banner id="home">
+        <section>
+          <h3>Seja muito bem-vindo</h3>
+          <h2>à sua próxima aventura</h2>
+          <p>Cadastre seu email e acompanhe nossas novidades</p>
+          <Email>
+            <Input name="email" placeholder='Digite seu melhor email' value={email} onChange={(e) => setEmail(e.target.value)} />
+            <button>Enviar</button>
+          </Email>
+        </section>
         <SimpleSlider />
       </Banner>
       <Quemsomos id="sobre">
         <div>
-          <h2>SOBRE</h2>
-          <p>
-            A HCS é uma empresa de aviação executiva sob-demanda, com aeronaves
-            próprias e operações no mercado aéreo. Sediada em São Paulo, Brasil,
-            atua há mais de 15 anos no mercado de todo o Brasil e Estados
-            Unidos.
-          </p>
-          <h2>ORIGEM</h2>
-          <p>
-            Vitor Pessoa, CEO e VIP Holding começou como piloto de aeronaves.
-            Com o passar dos anos, se tornou piloto exclusivo de um grande
-            empresário, o qual cedeu ao Vitor o comando e cuidado de suas
-            aeronaves. Vitor viu uma excelente oportunidade de investir nesse
-            mercado vendendo seu primeiro avião. Com a evolução do negócio,
-            Vitor tem hoje um alto faturamento e estrutura para expandir ainda
-            mais.
-          </p>
+          <section>
+            <img src={onibus} alt="Frota D Hages Turismo" />
+          </section>
+          <div>
+            <h1>Viage com a D' Hages Turismo</h1>
+            <p>
+              Fundada em agosto de 2015 com intuito de levar o nortista a conhecer as belezas da sua própria região e do Brasil, a D’ Hages Turismo atualmente trabalha com excursões regionais e nacionais. Contando com pacotes que vão do norte ao sul do país, contemplando a natureza, cultura e área urbana de cada região.
+            </p>
+            <p>
+              Entre os principais destinos estão: Salinópolis- PA, Ajuruteua- PA, Carolina- MA e suas belas cachoeiras, Lençóis Maranhenses, Jericoacoara, Fortaleza- CE, Recife- PE, Maragogi- AL, Salvador- BA, estendendo até a cidade maravilhosa do Rio de Janeiro e os encantos da região sul do país com Gramado, Canela, Bento Gonçalves...
+            </p>
+            <p>
+              Contando com frota própria de ônibus, a empresa também atua na área de fretamento de ônibus, assim, personaliza viagens e experiências únicas para grupos familiares, igrejas, estudantes, atletas.
+            </p>
+            <p>
+              Escolha o roteiro de sua preferência e embarque em uma experiência única com pacotes que irão te oferecer: transporte em ônibus de turismo completo, hospedagem com café da manhã, guia de turismo acompanhante e memórias inesquecíveis.
+            </p>
+          </div>
         </div>
         <ul>
           <li>
             <h2>MISSÃO</h2>
             <p>
-              Ser referêcia nacional e internacional na prestação de serviços
-              aéreos.
-            </p>
-          </li>
-          <li>
-            <h2>VISÃO</h2>
-            <p>
-              Oferecer soluções em aviação executiva com segurança, conforto e
-              qualidade.
+              Proporcionar ao nortista a melhor aventura pelo Brasil
             </p>
           </li>
           <li>
@@ -146,25 +314,16 @@ export default function Home() {
           </li>
         </ul>
       </Quemsomos>
-      <Aeronaves id="aeronaves">
-        <h2>AERONAVES</h2>
-        <div>
-          <img src={aero} alt="Aeronaves" />
-        </div>
-        <ul>
-          <li>
-            <Link to="/">Citation Jet</Link>
-          </li>
-          <li>
-            <Link active to="/">
-              Robson
-            </Link>
-          </li>
-          <li>
-            <Link to="/">King Air F90</Link>
-          </li>
-        </ul>
-      </Aeronaves>
+      <Depoimentos id="aeronaves">
+        <h2>DEPOIMENTOS</h2>
+        <SimpleSlider2 />
+        <SimpleSlider3 />
+        <p>
+          <a href='https://g.page/r/CVJZFvP8DiABEB0/review' target='_blank'>
+            Já viajou conosco? Clique aqui para avaliar nossa empresa no Google
+          </a>
+        </p>
+      </Depoimentos>
       <Produtos id="taxiaereo">
         <h2>PRODUTOS E SERVIÇOS</h2>
         <ul>
@@ -224,6 +383,6 @@ export default function Home() {
         </Form>
         <img src={logo} alt="Logo HCS" />
       </Trabalhe>
-    </Container>
+    </Container >
   );
 }
