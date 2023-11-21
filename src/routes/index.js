@@ -22,17 +22,17 @@ import Sobre from '../pages/Sobre';
 import Aeronaves from '../pages/Aeronaves';
 
 import Contato from '../pages/Contato';
+import AdminPacotes from '~/pages/Dashboard/Pacotes';
 
 export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/produtos" exact component={Produtos} />
+      <Route path="/roteiros" exact component={Produtos} />
       <Route path="/compraevenda" exact component={Compraevenda} />
       <Route path="/sobre" exact component={Sobre} />
-      <Route path="/aeronaves" exact component={Aeronaves} />
       <Route path="/busca" component={Busca} />
-      <Route path="/produtos/:id" component={Produto} />
+      <Route path="/roteiros/:id" component={Produto} />
       <Route path="/taxiaereo" component={Taxiaereo} />
       <Route path="/blog" exact component={Blog} />
       <Route path="/blog/:id" component={Blog} />
@@ -44,6 +44,7 @@ export default function Routes() {
       <Route path="/cadastro" component={Cadastro} isLogado />
       <Route path="/perfil" component={Perfil} isPrivate />
       <Route path="/dashboard" component={Dashboard} isPrivate />
+      <Route path="/admin/roteiros" component={AdminPacotes} isPrivate />
     </Switch>
   );
 }

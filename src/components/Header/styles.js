@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import icosearch from '~/assets/ico-search.jpg';
 
@@ -15,11 +15,13 @@ export const Img = styled.img`
 
 export const Container = styled.div`
   height: 15vh;
-  padding: 1rem;
-  background: #000;
-  /* position: fixed;
-  top: 0;
-  z-index: 100; */
+  padding: 1rem 0;
+  background: ${(props) => props.bgMenu};
+  position: relative;
+  position: ${(props) => props.viewMenu};
+  width: 100%;
+  margin: auto !important;
+  z-index: 10000000000000000000000000000000000000000000000000000000000000;
 
   @media(max-width: 600px) {
     height: 12vh;
@@ -30,9 +32,10 @@ export const Content = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 auto;
   width: 100%;
+  height: 100%;
   max-width: 1300px;
+  margin: auto;
 
   a {
     img {
@@ -42,6 +45,9 @@ export const Content = styled.div`
       margin-right: 50px;
     }
   }
+
+  @media(max-width: 600px) {
+    padding: 1rem;
 `;
 
 export const Nav = styled.nav`
@@ -51,7 +57,7 @@ export const Nav = styled.nav`
   ul {
     display: flex;
     flex: 1;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     list-style: none;
     flex-wrap: wrap;
@@ -61,8 +67,8 @@ export const Nav = styled.nav`
     font-size: 16px;
     font-weight: bold;
     color: #fff;
-    padding: 10px;
-    margin: 0 2px;
+    margin: 1rem;
+    padding: 1rem;
     transition: 0.2s;
 
     &:hover {
@@ -125,8 +131,6 @@ export const Nav = styled.nav`
 `;
 
 export const Profile = styled.div`
-  flex: 1;
-  display: flex;
   margin-left: 20px;
   padding-left: 20px;
   border-left: 1px solid #00170e;

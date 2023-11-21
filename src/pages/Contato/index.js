@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Input, Textarea } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
@@ -6,9 +6,12 @@ import * as Yup from 'yup';
 
 import api from '~/services/api';
 
-import contato from '~/assets/pgcontato.jpg';
+import wpp from '~/assets/wpp.png';
 
-import { Container, Barra, Banner, Prod, Contact } from './styles';
+import icoinsta from '~/assets/ico-insta.jpg';
+import icoface from '~/assets/ico-face.jpg';
+
+import { Container, Barra, Banner, Prod, Contact, WhatsApp } from './styles';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
@@ -19,6 +22,8 @@ const schema = Yup.object().shape({
 });
 
 export default function Contato() {
+  const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages");
+
   async function handleSubmit({ nome, email, telefone, assunto, mensagem }) {
     try {
       await api.post('contato', {
@@ -39,33 +44,39 @@ export default function Contato() {
 
   return (
     <Container>
-      {/* <Banner /> */}
-      {/* <Barra>
+      <WhatsApp>
+        <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
+        <a href={`https://wa.me//5591981149800?text=${textWpp}`} target='_blank'>
+          <img src={wpp} alt="Logo HCS" />
+        </a>
+      </WhatsApp>
+      <Banner />
+      <Barra>
         <ul>
           <li>
             <Link to="/">Home</Link>
           </li>
           <li>/</li>
-          <li>
-            <Link to="/contato">Contato</Link>
-          </li>
+          <li>Contatos</li>
         </ul>
-      </Barra> */}
+      </Barra>
       <Prod>
-        <div>
-          <img src={contato} alt="Produto" />
-        </div>
         <div>
           <Contact>
             <h2>
-              Alta performance para uso executivo, isso é a HCS. Preparados para
-              voar?
+              Preparado para se aventurar com a D' Hages Turismo?
             </h2>
             <p>
-              Envie uma mensagem para nós. Sua opinião, crítica ou elogio é
-              muito importante para o nosso sucesso. Ou fale conosco no
-              WhatsApp: (11) 99109-8715.
+              Envie uma mensagem para nós. Sua opinião, crítica ou elogio é muito importante para o nosso sucesso. Ou fale conosco no <a href={`https://wa.me//5591981149800?text=${textWpp}`} target='_blank'>WhatsApp: (91) 98114-9800</a>.
             </p>
+            <section>
+              <a href="https://instagram.com/dhages_turismo" target="_blank">
+                <img src={icoinsta} alt="Instagram" />
+              </a>
+              <a href="https://facebook.com/dhagesturismo" target="_blank">
+                <img src={icoface} alt="Facebook" />
+              </a>
+            </section>
             <Form schema={schema} onSubmit={handleSubmit}>
               <Input name="nome" placeholder="Seu nome" />
               <Input name="email" type="email" placeholder="Seu e-mail" />
@@ -76,6 +87,10 @@ export default function Contato() {
               <button type="submit">Enviar</button>
             </Form>
           </Contact>
+        </div>
+        <div>
+          {/* <img src={contato} alt="Produto" /> */}
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15954.345782500639!2d-48.4780747!3d-1.4238214!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92a48bfd67c896fd%3A0x1200efcf3165952!2sD&#39;%20Hages%20Turismo!5e0!3m2!1spt-BR!2sbr!4v1700398532335!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </Prod>
     </Container>

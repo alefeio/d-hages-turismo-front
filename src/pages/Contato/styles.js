@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
-import bannerPontos from '~/assets/banner-pontos.jpg';
+import onibus from '~/assets/home/onibus.jpg';
 
 export const Container = styled.div`
   background: #fff;
@@ -10,32 +10,21 @@ export const Container = styled.div`
 export const Prod = styled.div`
   display: flex;
   flex-direction: row;
-  flex: 1;
   justify-content: center;
-  align-items: flex-start;
-  padding: 50px;
-
-  @media (max-width: 720px) {
-    flex-direction: column;
-    padding: 10px;
-    text-align: center;
-
-    div {
-      padding: 0;
-      margin: 0;
-      text-align: center;
-
-      img {
-        width: 50%;
-      }
-    }
-  }
+  align-items: center;
+  padding: 2rem;
 
   div {
     padding: 50px;
     border-radius: 4px;
     width: 100%;
     text-align: center;
+
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: 0;
+    }
 
     img {
       height: 80%;
@@ -67,23 +56,34 @@ export const Prod = styled.div`
     }
   }
 
-  div:first-child {
-    background: none;
-    margin: 0;
+@media (max-width: 720px) {
+  flex-direction: column;
+  padding: 10px;
+  text-align: center;
+  padding: 2rem;
+
+  div {
     padding: 0;
+    margin: 1rem 0;
+    text-align: center;
+
+    img {
+      width: 50%;
+    }
   }
+}
 `;
 
 export const Banner = styled.div`
-  height: 271px;
+  height: 15vh;
   width: 100%;
-  background: url(${bannerPontos}) no-repeat center center;
+  background: url(${onibus}) no-repeat center center;
   background-size: cover;
 `;
 
 export const Barra = styled.div`
   display: block;
-  background: #333;
+  background: #000;
   display: flex;
   align-items: center;
   padding: 1rem 3rem;
@@ -108,16 +108,21 @@ export const Contact = styled.div`
   flex-direction: column;
   text-align: center;
 
-  @media (max-width: 720px) {
-    form {
-      width: 100%;
-    }
-  }
-
   h2 {
     font-size: 30px;
     margin-bottom: 30px;
     font-weight: normal;
+  }
+
+  section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      margin: 1rem;
+      padding: .2em;
+    }
   }
 
   form {
@@ -189,5 +194,44 @@ export const Contact = styled.div`
         opacity: 1;
       }
     }
+  }
+
+  @media (max-width: 720px) {
+    form {
+      width: 100%;
+    }
+  }
+`;
+
+
+export const WhatsApp = styled.div`
+  position: fixed;
+  right: 5%;
+  bottom: 0;
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1rem;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  padding: 1rem;
+  background: #ffd873 ;
+  box-shadow: 2px 20px 20px rgba(0, 0, 0, 0.2);
+
+  img {
+    width: 40px;
+  }
+
+  input {
+    border: 0;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 30px;
+  }
+  z-index: 10000000000000;
+
+  @media(max-width: 600px) {
+    width: 65%;
   }
 `;

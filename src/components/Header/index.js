@@ -17,16 +17,21 @@ export default function Header() {
 
   const [checked, setChecked] = useState(false);
   const [perfil, setPerfil] = useState();
+  const [scrollY, setScrollY] = useState(0);
+  const [viewMenu, setViewMenu] = useState('fixed');
+  const [bgMenu, setBgMenu] = useState('transparent');
 
   const perf = useSelector((state) => state.usuario.perfil);
 
-  useEffect(() => {
-    async function loadPerfil() {
-      setPerfil(perf);
-    }
+  function logit() {
+    if (window.pageYOffset < 100) setBgMenu('transparent');
+    else setBgMenu('black');
+    if (window.pageYOffset > scrollY && window.pageYOffset > 200) setViewMenu('absolute');
+    else setViewMenu('fixed');
 
-    loadPerfil();
-  }, []);
+    setScrollY(window.pageYOffset);
+    console.log(window.pageYOffset);
+  }
 
   const { logado } = store.getState().auth;
 
@@ -44,70 +49,100 @@ export default function Header() {
     dispatch(logout());
   }
 
+  useEffect(() => {
+    async function loadPerfil() {
+      setPerfil(perf);
+    }
+
+    loadPerfil();
+  }, []);
+
+  useEffect(() => {
+    setScrollY(window.pageYOffset);
+
+    function watchScroll() {
+      window.addEventListener("scroll", logit);
+    }
+    watchScroll();
+    return () => {
+      window.removeEventListener("scroll", logit);
+    };
+  });
+
   return (
-    <Container>
+    <Container viewMenu={viewMenu} bgMenu={bgMenu}>
       <Content>
         <Link to="/#home" onClick={altChecked}>
-          <img src={logo} alt="HCS Aviation" />
+          <img src={logo} alt="Logomarca da agência D' Hages Turismo" />
         </Link>
         <Toggle />
         <Nav exibir={checked}>
           <ul>
             <li>
-              <Link to="/#home" onClick={altChecked}>
+              <a href="/#home" onClick={altChecked}>
                 HOME
-              </Link>
+              </a>
             </li>
             <li>
-              <Link to="/#sobre" onClick={altChecked}>
-                SOBRE
-              </Link>
+              <a href="/#sobre" onClick={altChecked}>
+                A D' HAGES
+              </a>
             </li>
             <li>
-              <Link to="/#aeronaves" onClick={altChecked}>
-                AERONAVES
-              </Link>
+              <a href="/roteiros" onClick={altChecked}>
+                ROTEIROS
+              </a>
             </li>
             <li>
-              <Link to="/#taxiaereo" onClick={altChecked}>
-                TÁXI AÉREO
-              </Link>
+              <a href="https://wa.me/5591981149800?text=Quero fazer uma reserva" target='_blank' onClick={altChecked}>
+                FAÇA SUA RESERVA
+              </a>
             </li>
             <li>
-              <Link to="/#ondeestamos" onClick={altChecked}>
+              <a href="/#ondeestamos" onClick={altChecked}>
                 ONDE ESTAMOS
-              </Link>
+              </a>
             </li>
-            <li>
-              <Link to="/compraevenda" onClick={altChecked}>
-                COMPRA E VENDA
-              </Link>
-            </li>
-            <li>
+            {/* <li>
               <Link to="/blog" onClick={altChecked}>
                 BLOG
               </Link>
-            </li>
+            </li> */}
             <li>
-              <Link to="/#contato" onClick={altChecked}>
+              <Link to="/contato" onClick={altChecked}>
                 CONTATO
               </Link>
             </li>
             {/* <li>
               <input type="search" placeholder="Buscar" />
             </li> */}
+
+            {logado && (
+              <>
+                <li>
+                  <Link to="/perfil">
+                    Meu perfil
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/admin/roteiros">
+                    Adm Roteiros
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/contatoforms">
+                    Msgs Contato
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={handleLogout}>
+                    Sair
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </Nav>
-        {logado && (
-          <Profile>
-            <div>
-              <strong>{perfil && perfil.nome}</strong>
-              <Link to="/perfil">Meu perfil</Link> <br />
-              <Link to="/contatoforms">Msgs Contato</Link>
-              <Link onClick={handleLogout}>Sair</Link>
-            </div>
-          </Profile>
-        )}
       </Content>
     </Container>
   );

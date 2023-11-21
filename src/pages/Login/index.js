@@ -23,8 +23,9 @@ export default function Login() {
 
   return (
     <>
-      <img src={logo} alt="Brazilian Black Pepper" />
       <Form schema={schema} onSubmit={handleSubmit}>
+        <img src={logo} alt="Brazilian Black Pepper" />
+        <br />
         <Input name="email" type="email" placeholder="Seu e-mail" />
         <Input name="password" type="password" placeholder="Sua senha" />
 

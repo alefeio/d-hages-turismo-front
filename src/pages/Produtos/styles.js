@@ -8,88 +8,127 @@ export const Container = styled.div`
 `;
 
 export const Banner = styled.div`
-  height: 271px;
-  display: block;
-  background: url(${bannerProdutos}) no-repeat center center;
+  height: 15vh;
+  width: 100%;
+  background: url(${props => props.imagem}) no-repeat center center;
   background-size: cover;
 `;
 
 export const Barra = styled.div`
   display: block;
-  background: #e6e6e6;
+  background: #000;
   display: flex;
   align-items: center;
-  padding: 10px 10px 10px 80px;
-
-  @media (max-width: 720px) {
-    padding: 10px;
-  }
+  padding: 1rem 3rem;
+  color: #fff;
 
   ul {
     display: flex;
   }
 
+  ul li {
+    margin: 2px;
+    padding: 5px 2px;
+  }
+
   ul li a {
-    margin: 5px;
-    padding: 10px;
-    color: #4d4d4d;
+    color: #fff;
+  }
+`;
+
+export const Produtos = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 1300px;
+  padding: 10rem 0;
+  margin: auto;
+  text-align: center;
+
+  aside {
+    margin-top: 5rem;
+
+    a {
+      margin: 2rem;
+      padding: 1rem 2rem;
+      border: 0;
+      background: #000;
+      color: #fff;
+      align-self: center;
+      border-radius: 2rem;
+    }
+  }
+
+  h2 {
+    color: #4b4b4b;
+    font-size: 3rem;
+    font-weight: normal;
+    margin-bottom: 5rem;
+    text-align: center;
   }
 `;
 
 export const ListaProdutos = styled.ul`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 30px;
-  padding: 50px;
-
-  @media (max-width: 720px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 7rem;
+  text-align: left !important;
 
   li {
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.3);
+    border-radius: 2rem;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    background: #fff;
-    border-radius: 4px;
-    padding: 20px;
-    overflow: hidden;
 
-    img {
-      width: 250px;
-      height: 250px;
-      transition: 1s;
+    section {
+      padding: 1rem;
+      flex: 1;
 
-      &:hover {
-        width: 350px;
-        height: 350px;
+      span {
+        font-weight: bold;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        line-height: 20px;
+        margin: 2rem 0 2rem;
+        text-align: center;
+        font-weight: bold;
+        color: orange;
+      }
+
+      h3 {
+        margin-top: .5rem;
+        font-weight: normal;
       }
     }
 
-    > strong {
-      font-size: 16px;
-      line-height: 20px;
-      color: #333;
-      margin-top: 5px;
-    }
-
-    a:first-child {
-      align-self: center;
-    }
-
     a {
-      background: #644d25;
+      background: #000;
       color: #fff;
       border: 0;
-      border-radius: 4px;
       overflow: hidden;
+      margin: 0 !important;
       margin-top: auto;
       display: flex;
       align-items: center;
-      transition: background 0.2s;
+      border-radius: 0%;
+      padding: 0;
+      color: #fff;
+      align-self: auto;
+      border-radius: 2rem;
+
+      img {
+        width: 100%;
+      }
 
       div {
+        width: 100%;
+        text-align: center;
         display: flex;
         align-items: center;
+        justify-content: center;
         padding: 12px;
         background: rgba(0, 0, 0, 0.1);
       }
@@ -101,8 +140,50 @@ export const ListaProdutos = styled.ul`
       }
 
       &:hover {
-        background: ${darken(0.07, '#644d25')};
+        background: ${darken(0.07, '#000')};
       }
     }
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 5rem;
+
+    li {
+      margin: 0 2rem;
+    }
+  }
+`;
+
+
+export const WhatsApp = styled.div`
+  position: fixed;
+  right: 5%;
+  bottom: 0;
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1rem;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  padding: 1rem;
+  background: #ffd873 ;
+  box-shadow: 2px 20px 20px rgba(0, 0, 0, 0.2);
+
+  img {
+    width: 40px;
+  }
+
+  input {
+    border: 0;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 30px;
+  }
+  z-index: 10000000000000;
+
+  @media(max-width: 600px) {
+    width: 65%;
   }
 `;

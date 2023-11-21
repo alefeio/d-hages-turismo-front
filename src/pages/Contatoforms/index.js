@@ -41,7 +41,7 @@ export default function Contatoforms() {
             <strong>Telefone:</strong> {c.telefone} <br />
             <strong>Assunto:</strong> {c.assunto} <br />
             <strong>Mensagem:</strong> {c.mensagem} <br />
-            <strong>Data:</strong> {c.created_at}
+            <strong>Data:</strong> {c.created_at.split('T')[0].split('-').reverse().join('/')} {`${c.created_at.split('T')[1].split(':')[0] === '00' ? '21' : c.created_at.split('T')[1].split(':')[0] === '01' ? '22' : c.created_at.split('T')[1].split(':')[0] === '02' ? '23' : String(c.created_at.split('T')[1].split(':')[0] - 3)}:${String(c.created_at.split('T')[1].split(':')[1])}`}
           </li>
         ))}
       </ListaPontos>

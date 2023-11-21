@@ -1,44 +1,97 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '~/services/api';
+import { Form, Input, Textarea } from '@rocketseat/unform';
+import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 
-import { Container, Barra, Banner, Prod } from './styles';
+import { Container, Barra, Banner, Prod, WhatsApp } from './styles';
 
-export default function Produto(props) {
+import wpp from '~/assets/wpp.png';
+
+const schema = Yup.object().shape({
+  nome: Yup.string().required('Campo obrigatório!'),
+  email: Yup.string().email('E-mail inválido!').required('Campo obrigatório!'),
+  telefone: Yup.string().required('Campo obrigatório!'),
+  assunto: Yup.string(),
+  mensagem: Yup.string().required('Campo obrigatório!'),
+});
+
+export default function Pacote(props) {
   const [produto, setProduto] = useState({});
   const [imagem, setImagem] = useState();
   const [detalhes, setDetalhes] = useState([]);
+  const [initialData, setInitialData] = useState({});
+  const [display, setDisplay] = useState('relative');
+  const [textWpp, setTextWpp] = useState("");
+  const [viewFormReserva, setViewFormReserva] = useState(false);
 
   const id = props.match.params.id;
 
+  function logit() {
+    if (window.pageYOffset > 500) setDisplay('fixed');
+    else setDisplay('relative');
+  }
+
+  async function handleSubmit({ nome, email, telefone, assunto, mensagem }) {
+    try {
+      await api.post('contato', {
+        nome,
+        email,
+        telefone,
+        assunto,
+        mensagem,
+      });
+
+      toast.success(
+        'Obrigado! Sua reserva foi enviada com sucesso. Em breve retornaremos.'
+      );
+    } catch (error) {
+      toast.error('Erro ao enviar sua reserva. Tente novamente!');
+    }
+  }
+
   useEffect(() => {
     async function loadProduto() {
-      const response = await api.get(`compraevenda/${id}`);
+      const response = await api.get(`pacotes/${id}`);
 
       console.log(response.data);
       setProduto(response.data);
       setImagem(response.data.imagem.url);
-    }
 
-    async function loadDetalhes() {
-      const response = await api.get(`detalhescv/${id}`);
-
-      console.log(response.data);
-
-      response.data.map((dt) => {
-        setDetalhes((det) => [...det, dt]);
+      setInitialData({
+        assunto: `Reserva para ${response.data.nome}, de ${response.data.saida.split('T')[0].split('-')[1] === response.data.retorno.split('T')[0].split('-')[1]
+          ? response.data.saida.split('T')[0].split('-').reverse()[0]
+          : response.data.saida.split('T')[0].split('-').reverse().join('/')} a ${response.data.retorno && response.data.retorno.split('T')[0].split('-').reverse().join('/')}`,
       });
 
-      console.log(detalhes);
+      setTextWpp(`Quero + inf. sobre ${response.data.nome}, de ${response.data.saida.split('T')[0].split('-')[1] === response.data.retorno.split('T')[0].split('-')[1]
+        ? response.data.saida.split('T')[0].split('-').reverse()[0]
+        : response.data.saida.split('T')[0].split('-').reverse().join('/')} a ${response.data.retorno && response.data.retorno.split('T')[0].split('-').reverse().join('/')}`)
     }
 
     loadProduto();
-    loadDetalhes();
   }, []);
+
+  useEffect(() => {
+    function watchScroll() {
+      window.addEventListener("scroll", logit);
+    }
+    watchScroll();
+    return () => {
+      window.removeEventListener("scroll", logit);
+    };
+  });
 
   return (
     <Container>
-      <Banner />
+      <WhatsApp>
+        <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
+        <a href={`https://wa.me//5591981149800?text=${textWpp}`} target='_blank'>
+          <img src={wpp} alt="Logo HCS" />
+        </a>
+      </WhatsApp>
+      <Banner imagem={imagem} />
       <Barra>
         <ul>
           <li>
@@ -46,36 +99,43 @@ export default function Produto(props) {
           </li>
           <li>/</li>
           <li>
-            <Link to="/produtos">Produtos</Link>
+            <Link to="/roteiros">Roteiros</Link>
           </li>
           <li>/</li>
           <li>{produto && produto.nome}</li>
         </ul>
       </Barra>
-      <Prod>
+      <Prod display={display}>
         <div>
+          {produto.saida && <h1>
+            {produto.nome} - {produto.saida.split('T')[0].split('-')[1] === produto.retorno.split('T')[0].split('-')[1]
+              ? produto.saida.split('T')[0].split('-').reverse()[0]
+              : produto.saida.split('T')[0].split('-').reverse().join('/')} a {produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}
+          </h1>}
           <img src={imagem} alt="Produto" />
+          <h2>Destino: {produto.nome}</h2>
+          <h3>Saída: {produto.saida && produto.saida.split('T')[0].split('-').reverse().join('/')}</h3>
+          <h3>Retorno: {produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
+          <h3>Valor por pessoa:</h3>
+          <p>À vista: R$ {produto.valoravista}</p>
+          {produto.valoraprazo && <p>{produto.parcelas}x no cartão: R$ {produto.valoraprazo}</p>}
+          <h3>Detalhes:</h3>
+          <section dangerouslySetInnerHTML={{ __html: produto.descricao }}></section>
         </div>
-        <div>
-          <span>
-            <h1>{produto.nome}</h1>
-            <h2>{produto.modelo}</h2>
-            <h3>Valor: {produto.valor}</h3>
-          </span>
-          <ul>
-            <li>
-              <h3>Detalhes</h3>
-            </li>
-            {detalhes.map((d, index) => (
-              <li key={d.id}>
-                <strong>{d.titulo}</strong>
-                {d.descricao.split(';').map((des) => (
-                  <p>{des}</p>
-                ))}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {!viewFormReserva ? (
+          <aside onClick={() => setViewFormReserva(true)}>Reservar</aside>
+        ) : (
+          <Form schema={schema} onSubmit={handleSubmit} initialData={initialData} id='#reserva'>
+            <h2 onClick={() => setViewFormReserva(false)}>Reservar</h2>
+            <Input name="nome" placeholder="Seu nome" />
+            <Input name="email" type="email" placeholder="Seu e-mail" />
+            <Input name="telefone" placeholder="Telefone ou celular" />
+            <Input name="assunto" placeholder="Assunto" />
+            <Textarea name="mensagem" placeholder="Especifique aqui a quantidade de reservas ou alguma necessidade específica" />
+
+            <button type="submit">Enviar</button>
+          </Form>
+        )}
       </Prod>
     </Container>
   );

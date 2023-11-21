@@ -4,18 +4,19 @@ import { Form, Input, Textarea } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { MdAdd } from 'react-icons/md';
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import api from '~/services/api';
 
-import logo from '~/assets/logo.png';
 import onibus from '~/assets/home/onibus.jpg';
 import wpp from '~/assets/wpp.png';
 import depoimento1 from '~/assets/home/depoimento1.webm';
 import depoimento2 from '~/assets/home/depoimento2.webm';
 import depoimento3 from '~/assets/home/depoimento3.webm';
+import apresentacao from '~/assets/home/apresentacao.mp4';
 import dep1 from '~/assets/home/dep1.png';
 import dep2 from '~/assets/home/dep2.png';
 import dep3 from '~/assets/home/dep3.png';
@@ -26,13 +27,6 @@ import dep7 from '~/assets/home/dep7.png';
 import dep8 from '~/assets/home/dep8.png';
 import dep9 from '~/assets/home/dep9.png';
 import dep10 from '~/assets/home/dep10.png';
-import icotaxi from '~/assets/ico-taxiaereo.jpg';
-import icofrete from '~/assets/ico-fretamento.jpg';
-import icomanut from '~/assets/ico-manutencao.jpg';
-import icocv from '~/assets/ico-compraevenda.jpg';
-import icohang from '~/assets/ico-hangaragem.jpg';
-import logoIntensive from '~/assets/logo-intensive.jpg';
-import mapa from '~/assets/mapa.jpg';
 
 import {
   Banner,
@@ -44,7 +38,8 @@ import {
   Trabalhe,
   Container,
   WhatsApp,
-  Email
+  Email,
+  ListaProdutos,
 } from './styles';
 
 const schema = Yup.object().shape({
@@ -56,15 +51,26 @@ const schema = Yup.object().shape({
 
 export default function Home() {
   const [banners, setBanners] = useState([]);
+  const [produtos, setProdutos] = useState([]);
   const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages");
   const [email, setEmail] = useState("");
 
   async function loadBanners() {
     const response = await api.get('banners');
 
-    console.log(`data: ${JSON.stringify(response.data)}`);
+    console.log(`banners: ${JSON.stringify(response.data)}`);
 
     setBanners(response.data);
+  }
+
+  async function loadProdutos() {
+    const response = await api.get('pacotes');
+
+    const { pacotes } = response.data;
+
+    console.log(`pacotes: ${JSON.stringify(response.data)}`);
+
+    setProdutos(pacotes);
   }
 
   function SimpleSlider() {
@@ -147,30 +153,30 @@ export default function Home() {
     };
     return (
       <Slider {...settings}>
-        <section>
+        <div>
           <video controls>
             <source src={depoimento2} type="video/mp4" />
             <object data="">
               <embed src={depoimento2} />
             </object>
           </video>
-        </section>
-        <section>
+        </div>
+        <div>
           <video controls>
             <source src={depoimento1} type="video/mp4" />
             <object data="">
               <embed src={depoimento1} />
             </object>
           </video>
-        </section>
-        <section>
+        </div>
+        <div>
           <video controls>
             <source src={depoimento3} type="video/mp4" />
             <object data="">
               <embed src={depoimento3} />
             </object>
           </video>
-        </section>
+        </div>
       </Slider>
     );
   }
@@ -205,36 +211,36 @@ export default function Home() {
     };
     return (
       <Slider {...settings}>
-        <section>
+        <div>
           <img src={dep1} alt="" />
-        </section>
-        <section>
+        </div>
+        <div>
           <img src={dep2} alt="" />
-        </section>
-        <section>
+        </div>
+        <div>
           <img src={dep3} alt="" />
-        </section>
-        <section>
+        </div>
+        <div>
           <img src={dep4} alt="" />
-        </section>
-        <section>
+        </div>
+        <div>
           <img src={dep5} alt="" />
-        </section>
-        <section>
+        </div>
+        <div>
           <img src={dep6} alt="" />
-        </section>
-        <section>
+        </div>
+        <div>
           <img src={dep7} alt="" />
-        </section>
-        <section>
+        </div>
+        <div>
           <img src={dep8} alt="" />
-        </section>
-        <section>
+        </div>
+        <div>
           <img src={dep9} alt="" />
-        </section>
-        <section>
+        </div>
+        <div>
           <img src={dep10} alt="" />
-        </section>
+        </div>
       </Slider>
     );
   }
@@ -258,13 +264,14 @@ export default function Home() {
 
   useEffect(() => {
     !banners.length && loadBanners();
-  }, [banners]);
+    !produtos.length && loadProdutos();
+  }, [banners, produtos]);
 
   return (
     <Container>
       <WhatsApp>
         <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
-        <a href={`https://wa.me//5591982651414?text=${textWpp}`} target='_blank'>
+        <a href={`https://wa.me//5591981149800?text=${textWpp}`} target='_blank'>
           <img src={wpp} alt="Logo HCS" />
         </a>
       </WhatsApp>
@@ -283,12 +290,17 @@ export default function Home() {
       <Quemsomos id="sobre">
         <div>
           <section>
-            <img src={onibus} alt="Frota D Hages Turismo" />
+            <video controls>
+              <source src={apresentacao} type="video/mp4" />
+              <object data="">
+                <embed src={apresentacao} />
+              </object>
+            </video>
           </section>
           <div>
             <h1>Viage com a D' Hages Turismo</h1>
             <p>
-              Fundada em agosto de 2015 com intuito de levar o nortista a conhecer as belezas da sua própria região e do Brasil, a D’ Hages Turismo atualmente trabalha com excursões regionais e nacionais. Contando com pacotes que vão do norte ao sul do país, contemplando a natureza, cultura e área urbana de cada região.
+              Fundada em agosto de 2015 com intuito de levar o nortista a conhecer as belezas da sua própria região e do Brasil, a D’ Hages Turismo atualmente trabalha com excursões regionais e nacionais. Contando com roteiros que vão do norte ao sul do país, contemplando a natureza, cultura e área urbana de cada região.
             </p>
             <p>
               Entre os principais destinos estão: Salinópolis- PA, Ajuruteua- PA, Carolina- MA e suas belas cachoeiras, Lençóis Maranhenses, Jericoacoara, Fortaleza- CE, Recife- PE, Maragogi- AL, Salvador- BA, estendendo até a cidade maravilhosa do Rio de Janeiro e os encantos da região sul do país com Gramado, Canela, Bento Gonçalves...
@@ -297,82 +309,102 @@ export default function Home() {
               Contando com frota própria de ônibus, a empresa também atua na área de fretamento de ônibus, assim, personaliza viagens e experiências únicas para grupos familiares, igrejas, estudantes, atletas.
             </p>
             <p>
-              Escolha o roteiro de sua preferência e embarque em uma experiência única com pacotes que irão te oferecer: transporte em ônibus de turismo completo, hospedagem com café da manhã, guia de turismo acompanhante e memórias inesquecíveis.
+              Escolha o roteiro de sua preferência e embarque em uma experiência única, com pacotes que irão te oferecer: transporte em ônibus de turismo completo, hospedagem com café da manhã, guia de turismo acompanhante e memórias inesquecíveis.
             </p>
+            <h2>NOSSOS PILARES</h2>
+            <ol>
+              <li>
+                Excelência em Segurança: <small>Compromisso inabalável com os mais altos padrões de segurança, assegurando viagens livres de riscos para os clientes.</small>
+              </li>
+              <li>
+                Excelência em Conforto: <small>Oferecer aos clientes um ambiente de viagem confortável e agradável, com veículos modernos e comodidades que superem as expectativas.</small>
+              </li>
+              <li>
+                Excelência em Atendimento: <small>Garantir um atendimento personalizado e amigável, visando exceder as necessidades dos clientes e proporcionar um serviço de alta qualidade.</small>
+              </li>
+            </ol>
           </div>
-        </div>
+        </div >
         <ul>
           <li>
-            <h2>MISSÃO</h2>
+            <h2>VISÃO</h2>
             <p>
-              Proporcionar ao nortista a melhor aventura pelo Brasil
+              Ser a principal escolha em serviços de fretamento de ônibus de turismo na região Norte, oferecendo experiências inigualáveis e destacando-se como referência nacional.
             </p>
           </li>
           <li>
-            <h2>PILARES</h2>
-            <p>Exclusividade, excelência, segurança e conforto.</p>
+            <h2>MISSÃO</h2>
+            <p>
+              Proporcionar aos clientes nortistas a melhor aventura pelo Brasil, garantindo excelência em segurança, conforto e atendimento, tornando cada viagem uma experiência memorável.
+            </p>
           </li>
         </ul>
       </Quemsomos>
       <Depoimentos id="aeronaves">
-        <h2>DEPOIMENTOS</h2>
-        <SimpleSlider2 />
-        <SimpleSlider3 />
-        <p>
-          <a href='https://g.page/r/CVJZFvP8DiABEB0/review' target='_blank'>
-            Já viajou conosco? Clique aqui para avaliar nossa empresa no Google
-          </a>
-        </p>
+        <section>
+          <h2>DEPOIMENTOS</h2>
+          <SimpleSlider2 />
+          <h3>AVALIAÇÕES NO GOOGLE</h3>
+          <SimpleSlider3 />
+          <p>
+            <a href='https://g.page/r/CVJZFvP8DiABEB0/review' target='_blank'>
+              Já viajou conosco? Clique aqui para avaliar nossa empresa
+            </a>
+          </p>
+        </section>
       </Depoimentos>
-      <Produtos id="taxiaereo">
-        <h2>PRODUTOS E SERVIÇOS</h2>
-        <ul>
-          <li>
-            <img src={icotaxi} alt="Táxi Aéreo" />
-            Táxi aéreo
-          </li>
-          <li>
-            <img src={icofrete} alt="Fretamento e gerenciamento de aeronaves" />
-            Fretamento e gerenciamento de aeronaves
-          </li>
-          <li>
-            <img src={icomanut} alt="Manutenção de aeronaves" />
-            Manutenção de aeronaves
-          </li>
-          <li>
-            <img src={icocv} alt="Compra e venda de aeronaves" />
-            Compra e venda de aeronaves
-          </li>
-          <li>
-            <img src={icohang} alt="Hangaragem" />
-            Hangaragem
-          </li>
-        </ul>
+      <Produtos id="pacotes">
+        <h2>ROTEIROS</h2>
+        <ListaProdutos>
+          {produtos.map((p) => (
+            <li key={p.id}>
+              <Link to={`roteiros/${p.id}`}>
+                <img src={p.imagem.url} alt={p.nome} />
+              </Link>
+              <section>
+                <h2>{p.nome}</h2>
+                <h3><span>Saída:</span> {p.saida.split('T')[0].split('-').reverse().join('/')}</h3>
+                <h3><span>Retorno:</span> {p.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
+                <h3><span>Valor por pessoa:</span></h3>
+                <p>À vista: R$ {p.valoravista}</p>
+                {p.valoraprazo && <p>{p.parcelas}x no cartão: R$ {p.valoraprazo}</p>}
+              </section>
+              <Link to={`roteiros/${p.id}`}>
+                <div>
+                  <MdAdd size={16} color="#FFF" />
+                  <span>Informações</span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ListaProdutos>
+        <aside>
+          <Link to='/roteiros'>
+            Ver todos
+          </Link>
+        </aside>
       </Produtos>
       <Porque>
-        <img src={logoIntensive} alt="Intensive Air Taxi Aéreo" />
         <h2>
           POR QUE ESCOLHER
           <br />
-          TAXI AÉREO?
+          A D' HAGES TURISMO
         </h2>
         <ul>
-          <li>+ Proteção</li>
-          <li>+ Segurança</li>
-          <li>+ Saúde</li>
-          <li>+ Elegância</li>
           <li>+ Conforto</li>
-          <li>+ Praticidade</li>
-          <li>+ 24h</li>
+          <li>+ Segurança</li>
+          <li>+ Excelências</li>
+          <li>+ Aventuras</li>
+          <li>+ Experiências</li>
+          <li>+ Referência no mercado</li>
+          <li><small>+ Atendimento diferenciado</small></li>
+          <li>+ Felicidade</li>
         </ul>
       </Porque>
       <Ondeestamos id="ondeestamos">
-        <h2>ONDE ESTAMOS</h2>
-        <img src={mapa} alt="Onde estamos" />
-        <h1>ALTA PERFORMANCE PARA USO EXECUTIVO, ISSO É HCS.</h1>
-        <h3>CONTATOS TAXI AÉREO - (11) 99109-9715</h3>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15954.345782500639!2d-48.4780747!3d-1.4238214!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92a48bfd67c896fd%3A0x1200efcf3165952!2sD&#39;%20Hages%20Turismo!5e0!3m2!1spt-BR!2sbr!4v1700398532335!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </Ondeestamos>
-      <Trabalhe id="contato">
+      {/* <Trabalhe id="contato">
         <Form schema={schema} onSubmit={handleSubmit}>
           <Input name="nome" placeholder="Nome" />
           <Input name="telefone" placeholder="Telefone" />
@@ -382,7 +414,7 @@ export default function Home() {
           <button type="submit">Enviar</button>
         </Form>
         <img src={logo} alt="Logo HCS" />
-      </Trabalhe>
+      </Trabalhe> */}
     </Container >
   );
 }
