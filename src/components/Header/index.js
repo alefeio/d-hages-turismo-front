@@ -26,7 +26,7 @@ export default function Header() {
   function logit() {
     if (window.pageYOffset < 100) setBgMenu('transparent');
     else setBgMenu('black');
-    if (window.pageYOffset > scrollY && window.pageYOffset > 200) setViewMenu('absolute');
+    if (window.pageYOffset > scrollY && window.pageYOffset > 100) setViewMenu('absolute');
     else setViewMenu('fixed');
 
     setScrollY(window.pageYOffset);
