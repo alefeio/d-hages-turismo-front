@@ -54,6 +54,7 @@ export default function Home() {
   const [produtos, setProdutos] = useState([]);
   const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function loadBanners() {
     const response = await api.get('banners');
@@ -74,6 +75,7 @@ export default function Home() {
   }
 
   async function handleSubmit() {
+    setLoading(true);
     try {
       await api.post('contato', {
         nome: "lead",
@@ -90,6 +92,8 @@ export default function Home() {
       setEmail('');
     } catch (error) {
       toast.error('Erro ao cadastrar seu email. Tente novamente!');
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -285,7 +289,7 @@ export default function Home() {
           <p>Cadastre seu email e acompanhe nossas novidades</p>
           <Email>
             <Input name="email" placeholder='Digite seu melhor email' value={email} onChange={(e) => setEmail(e.target.value)} />
-            <button onClick={handleSubmit}>Enviar</button>
+            <button disabled={loading} onClick={handleSubmit}>Enviar</button>
           </Email>
         </section>
         <SimpleSlider />
