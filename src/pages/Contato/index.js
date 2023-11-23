@@ -12,6 +12,7 @@ import icoinsta from '~/assets/ico-insta.jpg';
 import icoface from '~/assets/ico-face.jpg';
 
 import { Container, Barra, Banner, Prod, Contact, WhatsApp } from './styles';
+import { useEffect } from 'react';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
@@ -41,6 +42,10 @@ export default function Contato() {
       toast.error('Erro ao enviar sua mensagem. Tente novamente!');
     }
   }
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, [])
 
   return (
     <Container>

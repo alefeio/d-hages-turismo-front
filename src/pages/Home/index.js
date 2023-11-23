@@ -270,6 +270,7 @@ export default function Home() {
   }
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     !banners.length && loadBanners();
     !produtos.length && loadProdutos();
   }, [banners, produtos]);
