@@ -6,20 +6,31 @@ import bannerProdutos from '~/assets/banner-produtos.jpg';
 export const Container = styled.div`
   section {
     padding: 5rem;
-    height: 70vh;
+    display: flex;
 
     h2 {
       margin-bottom: 2rem;
     }
 
-    ul {
+    > ul {
+      width: 20%;
+      margin-bottom: 3rem;
+
       li {
-        margin: 1rem;
+        margin: .1rem 3rem .1rem 0;
+        background: #fff;
+        box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.3);
 
         a {
+          padding: 1rem;
+          display: block;
           color: #000;
         }
       }
+    }
+
+    div {
+      flex: 1;
     }
 
     form {
@@ -74,6 +85,16 @@ export const Container = styled.div`
 
   @media(max-width: 600px) {
     section {
+      flex-direction: column;
+
+      > ul {
+        width: 100%;
+
+        li {
+          margin: .1rem 1rem;
+        }
+      }
+
       form {
         width: 100%;
       }

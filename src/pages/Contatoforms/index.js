@@ -21,18 +21,6 @@ export default function Contatoforms() {
 
   return (
     <Container>
-      <Banner />
-      <Barra>
-        <ul>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>/</li>
-          <li>
-            <Link to="/pontos">Mensagens de contato</Link>
-          </li>
-        </ul>
-      </Barra>
       <ListaPontos>
         {contatos.map((c) => (
           <li key={c.id}>

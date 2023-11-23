@@ -1,15 +1,8 @@
-import React, { useState } from 'react';
-import { Form, Input } from '@rocketseat/unform';
-
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import React from 'react';
 
 import { Container, Banner, Barra } from './styles';
-import { Link } from 'react-router-dom';
-
-import { toast } from 'react-toastify';
-
-import api from '~/services/api';
+import Contatoforms from '../Contatoforms';
+import MenuDash from '~/components/MenuDash';
 
 export default function Dashboard() {
   return (
@@ -23,24 +16,11 @@ export default function Dashboard() {
         </ul>
       </Barra>
       <section>
-        <h2>Administrar Site</h2>
-        <ul>
-          <li>
-            <Link to="/perfil">
-              Meu perfil
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin/roteiros">
-              Adm Roteiros
-            </Link>
-          </li>
-          <li>
-            <Link to="/contatoforms">
-              Msgs Contato
-            </Link>
-          </li>
-        </ul>
+        <MenuDash />
+        <div>
+          <h2>Mensagens do Site</h2>
+          <Contatoforms />
+        </div>
       </section>
     </Container>
   );

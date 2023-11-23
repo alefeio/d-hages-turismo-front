@@ -23,6 +23,7 @@ import Aeronaves from '../pages/Aeronaves';
 
 import Contato from '../pages/Contato';
 import AdminPacotes from '~/pages/Dashboard/Pacotes';
+import AdminBanners from '~/pages/Dashboard/Banners';
 
 export default function Routes() {
   return (
@@ -45,6 +46,7 @@ export default function Routes() {
       <Route path="/perfil" component={Perfil} isPrivate />
       <Route path="/dashboard" component={Dashboard} isPrivate />
       <Route path="/admin/roteiros" component={AdminPacotes} isPrivate />
+      <Route path="/admin/banners" component={AdminBanners} isPrivate />
     </Switch>
   );
 }

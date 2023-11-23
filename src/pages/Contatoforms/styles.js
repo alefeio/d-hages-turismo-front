@@ -38,18 +38,15 @@ export const Barra = styled.div`
 
 export const ListaPontos = styled.ul`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 5rem;
-
-  @media (max-width: 600px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
 
   li {
     display: flex;
     flex-direction: column;
-    background: #fff;
-    border-radius: 4px;
+    background: #efefef;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.3);
+    border-radius: 2rem;
     padding: 20px;
     overflow: hidden;
 
@@ -100,5 +97,9 @@ export const ListaPontos = styled.ul`
         background: ${darken(0.07, '#644d25')};
       }
     }
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
   }
 `;

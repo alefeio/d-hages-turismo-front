@@ -18,6 +18,7 @@ export default function AdminPacotes() {
   const [produtos, setProdutos] = useState([]);
   const [initialData, setInitialData] = useState({});
   const [produtoEdit, setProdutoEdit] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const editorRef = useRef(null);
 
@@ -81,12 +82,13 @@ export default function AdminPacotes() {
   }
 
   async function handleSubmit(data, { resetForm }) {
+    setLoading(true);
     const newData = data;
     newData.valoravista = Number(data.valoravista);
     newData.valoraprazo = Number(data.valoraprazo);
     newData.parcelas = Number(data.parcelas);
     newData.descricao = descricao;
-    newData.img_id = file
+    newData.img_id = file;
     console.log(newData);
 
     try {
@@ -104,6 +106,8 @@ export default function AdminPacotes() {
       setProdutoEdit(null);
     } catch (error) {
       toast.error('Erro ao criar o produto. Tente novamente!');
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -198,7 +202,7 @@ export default function AdminPacotes() {
             onChange={handleDescricao}
           />
 
-          <button type="submit">{!produtoEdit ? 'Salvar' : 'Editar'}</button>
+          <button disabled={loading} className='salvar' type="submit">{!produtoEdit ? 'Salvar' : 'Editar'}</button>
         </Form>
       </section>
       <section>

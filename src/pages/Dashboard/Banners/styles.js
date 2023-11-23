@@ -21,6 +21,7 @@ export const Container = styled.div`
 
       div {
         border-radius: 2rem;
+        margin: .5rem 0 2rem;
       }
 
       img {
@@ -38,15 +39,11 @@ export const Container = styled.div`
       button {
         margin: 1rem 0;
         padding: 1rem;
+        background: #000;
         color: #fff;
         border: 0;
         border-radius: 2rem;
         transition: background 0.2s;
-
-        .salvar {
-          background: #000;
-          color: #fff;
-        }
 
         &:hover {
           background: ${darken(0.07, '#4c4738')};
@@ -74,8 +71,6 @@ export const Container = styled.div`
 
   @media(max-width: 600px) {
     section {
-      padding: 5rem 2rem;
-
       form {
         width: 100%;
       }
