@@ -7,7 +7,8 @@ import { updatePerfilRequest } from '~/store/modules/usuario/actions';
 
 // import AvatarInput from './AvatarInput';
 
-import { Container } from './styles';
+import { Container, Banner, Barra } from './styles';
+import { Link } from 'react-router-dom';
 
 export default function Perfil() {
   const dispatch = useDispatch();
@@ -24,32 +25,42 @@ export default function Perfil() {
 
   return (
     <Container>
-      <Form initialData={perfil} onSubmit={handleSubmit}>
-        {/* <AvatarInput name="img_id" /> */}
+      <Banner />
+      <Barra>
+        <ul>
+          <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li>/</li>
+          <li>
+            Meu perfil
+          </li>
+        </ul>
+      </Barra>
+      <section>
+        <Form initialData={perfil} onSubmit={handleSubmit}>
+          {/* <AvatarInput name="img_id" /> */}
 
-        <Input name="nome" placeholder="Nome" />
-        <Input name="email" type="email" placeholder="E-mail" />
+          <Input name="nome" placeholder="Nome" />
+          <Input name="email" type="email" placeholder="E-mail" />
 
-        <hr />
+          <hr />
 
-        <Input
-          type="password"
-          name="oldPassword"
-          placeholder="Sua senha atual"
-        />
-        <Input type="password" name="password" placeholder="Nova senha" />
-        <Input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirmação da senha"
-        />
+          <Input
+            type="password"
+            name="oldPassword"
+            placeholder="Sua senha atual"
+          />
+          <Input type="password" name="password" placeholder="Nova senha" />
+          <Input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirmação da senha"
+          />
 
-        <button type="submit">Atualizar perfil</button>
-      </Form>
-
-      <button type="button" onClick={handleLogout}>
-        Sair
-      </button>
+          <button type="submit">Atualizar perfil</button>
+        </Form>
+      </section>
     </Container>
   );
 }

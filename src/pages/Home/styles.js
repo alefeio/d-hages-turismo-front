@@ -251,6 +251,8 @@ export const Depoimentos = styled.div`
 
   section {
     width: 100%;
+    display: flex;
+    flex-direction: column;
     max-width: 1300px;
     padding: 10rem 0;
     margin: auto;
@@ -259,7 +261,14 @@ export const Depoimentos = styled.div`
       color: #ffd873;
       font-size: 3rem;
       font-weight: normal;
-      margin-bottom: 5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    span {
+      font-size: 1.7rem;
+      padding-bottom: 5rem;
+      color: #fff;
     }
 
     h3 {
@@ -295,7 +304,8 @@ export const Depoimentos = styled.div`
   }
 
   @media (max-width: 720px) {
-    padding: 5rem 3rem;
+    overflow: hidden;
+    padding: 0;
   }
 `;
 
@@ -324,8 +334,13 @@ export const Produtos = styled.div`
     color: #4b4b4b;
     font-size: 3rem;
     font-weight: normal;
-    margin-bottom: 5rem;
     text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  p {
+    font-size: 1.7rem;
+    margin: 0 2rem 5rem;
   }
 `;
 

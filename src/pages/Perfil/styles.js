@@ -2,8 +2,70 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
-  max-width: 600px;
-  margin: 50px auto;
+  section {
+    padding: 5rem;
+
+    h2 {
+      margin-bottom: 2rem;
+    }
+
+    h3 {
+      text-align: center;
+    }
+
+    form {
+      width: 70%;
+      margin: auto;
+
+      div {
+        border-radius: 4px;
+        margin: .5rem 0 2rem;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      input {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 1rem;
+        margin: .5rem 0 2rem;
+        width: 100%;
+      }
+
+      button {
+        margin: 1rem 0;
+        padding: 1rem;
+        background: #000;
+        color: #fff;
+        border: 0;
+        border-radius: 4px;
+        transition: background 0.2s;
+
+        &:hover {
+          background: ${darken(0.07, '#4c4738')};
+        }
+      }
+    }
+
+    > button {
+      width: 100%;
+      margin: 10px auto 0;
+      height: 44px;
+      background: red;
+      font-weight: bold;
+      color: #fff;
+      border: 0;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: background 0.2s;
+
+      &:hover {
+        background: ${darken(0.09, 'red')};
+      }
+    }
+  }
 
   form {
     display: flex;
@@ -16,12 +78,7 @@ export const Container = styled.div`
       border-radius: 4px;
       height: 44px;
       padding: 0 15px;
-      color: #fff;
       margin: 0 0 10px;
-
-      &::placeholder {
-        color: rgba(255, 255, 255, 0.7);
-      }
     }
 
     span {
@@ -70,5 +127,44 @@ export const Container = styled.div`
     &:hover {
       background: ${darken(0.09, 'red')};
     }
+  }
+
+  @media(max-width: 600px) {
+    section {
+      form {
+        width: 100%;
+      }
+    }
+  }
+`;
+
+export const Banner = styled.div`
+  height: 15vh;
+  width: 100%;
+  background: #000;
+`;
+
+export const Barra = styled.div`
+  display: block;
+  background: #e6e6e6;
+  display: flex;
+  align-items: center;
+  padding: 10px 10px 10px 80px;
+
+  @media (max-width: 720px) {
+    padding: 10px;
+  }
+
+  ul {
+    display: flex;
+  }
+
+  ul li {
+    margin: 2px;
+    padding: 5px 2px;
+  }
+
+  ul li a {
+    color: #4d4d4d;
   }
 `;

@@ -84,13 +84,18 @@ export default function Header() {
               </a>
             </li>
             <li>
-              <a href="/#sobre" onClick={altChecked}>
-                A D' HAGES
+              <a href="/roteiros" onClick={altChecked}>
+                ROTEIROS
               </a>
             </li>
             <li>
-              <a href="/roteiros" onClick={altChecked}>
-                ROTEIROS
+              <a href="/#depoimentos" onClick={altChecked}>
+                DEPOIMENTOS
+              </a>
+            </li>
+            <li>
+              <a href="/#sobre" onClick={altChecked}>
+                A D' HAGES
               </a>
             </li>
             <li>
@@ -119,7 +124,7 @@ export default function Header() {
 
             {logado && (
               <>
-                <li>
+                {/* <li>
                   <Link to="/perfil">
                     Meu perfil
                   </Link>
@@ -133,10 +138,10 @@ export default function Header() {
                   <Link to="/contatoforms">
                     Msgs Contato
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link onClick={handleLogout}>
-                    Sair
+                    SAIR
                   </Link>
                 </li>
               </>

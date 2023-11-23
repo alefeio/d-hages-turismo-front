@@ -24,9 +24,11 @@ export default function AdminPacotes() {
   async function loadProdutos() {
     const response = await api.get('pacotes');
 
+    const { pacotes } = response.data;
+
     console.log(`pacotes: ${JSON.stringify(response.data)}`);
 
-    setProdutos(response.data);
+    setProdutos(pacotes);
   }
 
   async function loadProduto(id, edit = true) {
@@ -142,7 +144,7 @@ export default function AdminPacotes() {
       <Barra>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>/</li>
           <li>

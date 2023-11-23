@@ -78,12 +78,10 @@ export const Container = styled.div`
   }
 `;
 
-
 export const Banner = styled.div`
-  height: 271px;
+  height: 15vh;
   width: 100%;
-  background: url(${bannerProdutos}) no-repeat center center;
-  background-size: cover;
+  background: #000;
 `;
 
 export const Barra = styled.div`
@@ -110,7 +108,6 @@ export const Barra = styled.div`
     color: #4d4d4d;
   }
 `;
-
 
 export const Produtos = styled.div`
   margin: 10rem;

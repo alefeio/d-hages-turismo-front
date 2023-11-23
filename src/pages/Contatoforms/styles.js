@@ -1,17 +1,14 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
-import bannerPontos from '~/assets/banner-pontos.jpg';
-
 export const Container = styled.div`
   background: #fff;
 `;
 
 export const Banner = styled.div`
-  height: 271px;
-  display: block;
-  background: url(${bannerPontos}) no-repeat center center;
-  background-size: cover;
+  height: 15vh;
+  width: 100%;
+  background: #000;
 `;
 
 export const Barra = styled.div`
@@ -29,21 +26,23 @@ export const Barra = styled.div`
     display: flex;
   }
 
+  ul li {
+    margin: 2px;
+    padding: 5px 2px;
+  }
+
   ul li a {
-    margin: 5px;
-    padding: 10px;
     color: #4d4d4d;
   }
 `;
 
 export const ListaPontos = styled.ul`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 30px;
-  padding: 50px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 5rem;
 
-  @media (max-width: 720px) {
-    grid-template-columns: repeat(1, 1fr);
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   li {

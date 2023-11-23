@@ -25,7 +25,7 @@ export default function Contatoforms() {
       <Barra>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>/</li>
           <li>

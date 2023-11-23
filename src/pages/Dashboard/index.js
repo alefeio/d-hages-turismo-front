@@ -18,16 +18,29 @@ export default function Dashboard() {
       <Barra>
         <ul>
           <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>/</li>
-          <li>
-            Admin Roteiros
+            Dashboard
           </li>
         </ul>
       </Barra>
       <section>
         <h2>Administrar Site</h2>
+        <ul>
+          <li>
+            <Link to="/perfil">
+              Meu perfil
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin/roteiros">
+              Adm Roteiros
+            </Link>
+          </li>
+          <li>
+            <Link to="/contatoforms">
+              Msgs Contato
+            </Link>
+          </li>
+        </ul>
       </section>
     </Container>
   );

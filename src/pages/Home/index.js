@@ -73,6 +73,26 @@ export default function Home() {
     setProdutos(pacotes);
   }
 
+  async function handleSubmit() {
+    try {
+      await api.post('contato', {
+        nome: "lead",
+        email,
+        telefone: "",
+        assunto: "Newsletter",
+        mensagem: "Acompanhar as novidades sobre os roteiros da D' Hages",
+      });
+
+      toast.success(
+        'Seu email foi cadastrado com sucesso. Em breve retornaremos.'
+      );
+
+      setEmail('');
+    } catch (error) {
+      toast.error('Erro ao cadastrar seu email. Tente novamente!');
+    }
+  }
+
   function SimpleSlider() {
     var settings = {
       dots: true,
@@ -245,23 +265,6 @@ export default function Home() {
     );
   }
 
-  async function handleSubmit({ nome, email, telefone, mensagem }) {
-    try {
-      await api.post('trabalhe', {
-        nome,
-        email,
-        telefone,
-        mensagem,
-      });
-
-      toast.success(
-        'Obrigado! Sua mensagem foi enviada com sucesso. Em breve retornaremos.'
-      );
-    } catch (error) {
-      toast.error('Erro ao enviar sua mensagem. Tente novamente!');
-    }
-  }
-
   useEffect(() => {
     !banners.length && loadBanners();
     !produtos.length && loadProdutos();
@@ -282,11 +285,57 @@ export default function Home() {
           <p>Cadastre seu email e acompanhe nossas novidades</p>
           <Email>
             <Input name="email" placeholder='Digite seu melhor email' value={email} onChange={(e) => setEmail(e.target.value)} />
-            <button>Enviar</button>
+            <button onClick={handleSubmit}>Enviar</button>
           </Email>
         </section>
         <SimpleSlider />
       </Banner>
+      <Produtos id="pacotes">
+        <h2>ROTEIROS</h2>
+        <p>Escolha seu destino e embarque com a D' Hages Turismo na melhor aventura pelo Brasil</p>
+        <ListaProdutos>
+          {produtos.map((p) => (
+            <li key={p.id}>
+              <Link to={`roteiros/${p.id}`}>
+                <img src={p.imagem.url} alt={p.nome} />
+              </Link>
+              <section>
+                <h2>{p.nome}</h2>
+                <h3><span>Saída:</span> {p.saida.split('T')[0].split('-').reverse().join('/')}</h3>
+                <h3><span>Retorno:</span> {p.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
+                <h3><span>Valor por pessoa:</span></h3>
+                <p>À vista: R$ {p.valoravista}</p>
+                {p.valoraprazo && <p>{p.parcelas}x no cartão: R$ {p.valoraprazo}</p>}
+              </section>
+              <Link to={`roteiros/${p.id}`}>
+                <div>
+                  <MdAdd size={16} color="#FFF" />
+                  <span>Informações</span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ListaProdutos>
+        <aside>
+          <Link to='/roteiros'>
+            Ver todos
+          </Link>
+        </aside>
+      </Produtos>
+      <Depoimentos id="depoimentos">
+        <section>
+          <h2>DEPOIMENTOS</h2>
+          <span>Confira a opinião de quem já viajou com a gente</span>
+          <SimpleSlider2 />
+          <h3>AVALIAÇÕES NO GOOGLE</h3>
+          <SimpleSlider3 />
+          <p>
+            <a href='https://g.page/r/CVJZFvP8DiABEB0/review' target='_blank'>
+              Já viajou conosco? Clique aqui para avaliar nossa empresa
+            </a>
+          </p>
+        </section>
+      </Depoimentos>
       <Quemsomos id="sobre">
         <div>
           <section>
@@ -340,50 +389,6 @@ export default function Home() {
           </li>
         </ul>
       </Quemsomos>
-      <Depoimentos id="aeronaves">
-        <section>
-          <h2>DEPOIMENTOS</h2>
-          <SimpleSlider2 />
-          <h3>AVALIAÇÕES NO GOOGLE</h3>
-          <SimpleSlider3 />
-          <p>
-            <a href='https://g.page/r/CVJZFvP8DiABEB0/review' target='_blank'>
-              Já viajou conosco? Clique aqui para avaliar nossa empresa
-            </a>
-          </p>
-        </section>
-      </Depoimentos>
-      <Produtos id="pacotes">
-        <h2>ROTEIROS</h2>
-        <ListaProdutos>
-          {produtos.map((p) => (
-            <li key={p.id}>
-              <Link to={`roteiros/${p.id}`}>
-                <img src={p.imagem.url} alt={p.nome} />
-              </Link>
-              <section>
-                <h2>{p.nome}</h2>
-                <h3><span>Saída:</span> {p.saida.split('T')[0].split('-').reverse().join('/')}</h3>
-                <h3><span>Retorno:</span> {p.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
-                <h3><span>Valor por pessoa:</span></h3>
-                <p>À vista: R$ {p.valoravista}</p>
-                {p.valoraprazo && <p>{p.parcelas}x no cartão: R$ {p.valoraprazo}</p>}
-              </section>
-              <Link to={`roteiros/${p.id}`}>
-                <div>
-                  <MdAdd size={16} color="#FFF" />
-                  <span>Informações</span>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ListaProdutos>
-        <aside>
-          <Link to='/roteiros'>
-            Ver todos
-          </Link>
-        </aside>
-      </Produtos>
       <Porque>
         <h2>
           POR QUE ESCOLHER
