@@ -423,12 +423,10 @@ export default function Home() {
         <ul>
           <li>+ Conforto</li>
           <li>+ Segurança</li>
-          <li>+ Excelências</li>
-          <li>+ Aventuras</li>
-          <li>+ Experiências</li>
-          <li>+ Referência no mercado</li>
-          <li><small>+ Atendimento diferenciado</small></li>
-          <li>+ Felicidade</li>
+          <li>+ Aventura</li>
+          <li>+ Satisfação</li>
+          <li>+ Atendimento</li>
+          <li>+ Confiança</li>
         </ul>
       </Porque>
       <Ondeestamos id="ondeestamos">
