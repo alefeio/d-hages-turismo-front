@@ -51,30 +51,30 @@ export default function Pacote(props) {
     }
   }
 
-  useEffect(() => {
-    async function loadProduto() {
-      const response = await api.get(`pacotes/${id}`);
+  async function loadProduto() {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    const response = await api.get(`pacotes/${id}`);
 
-      console.log(response.data);
-      setProduto(response.data);
-      setImagem(response.data.imagem.url);
+    console.log(response.data);
+    setProduto(response.data);
+    setImagem(response.data.imagem.url);
 
-      setInitialData({
-        assunto: `Reserva para ${response.data.nome}, de ${response.data.saida.split('T')[0].split('-')[1] === response.data.retorno.split('T')[0].split('-')[1]
-          ? response.data.saida.split('T')[0].split('-').reverse()[0]
-          : response.data.saida.split('T')[0].split('-').reverse().join('/')} a ${response.data.retorno && response.data.retorno.split('T')[0].split('-').reverse().join('/')}`,
-      });
-
-      setTextWpp(`Quero + inf. sobre ${response.data.nome}, de ${response.data.saida.split('T')[0].split('-')[1] === response.data.retorno.split('T')[0].split('-')[1]
+    setInitialData({
+      assunto: `Reserva para ${response.data.nome}, de ${response.data.saida.split('T')[0].split('-')[1] === response.data.retorno.split('T')[0].split('-')[1]
         ? response.data.saida.split('T')[0].split('-').reverse()[0]
-        : response.data.saida.split('T')[0].split('-').reverse().join('/')} a ${response.data.retorno && response.data.retorno.split('T')[0].split('-').reverse().join('/')}`)
-    }
+        : response.data.saida.split('T')[0].split('-').reverse().join('/')} a ${response.data.retorno && response.data.retorno.split('T')[0].split('-').reverse().join('/')}`,
+    });
 
+    setTextWpp(`Quero + inf. sobre ${response.data.nome}, de ${response.data.saida.split('T')[0].split('-')[1] === response.data.retorno.split('T')[0].split('-')[1]
+      ? response.data.saida.split('T')[0].split('-').reverse()[0]
+      : response.data.saida.split('T')[0].split('-').reverse().join('/')} a ${response.data.retorno && response.data.retorno.split('T')[0].split('-').reverse().join('/')}`)
+  }
+
+  useEffect(() => {
     loadProduto();
   }, []);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     function watchScroll() {
       window.addEventListener("scroll", logit);
     }

@@ -35,7 +35,6 @@ import {
   Produtos,
   Porque,
   Ondeestamos,
-  Trabalhe,
   Container,
   WhatsApp,
   Email,
