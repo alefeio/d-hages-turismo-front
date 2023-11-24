@@ -43,14 +43,14 @@ export const Container = styled.div`
         border-radius: 2rem;
         transition: background 0.2s;
 
-        .salvar {
-          background: #000;
-          color: #fff;
-        }
-
         &:hover {
           background: ${darken(0.07, '#4c4738')};
         }
+      }
+
+      button#salvar {
+        background: #000 !important;
+        color: #fff;
       }
     }
 

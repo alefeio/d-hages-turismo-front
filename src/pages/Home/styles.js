@@ -390,6 +390,10 @@ export const ListaProdutos = styled.ul`
         font-weight: bold;
       }
 
+      small {
+        font-size: 1.7rem;
+      }
+
       h2 {
         font-size: 2.5rem;
         line-height: 20px;

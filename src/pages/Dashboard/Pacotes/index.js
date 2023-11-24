@@ -202,7 +202,7 @@ export default function AdminPacotes() {
             onChange={handleDescricao}
           />
 
-          <button disabled={loading} className='salvar' type="submit">{!produtoEdit ? 'Salvar' : 'Editar'}</button>
+          <button disabled={loading} id='salvar' type="submit">{!produtoEdit ? 'Salvar' : 'Editar'}</button>
         </Form>
       </section>
       <section>

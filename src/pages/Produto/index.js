@@ -118,8 +118,8 @@ export default function Pacote(props) {
           <h3>Saída: {produto.saida && produto.saida.split('T')[0].split('-').reverse().join('/')}</h3>
           <h3>Retorno: {produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
           <h3>Valor por pessoa:</h3>
-          <p>À vista: R$ {produto.valoravista}</p>
-          {produto.valoraprazo && <p>{produto.parcelas}x no cartão: R$ {produto.valoraprazo}</p>}
+          <span>À vista: R$ {produto.valoravista}</span><br />
+          {produto.valoraprazo && <span>{produto.parcelas}x no cartão: R$ {produto.valoraprazo}</span>}
           <h3>Detalhes:</h3>
           <section dangerouslySetInnerHTML={{ __html: produto.descricao }}></section>
         </div>

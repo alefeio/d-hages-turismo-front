@@ -3,20 +3,12 @@ import styled from 'styled-components';
 export const Rod = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   color: #fff;
   background: #000;
   border-top: 1px solid #fff;
   text-align: center;
-
-  ul {
-    margin: auto;
-  }
-
-  ul li {
-    display: flex;
-    align-items: center;
-  }
+  padding: 1rem 2rem;
 
   ul li a {
     color: #fff;
@@ -34,5 +26,9 @@ export const Rod = styled.div`
   ul li h2 {
     font-size: 22px;
     text-transform: uppercase;
+  }
+
+  @media(max-width: 600px) {
+    text-align: left;
   }
 `;

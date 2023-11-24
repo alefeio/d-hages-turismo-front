@@ -329,8 +329,8 @@ export default function Home() {
                 <h3><span>Saída:</span> {p.saida.split('T')[0].split('-').reverse().join('/')}</h3>
                 <h3><span>Retorno:</span> {p.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
                 <h3><span>Valor por pessoa:</span></h3>
-                <p>À vista: R$ {p.valoravista}</p>
-                {p.valoraprazo && <p>{p.parcelas}x no cartão: R$ {p.valoraprazo}</p>}
+                <small>À vista: R$ {p.valoravista}</small><br />
+                {p.valoraprazo && <small>{p.parcelas}x no cartão: R$ {p.valoraprazo}</small>}
               </section>
               <Link to={`roteiros/${p.id}`}>
                 <div>
