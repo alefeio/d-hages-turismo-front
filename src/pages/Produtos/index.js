@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { MdAdd } from 'react-icons/md';
+import { MdAdd, MdSearch } from 'react-icons/md';
 import api from '~/services/api';
 import { Input } from '@rocketseat/unform';
 
@@ -16,6 +16,7 @@ export default function Pacotes() {
   const [pageSize, setPageSize] = useState(12);
   const [totalCount, setTotalCount] = useState(0);
   const [nextPage, setNextPage] = useState(false);
+  const [busca, setBusca] = useState('');
 
   async function loadProdutos() {
     const response = await api.get(`pacotes?page=${query}`);
@@ -32,9 +33,24 @@ export default function Pacotes() {
     else setNextPage(false);
   }
 
+  async function loadBuscaProduto(busca) {
+    const response = await api.get(`busca?page=1&busca=${busca}`);
+
+    const { produtos, total } = response.data;
+
+    const totalPage = Math.ceil(total / pageSize);
+
+    setImagem(produtos[0]?.imagem.url);
+    setProdutos(produtos);
+    setTotalCount(total);
+
+    if (query < totalPage) setNextPage(true);
+    else setNextPage(false);
+  }
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    loadProdutos();
+    busca ? loadBuscaProduto(busca) : loadProdutos();
   }, [query]);
 
   return (
@@ -57,6 +73,13 @@ export default function Pacotes() {
       </Barra>
 
       <Produtos id="pacotes">
+        <nav>
+          <Input name="buscaProduto" placeholder='Buscar roteiro' onChange={(e) => {
+            setBusca(e.target.value);
+            loadBuscaProduto(e.target.value);
+          }} />
+          <MdSearch size={26} color="#000" />
+        </nav>
         <ListaProdutos>
           {produtos.map((p) => (
             <li key={p.id}>

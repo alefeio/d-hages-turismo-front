@@ -4,7 +4,7 @@ import { Form, Input, Textarea } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { MdAdd } from 'react-icons/md';
+import { MdAdd, MdSearch } from 'react-icons/md';
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -55,6 +55,7 @@ export default function Home() {
   const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [busca, setBusca] = useState('');
 
   async function loadBanners() {
     const response = await api.get('banners');
@@ -72,6 +73,14 @@ export default function Home() {
     console.log(`pacotes: ${JSON.stringify(response.data)}`);
 
     setProdutos(pacotes);
+  }
+
+  async function loadBuscaProduto(busca) {
+    const response = await api.get(`busca?page=1&busca=${busca}`);
+
+    const { produtos, total } = response.data;
+
+    setProdutos(produtos);
   }
 
   async function handleSubmit() {
@@ -271,8 +280,13 @@ export default function Home() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
+
+  useEffect(() => {
     !banners.length && loadBanners();
-    !produtos.length && loadProdutos();
+    if (!produtos.length) {
+      busca ? loadBuscaProduto(busca) : loadProdutos();
+    }
   }, [banners, produtos]);
 
   return (
@@ -298,6 +312,13 @@ export default function Home() {
       <Produtos id="pacotes">
         <h2>ROTEIROS</h2>
         <p>Escolha seu destino e embarque com a D' Hages Turismo na melhor aventura pelo Brasil</p>
+        <nav>
+          <Input name="buscaProduto" placeholder='Buscar roteiro' onChange={(e) => {
+            setBusca(e.target.value);
+            loadBuscaProduto(e.target.value);
+          }} />
+          <MdSearch size={26} color="#000" />
+        </nav>
         <ListaProdutos>
           {produtos.map((p) => (
             <li key={p.id}>

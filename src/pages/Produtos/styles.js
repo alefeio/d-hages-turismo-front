@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
+import { MdSearch } from 'react-icons/md';
 import bannerProdutos from '~/assets/banner-produtos.jpg';
 
 export const Container = styled.div`
@@ -44,6 +45,29 @@ export const Produtos = styled.div`
   padding: 10rem 0;
   margin: auto;
   text-align: center;
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 3rem;
+    background: #fff;
+    align-self: center;
+    border: 5px solid orange;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.3);
+    border-radius: 2rem;
+    padding: 1rem;
+
+    > input {
+      border: 0;
+      font-size: 2rem;
+      background: transparent;
+    }
+
+    svg {
+      cursor: pointer;
+    }
+  }
 
   aside {
     margin-top: 5rem;
