@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { Container, Barra, Banner, Prod, WhatsApp } from './styles';
 
 import wpp from '~/assets/wpp.png';
+import { Helmet } from 'react-helmet';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
@@ -85,59 +86,70 @@ export default function Pacote(props) {
   });
 
   return (
-    <Container>
-      <WhatsApp>
-        <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
-        <a href={`https://wa.me//5591981149800?text=${textWpp}`} target='_blank'>
-          <img src={wpp} alt="Logo HCS" />
-        </a>
-      </WhatsApp>
-      <Banner imagem={imagem} />
-      <Barra>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>/</li>
-          <li>
-            <Link to="/roteiros">Roteiros</Link>
-          </li>
-          <li>/</li>
-          <li>{produto && produto.nome}</li>
-        </ul>
-      </Barra>
-      <Prod display={display}>
-        <div>
-          {produto.saida && <h1>
-            {produto.nome} - {produto.saida.split('T')[0].split('-')[1] === produto.retorno.split('T')[0].split('-')[1]
+    <>
+      <Helmet>
+        <title>
+          {produto.saida && (
+            `${produto.nome} - ${produto.saida.split('T')[0].split('-')[1] === produto.retorno.split('T')[0].split('-')[1]
               ? produto.saida.split('T')[0].split('-').reverse()[0]
-              : produto.saida.split('T')[0].split('-').reverse().join('/')} a {produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}
-          </h1>}
-          <img src={imagem} alt="Produto" />
-          <h2>Destino: {produto.nome}</h2>
-          <h3>Saída: {produto.saida && produto.saida.split('T')[0].split('-').reverse().join('/')}</h3>
-          <h3>Retorno: {produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
-          <h3>Valor por pessoa:</h3>
-          <span>À vista: R$ {produto.valoravista}</span><br />
-          {produto.valoraprazo && <span>{produto.parcelas}x no cartão: R$ {produto.valoraprazo}</span>}
-          <h3>Detalhes:</h3>
-          <section dangerouslySetInnerHTML={{ __html: produto.descricao }}></section>
-        </div>
-        {!viewFormReserva ? (
-          <aside onClick={() => setViewFormReserva(true)}>Reservar</aside>
-        ) : (
-          <Form schema={schema} onSubmit={handleSubmit} initialData={initialData} id='#reserva'>
-            <h2 onClick={() => setViewFormReserva(false)}>Reservar</h2>
-            <Input name="nome" placeholder="Seu nome" />
-            <Input name="email" type="email" placeholder="Seu e-mail" />
-            <Input name="telefone" placeholder="Telefone ou celular" />
-            <Input name="assunto" placeholder="Assunto" />
-            <Textarea name="mensagem" placeholder="Especifique aqui a quantidade de reservas ou alguma necessidade específica" />
+              : produto.saida.split('T')[0].split('-').reverse().join('/')} a ${produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}`
+          )}
+        </title>
+      </Helmet>
+      <Container>
+        <WhatsApp>
+          <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
+          <a href={`https://wa.me//5591981149800?text=${textWpp}`} target='_blank'>
+            <img src={wpp} alt="Logo HCS" />
+          </a>
+        </WhatsApp>
+        <Banner imagem={imagem} />
+        <Barra>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>/</li>
+            <li>
+              <Link to="/roteiros">Roteiros</Link>
+            </li>
+            <li>/</li>
+            <li>{produto && produto.nome}</li>
+          </ul>
+        </Barra>
+        <Prod display={display}>
+          <div>
+            {produto.saida && <h1>
+              {produto.nome} - {produto.saida.split('T')[0].split('-')[1] === produto.retorno.split('T')[0].split('-')[1]
+                ? produto.saida.split('T')[0].split('-').reverse()[0]
+                : produto.saida.split('T')[0].split('-').reverse().join('/')} a {produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}
+            </h1>}
+            <img src={imagem} alt="Produto" />
+            <h2>Destino: {produto.nome}</h2>
+            <h3>Saída: {produto.saida && produto.saida.split('T')[0].split('-').reverse().join('/')}</h3>
+            <h3>Retorno: {produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
+            <h3>Valor por pessoa:</h3>
+            <span>À vista: R$ {produto.valoravista}</span><br />
+            {produto.valoraprazo && <span>{produto.parcelas}x no cartão: R$ {produto.valoraprazo}</span>}
+            <h3>Detalhes:</h3>
+            <section dangerouslySetInnerHTML={{ __html: produto.descricao }}></section>
+          </div>
+          {!viewFormReserva ? (
+            <aside onClick={() => setViewFormReserva(true)}>Reservar</aside>
+          ) : (
+            <Form schema={schema} onSubmit={handleSubmit} initialData={initialData} id='#reserva'>
+              <h2 onClick={() => setViewFormReserva(false)}>Reservar</h2>
+              <Input name="nome" placeholder="Seu nome" />
+              <Input name="email" type="email" placeholder="Seu e-mail" />
+              <Input name="telefone" placeholder="Telefone ou celular" />
+              <Input name="assunto" placeholder="Assunto" />
+              <Textarea name="mensagem" placeholder="Especifique aqui a quantidade de reservas ou alguma necessidade específica" />
 
-            <button type="submit">Enviar</button>
-          </Form>
-        )}
-      </Prod>
-    </Container>
+              <button type="submit">Enviar</button>
+            </Form>
+          )}
+        </Prod>
+      </Container>
+    </>
   );
 }

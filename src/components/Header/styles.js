@@ -43,6 +43,7 @@ export const Content = styled.div`
 
   @media(max-width: 600px) {
     padding: 2rem 1rem;
+  }
 `;
 
 export const Nav = styled.nav`
