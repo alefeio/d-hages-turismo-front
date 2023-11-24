@@ -327,7 +327,7 @@ export const Produtos = styled.div`
     align-self: center;
     border: 5px solid orange;
     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.3);
-    border-radius: 2rem;
+    border-radius: 3rem;
     padding: 1rem;
 
     > input {
