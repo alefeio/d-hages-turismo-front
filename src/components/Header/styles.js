@@ -14,18 +14,13 @@ export const Img = styled.img`
 `;
 
 export const Container = styled.div`
-  height: 15vh;
-  padding: 1rem 0;
+  padding: 1rem;
   background: ${(props) => props.bgMenu};
   position: relative;
   position: ${(props) => props.viewMenu};
   width: 100%;
   margin: auto !important;
   z-index: 10000000000000000000000000000000000000000000000000000000000000;
-
-  @media(max-width: 600px) {
-    height: 12vh;
-  }
 `;
 
 export const Content = styled.div`
@@ -47,7 +42,7 @@ export const Content = styled.div`
   }
 
   @media(max-width: 600px) {
-    padding: 1rem;
+    padding: 2rem 1rem;
 `;
 
 export const Nav = styled.nav`

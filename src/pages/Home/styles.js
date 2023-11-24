@@ -72,7 +72,7 @@ export const Banner = styled.div`
   }
 
   @media(max-width: 600px) {
-    height: 30vh;
+    height: 40vh;
 
     section {
       h2 {
