@@ -30,7 +30,7 @@ export default function Header() {
     else setViewMenu('fixed');
 
     setScrollY(window.pageYOffset);
-    console.log(window.pageYOffset);
+    // console.log(window.pageYOffset);
   }
 
   const { logado } = store.getState().auth;
@@ -139,6 +139,11 @@ export default function Header() {
                     Msgs Contato
                   </Link>
                 </li> */}
+                <li>
+                  <Link to='/dashboard'>
+                    ADM
+                  </Link>
+                </li>
                 <li>
                   <Link onClick={handleLogout}>
                     SAIR

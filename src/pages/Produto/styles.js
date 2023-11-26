@@ -36,7 +36,7 @@ export const Prod = styled.div`
     img {
       width: 100%;
       margin: 0 auto 5rem;
-      border-radius: 4px;
+      border-radius: 2rem;
     }
 
     h1 {

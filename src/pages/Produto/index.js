@@ -90,9 +90,7 @@ export default function Pacote(props) {
       <Helmet>
         <title>
           {produto.saida && (
-            `${produto.nome} - ${produto.saida.split('T')[0].split('-')[1] === produto.retorno.split('T')[0].split('-')[1]
-              ? produto.saida.split('T')[0].split('-').reverse()[0]
-              : produto.saida.split('T')[0].split('-').reverse().join('/')} a ${produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}`
+            `Viaje com a D' Hages para ${produto.nome} - saída: ${produto.saida.split('T')[0].split('-').reverse().join('/')}, retorno: ${produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}`
           )}
         </title>
       </Helmet>

@@ -7,14 +7,21 @@ import { Container, Barra, ListaPontos, Banner } from './styles';
 export default function Contatoforms() {
   const [contatos, setContatos] = useState([]);
 
+  async function loadContatos() {
+    const response = await api.get('contato');
+
+    console.log(response.data);
+
+    setContatos(response.data);
+  }
+
+  async function arquivarContato(id) {
+    const response = await api.delete(`contato/${id}`);
+
+    loadContatos();
+  }
+
   useEffect(() => {
-    async function loadContatos() {
-      const response = await api.get('contato');
-
-      console.log(response.data);
-
-      setContatos(response.data);
-    }
 
     loadContatos();
   }, []);
@@ -23,14 +30,17 @@ export default function Contatoforms() {
     <Container>
       <ListaPontos>
         {contatos.map((c) => (
-          <li key={c.id}>
-            <strong>Nome:</strong> {c.nome} <br />
-            <strong>Email:</strong> {c.email} <br />
-            <strong>Telefone:</strong> {c.telefone} <br />
-            <strong>Assunto:</strong> {c.assunto} <br />
-            <strong>Mensagem:</strong> {c.mensagem} <br />
-            <strong>Data:</strong> {c.created_at.split('T')[0].split('-').reverse().join('/')} {`${c.created_at.split('T')[1].split(':')[0] === '00' ? '21' : c.created_at.split('T')[1].split(':')[0] === '01' ? '22' : c.created_at.split('T')[1].split(':')[0] === '02' ? '23' : String(c.created_at.split('T')[1].split(':')[0] - 3)}:${String(c.created_at.split('T')[1].split(':')[1])}`}
-          </li>
+          <>
+            <li key={c.id}>
+              <strong>Nome:</strong> {c.nome} <br />
+              <strong>Email:</strong> {c.email} <br />
+              <strong>Telefone:</strong> {c.telefone} <br />
+              <strong>Assunto:</strong> {c.assunto} <br />
+              <strong>Mensagem:</strong> {c.mensagem} <br />
+              <strong>Data:</strong> {c.createdAt.split('T')[0].split('-').reverse().join('/')} {`${c.createdAt.split('T')[1].split(':')[0] === '00' ? '21' : c.createdAt.split('T')[1].split(':')[0] === '01' ? '22' : c.createdAt.split('T')[1].split(':')[0] === '02' ? '23' : String(c.createdAt.split('T')[1].split(':')[0] - 3)}:${String(c.createdAt.split('T')[1].split(':')[1])}`}
+              <button onClick={() => arquivarContato(c.id)}>Arquivar</button>
+            </li>
+          </>
         ))}
       </ListaPontos>
     </Container>

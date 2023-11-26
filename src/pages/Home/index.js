@@ -39,13 +39,15 @@ import {
   WhatsApp,
   Email,
   ListaProdutos,
+  Trabalhe
 } from './styles';
 import { Helmet } from 'react-helmet';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
-  email: Yup.string().email('E-mail inválido!').required('Campo obrigatório!'),
   telefone: Yup.string().required('Campo obrigatório!'),
+  email: Yup.string().email('E-mail inválido!').required('Campo obrigatório!'),
+  assunto: Yup.string(),
   mensagem: Yup.string().required('Campo obrigatório!'),
 });
 
@@ -83,15 +85,17 @@ export default function Home() {
     setProdutos(produtos);
   }
 
-  async function handleSubmit() {
+  async function handleSubmit(data = {}) {
+    console.log('data', data);
+
     setLoading(true);
     try {
       await api.post('contato', {
-        nome: "lead",
-        email,
-        telefone: "",
-        assunto: "Newsletter",
-        mensagem: "Acompanhar as novidades sobre os roteiros da D' Hages",
+        nome: data.nome ? data.nome : "lead",
+        email: data.email ? data.email : email,
+        telefone: data.telefone ? data.telefone : "",
+        assunto: data.assunto ? data.assunto : "Newsletter",
+        mensagem: data.mensagem ? data.mensagem : "Acompanhar as novidades sobre os roteiros da D' Hages",
       });
 
       toast.success(
@@ -433,17 +437,24 @@ export default function Home() {
       <Ondeestamos id="ondeestamos">
         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15954.345782500639!2d-48.4780747!3d-1.4238214!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92a48bfd67c896fd%3A0x1200efcf3165952!2sD&#39;%20Hages%20Turismo!5e0!3m2!1spt-BR!2sbr!4v1700398532335!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </Ondeestamos>
-      {/* <Trabalhe id="contato">
+      <Trabalhe id="contato">
+        <div>
+          <h2>Envie-nos uma mensagem</h2>
+          <p>Ainda tem dúvidas sobre qual roteiro escolher?
+          </p>
+          <p>Envie uma mensagem para um de nossos consultores.</p>
+        </div>
         <Form schema={schema} onSubmit={handleSubmit}>
           <Input name="nome" placeholder="Nome" />
           <Input name="telefone" placeholder="Telefone" />
           <Input name="email" type="email" placeholder="E-mail" />
+          <Input name="assunto" placeholder="Assunto" />
           <Textarea name="mensagem" placeholder="Sua mensagem" />
 
-          <button type="submit">Enviar</button>
+          <button disabled={loading} type="submit">Enviar</button>
         </Form>
-        <img src={logo} alt="Logo HCS" />
-      </Trabalhe> */}
+        {/* <img src={logo} alt="Logo HCS" /> */}
+      </Trabalhe>
     </Container >
   );
 }

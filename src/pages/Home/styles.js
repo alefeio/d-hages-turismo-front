@@ -526,6 +526,10 @@ export const Trabalhe = styled.div`
   background: #000;
   padding: 10rem;
 
+  h2, p {
+    color: #fff;
+  }
+
   form {
     width: 35%;
     display: flex;
@@ -538,8 +542,7 @@ export const Trabalhe = styled.div`
       height: 30px;
       padding: 0 15px;
       color: #111;
-      margin: 0 0 10px;
-      text-transform: uppercase;
+      margin: 0 0 1rem;
 
       &::placeholder {
         color: rgba(0, 0, 0, 0.7);
@@ -553,7 +556,6 @@ export const Trabalhe = styled.div`
       padding: 10px 15px;
       color: #111;
       margin: 0 0 10px;
-      text-transform: uppercase;
 
       &::placeholder {
         color: rgba(0, 0, 0, 0.7);
@@ -595,11 +597,10 @@ export const Trabalhe = styled.div`
 
   @media (max-width: 720px) {
     flex-direction: column;
-    text-align: center;
-    padding: 5px;
+    padding: 10rem 5rem;
 
     form {
-      width: 80%;
+      width: 100%;
     }
 
     img {

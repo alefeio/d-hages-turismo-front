@@ -44,11 +44,12 @@ export const ListaPontos = styled.ul`
   li {
     display: flex;
     flex-direction: column;
-    background: #efefef;
+    border: 1px solid #efefef;
+    background: #fff;
     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.3);
     border-radius: 2rem;
     padding: 20px;
-    overflow: hidden;
+    overflow: auto;
 
     img {
       align-self: center;
@@ -96,6 +97,16 @@ export const ListaPontos = styled.ul`
       &:hover {
         background: ${darken(0.07, '#644d25')};
       }
+    }
+
+    button {
+      background: #000;
+      color: #fff;
+      border: 0;
+      border-radius: 1rem;
+      margin: 2rem 0 1rem;
+      align-self: center;
+      padding: .7rem 2rem;
     }
   }
 
