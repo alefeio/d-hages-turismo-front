@@ -8,10 +8,6 @@ export const Container = styled.div`
     padding: 5rem;
     display: flex;
 
-    h2 {
-      margin-bottom: 2rem;
-    }
-
     > ul {
       width: 20%;
       margin-bottom: 3rem;
@@ -31,6 +27,14 @@ export const Container = styled.div`
 
     div {
       flex: 1;
+
+      div {
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 2rem;
+      }
     }
 
     form {

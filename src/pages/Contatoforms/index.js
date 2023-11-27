@@ -4,11 +4,11 @@ import api from '~/services/api';
 
 import { Container, Barra, ListaPontos, Banner } from './styles';
 
-export default function Contatoforms() {
+export default function Contatoforms({ arquivadas }) {
   const [contatos, setContatos] = useState([]);
 
   async function loadContatos() {
-    const response = await api.get('contato');
+    const response = await api.get(!arquivadas ? 'contato' : 'contatolidas');
 
     console.log(response.data);
 
@@ -22,9 +22,8 @@ export default function Contatoforms() {
   }
 
   useEffect(() => {
-
     loadContatos();
-  }, []);
+  }, [arquivadas]);
 
   return (
     <Container>
@@ -37,8 +36,8 @@ export default function Contatoforms() {
               <strong>Telefone:</strong> {c.telefone} <br />
               <strong>Assunto:</strong> {c.assunto} <br />
               <strong>Mensagem:</strong> {c.mensagem} <br />
-              <strong>Data:</strong> {c.createdAt.split('T')[0].split('-').reverse().join('/')} {`${c.createdAt.split('T')[1].split(':')[0] === '00' ? '21' : c.createdAt.split('T')[1].split(':')[0] === '01' ? '22' : c.createdAt.split('T')[1].split(':')[0] === '02' ? '23' : String(c.createdAt.split('T')[1].split(':')[0] - 3)}:${String(c.createdAt.split('T')[1].split(':')[1])}`}
-              <button onClick={() => arquivarContato(c.id)}>Arquivar</button>
+              <strong>Data:</strong> {c.createdAt && c.createdAt.split('T')[0].split('-').reverse().join('/')} {c.createdAt && `${c.createdAt.split('T')[1].split(':')[0] === '00' ? '21' : c.createdAt.split('T')[1].split(':')[0] === '01' ? '22' : c.createdAt.split('T')[1].split(':')[0] === '02' ? '23' : String(c.createdAt.split('T')[1].split(':')[0] - 3)}:${String(c.createdAt.split('T')[1].split(':')[1])}`}
+              {!arquivadas && <button onClick={() => arquivarContato(c.id)}>Arquivar</button>}
             </li>
           </>
         ))}
