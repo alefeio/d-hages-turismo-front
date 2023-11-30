@@ -17,6 +17,12 @@ export default createGlobalStyle`
     outline: 0;
   }
 
+  body {
+    > iframe[style*='2147483647']{
+      display: none;
+    }
+  }
+
   html, body, #root {
     height: 100%;
   }
