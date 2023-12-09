@@ -26,6 +26,7 @@ export default function Pacote(props) {
   const [display, setDisplay] = useState('relative');
   const [textWpp, setTextWpp] = useState("");
   const [viewFormReserva, setViewFormReserva] = useState(false);
+  const [reservado, setReservado] = useState(false);
 
   const id = props.match.params.id;
 
@@ -45,8 +46,10 @@ export default function Pacote(props) {
       });
 
       toast.success(
-        'Obrigado! Sua reserva foi enviada com sucesso. Em breve retornaremos.'
+        'Obrigado! Sua pré-reserva foi enviada com sucesso. Em breve retornaremos.'
       );
+
+      setReservado(true);
     } catch (error) {
       toast.error('Erro ao enviar sua reserva. Tente novamente!');
     }
@@ -133,17 +136,23 @@ export default function Pacote(props) {
             <section dangerouslySetInnerHTML={{ __html: produto.descricao }}></section>
           </div>
           {!viewFormReserva ? (
-            <aside onClick={() => setViewFormReserva(true)}>Reservar</aside>
+            <aside onClick={() => setViewFormReserva(true)}>Pré-reserva</aside>
           ) : (
             <Form schema={schema} onSubmit={handleSubmit} initialData={initialData} id='#reserva'>
-              <h2 onClick={() => setViewFormReserva(false)}>Reservar</h2>
-              <Input name="nome" placeholder="Seu nome" />
-              <Input name="email" type="email" placeholder="Seu e-mail" />
-              <Input name="telefone" placeholder="Telefone ou celular" />
-              <Input name="assunto" placeholder="Assunto" />
-              <Textarea name="mensagem" placeholder="Especifique aqui a quantidade de reservas ou alguma necessidade específica" />
+              <h2 onClick={() => setViewFormReserva(false)}>Pré-reserva</h2>
+              {!reservado ? (
+                <>
+                  <Input name="nome" placeholder="Seu nome" />
+                  <Input name="email" type="email" placeholder="Seu e-mail" />
+                  <Input name="telefone" placeholder="Telefone ou celular" />
+                  <Input name="assunto" placeholder="Assunto" />
+                  <Textarea name="mensagem" placeholder="Especifique aqui a quantidade de reservas ou alguma necessidade específica" />
 
-              <button type="submit">Enviar</button>
+                  <button type="submit">Enviar</button>
+                </>
+              ) : (
+                <h3>Obrigado! Sua pré-reserva foi enviada com sucesso. Em breve retornaremos.</h3>
+              )}
             </Form>
           )}
         </Prod>
