@@ -291,7 +291,7 @@ export default function Home() {
     if (!produtos.length) {
       busca ? loadBuscaProduto(busca) : loadProdutos();
     }
-  }, [banners, produtos]);
+  }, []);
 
   return (
     <Container>

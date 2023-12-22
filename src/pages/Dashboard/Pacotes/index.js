@@ -16,6 +16,7 @@ export default function AdminPacotes() {
   const [file, setFile] = useState('');
   const [preview, setPreview] = useState('');
   const [produtos, setProdutos] = useState([]);
+  const [realizadas, setRealizadas] = useState([]);
   const [initialData, setInitialData] = useState({});
   const [produtoEdit, setProdutoEdit] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -23,7 +24,7 @@ export default function AdminPacotes() {
   const editorRef = useRef(null);
 
   async function loadProdutos() {
-    const response = await api.get('pacotes');
+    const response = await api.get('todas');
 
     const { pacotes } = response.data;
 
@@ -185,7 +186,7 @@ export default function AdminPacotes() {
           Descrição:
           <Editor
             onInit={(evt, editor) => editorRef.current = editor}
-            apiKey='q2k7mnykdpxkjfh1t2g31fdzpozt2qge1mokj8czggv8il5y'
+            apiKey='3c28jqjsc4nmjampvz58xlmn27199hl69pbziip6fiiuuu8n'
             init={{
               height: 500,
               plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
