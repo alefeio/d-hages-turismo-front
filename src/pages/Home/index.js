@@ -390,34 +390,34 @@ export default function Home() {
             <p>
               Escolha o roteiro de sua preferência e embarque em uma experiência única, com pacotes que irão te oferecer: transporte em ônibus de turismo completo, hospedagem com café da manhã, guia de turismo acompanhante e memórias inesquecíveis.
             </p>
-            <h2>NOSSOS PILARES</h2>
-            <ol>
+            <ul>
               <li>
-                Excelência em Segurança: <small>Compromisso inabalável com os mais altos padrões de segurança, assegurando viagens livres de riscos para os clientes.</small>
+                <h2>PILARES</h2>
+                <p>
+                  Segurança
+                </p>
+                <p>
+                  Conforto
+                </p>
+                <p>
+                  Atendimento
+                </p>
               </li>
               <li>
-                Excelência em Conforto: <small>Oferecer aos clientes um ambiente de viagem confortável e agradável, com veículos modernos e comodidades que superem as expectativas.</small>
+                <h2>VISÃO</h2>
+                <p>
+                  Ser a principal escolha em serviços de fretamento de ônibus de turismo na região Norte, oferecendo experiências inigualáveis e destacando-se como referência nacional.
+                </p>
               </li>
               <li>
-                Excelência em Atendimento: <small>Garantir um atendimento personalizado e amigável, visando exceder as necessidades dos clientes e proporcionar um serviço de alta qualidade.</small>
+                <h2>MISSÃO</h2>
+                <p>
+                  Proporcionar aos clientes nortistas a melhor aventura pelo Brasil, garantindo excelência em segurança, conforto e atendimento, tornando cada viagem uma experiência memorável.
+                </p>
               </li>
-            </ol>
+            </ul>
           </div>
         </div >
-        <ul>
-          <li>
-            <h2>VISÃO</h2>
-            <p>
-              Ser a principal escolha em serviços de fretamento de ônibus de turismo na região Norte, oferecendo experiências inigualáveis e destacando-se como referência nacional.
-            </p>
-          </li>
-          <li>
-            <h2>MISSÃO</h2>
-            <p>
-              Proporcionar aos clientes nortistas a melhor aventura pelo Brasil, garantindo excelência em segurança, conforto e atendimento, tornando cada viagem uma experiência memorável.
-            </p>
-          </li>
-        </ul>
       </Quemsomos>
       <Porque>
         <h2>
