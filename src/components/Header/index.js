@@ -26,8 +26,8 @@ export default function Header() {
   function logit() {
     if (window.pageYOffset < 100) setBgMenu('transparent');
     else setBgMenu('black');
-    if (window.pageYOffset > scrollY && window.pageYOffset > 100) setViewMenu('absolute');
-    else setViewMenu('fixed');
+    // if (window.pageYOffset > scrollY && window.pageYOffset > 100) setViewMenu('absolute');
+    // else setViewMenu('fixed');
 
     setScrollY(window.pageYOffset);
     // console.log(window.pageYOffset);
@@ -71,7 +71,7 @@ export default function Header() {
 
   return (
     <Container viewMenu={viewMenu} bgMenu={bgMenu}>
-      <Content>
+      <Content bgMenu={bgMenu}>
         <Link to="/#home" onClick={altChecked}>
           <img src={logo} alt="Logomarca da agência D' Hages Turismo" />
         </Link>

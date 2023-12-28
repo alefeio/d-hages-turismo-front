@@ -34,9 +34,8 @@ export const Content = styled.div`
 
   a {
     img {
-      max-height: 90px;
-      max-width: 250px;
-      min-width: 100px;
+      max-height: ${(props) => props.bgMenu === 'transparent' ? '90px' : '40px'};
+      max-width: ${(props) => props.bgMenu === 'transparent' ? '90px' : '40px'};
       margin-right: 50px;
     }
   }
