@@ -64,7 +64,7 @@ export default function Pacote(props) {
     setImagem(response.data.imagem.url);
 
     setInitialData({
-      assunto: `Reserva para ${response.data.nome}, de ${response.data.saida.split('T')[0].split('-')[1] === response.data.retorno.split('T')[0].split('-')[1]
+      assunto: `Mais informações sobre ${response.data.nome}, de ${response.data.saida.split('T')[0].split('-')[1] === response.data.retorno.split('T')[0].split('-')[1]
         ? response.data.saida.split('T')[0].split('-').reverse()[0]
         : response.data.saida.split('T')[0].split('-').reverse().join('/')} a ${response.data.retorno && response.data.retorno.split('T')[0].split('-').reverse().join('/')}`,
     });
@@ -136,10 +136,10 @@ export default function Pacote(props) {
             <section dangerouslySetInnerHTML={{ __html: produto.descricao }}></section>
           </div>
           {!viewFormReserva ? (
-            <aside onClick={() => setViewFormReserva(true)}>Pré-reserva</aside>
+            <aside onClick={() => setViewFormReserva(true)}>Mais informações</aside>
           ) : (
             <Form schema={schema} onSubmit={handleSubmit} initialData={initialData} id='#reserva'>
-              <h2 onClick={() => setViewFormReserva(false)}>Pré-reserva</h2>
+              <h2 onClick={() => setViewFormReserva(false)}>Mais informações</h2>
               {!reservado ? (
                 <>
                   <Input name="nome" placeholder="Seu nome" />
