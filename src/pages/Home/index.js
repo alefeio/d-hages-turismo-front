@@ -305,9 +305,11 @@ export default function Home() {
         <section>
           <h3>Seja muito bem-vindo</h3>
           <h2>à sua próxima aventura</h2>
-          <p>Cadastre seu email e acompanhe nossas novidades</p>
+        </section>
+        <section className='news'>
+          <p>Acompanhe nossas novidades</p>
           <Email>
-            <Input name="email" placeholder='Digite seu melhor email' value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Input name="email" placeholder='Cadastre seu email' value={email} onChange={(e) => setEmail(e.target.value)} />
             <button disabled={loading} onClick={handleSubmit}>Enviar</button>
           </Email>
         </section>
@@ -316,8 +318,60 @@ export default function Home() {
       <Produtos id="pacotes">
         <h2>ROTEIROS</h2>
         <p>Escolha seu destino e embarque com a D' Hages Turismo na melhor aventura pelo Brasil</p>
+        <h3>Principais roteiros</h3>
+        <div>
+          <Link onClick={() => {
+            setBusca("Fortaleza");
+            loadBuscaProduto("Fortaleza");
+          }
+          }>
+            Fortaleza
+          </Link>
+          <Link onClick={() => {
+            setBusca("Carolina-Ma");
+            loadBuscaProduto("Carolina-Ma");
+          }
+          }>
+            Carolina-Ma
+          </Link>
+          <Link onClick={() => {
+            setBusca("Mini Nordeste");
+            loadBuscaProduto("Mini Nordeste");
+          }
+          }>
+            Mini Nordeste
+          </Link>
+          <Link onClick={() => {
+            setBusca("Lençóis Maranhenses");
+            loadBuscaProduto("Lençóis Maranhenses");
+          }
+          }>
+            Lençóis Maranhenses
+          </Link>
+          <Link onClick={() => {
+            setBusca("Rio de Janeiro");
+            loadBuscaProduto("Rio de Janeiro");
+          }
+          }>
+            Rio de Janeiro
+          </Link>
+          <Link onClick={() => {
+            setBusca("Fortaleza com Jeri");
+            loadBuscaProduto("Fortaleza com Jeri");
+          }
+          }>
+            Fortaleza com Jeri
+          </Link>
+          <Link onClick={() => {
+            setBusca("Ajuruteua");
+            loadBuscaProduto("Ajuruteua");
+          }
+          }>
+            Ajuruteua
+          </Link>
+        </div>
         <nav>
-          <Input name="buscaProduto" placeholder='Buscar roteiro' onChange={(e) => {
+          <Input name="buscaProduto" value={busca} placeholder='Pesquisar roteiro' onChange={(e) => {
             setBusca(e.target.value);
             loadBuscaProduto(e.target.value);
           }} />
@@ -377,7 +431,7 @@ export default function Home() {
             </video>
           </section>
           <div>
-            <h1>Viage com a D' Hages Turismo</h1>
+            <h1>Venha viajar com a D' Hages Turismo</h1>
             <p>
               Fundada em agosto de 2015 com intuito de levar o nortista a conhecer as belezas da sua própria região e do Brasil, a D’ Hages Turismo atualmente trabalha com excursões regionais e nacionais. Contando com roteiros que vão do norte ao sul do país, contemplando a natureza, cultura e área urbana de cada região.
             </p>

@@ -82,7 +82,7 @@ export default function Pacotes() {
 
         <Produtos id="pacotes">
           <nav>
-            <Input name="buscaProduto" placeholder='Buscar roteiro' onChange={(e) => {
+            <Input name="buscaProduto" placeholder='Pesquisar roteiro' onChange={(e) => {
               setBusca(e.target.value);
               loadBuscaProduto(e.target.value);
             }} />

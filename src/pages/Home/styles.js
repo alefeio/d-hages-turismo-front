@@ -37,17 +37,32 @@ export const Banner = styled.div`
     }
 
     h3 {
-      color: #ffd873;
+      align-self: center;
+      padding: .3rem .7rem;
+      color: black;
+      background: #ffd873;
       font-size: 2rem;
       text-transform: uppercase;
     }
 
     p {
-      margin-bottom: 1rem;
+      margin-bottom: .5rem;
       background: #000;
       align-self: center;
       padding: .5rem 1rem;
       border-radius: 4px;
+
+      @media(max-width: 600px) {
+        font-size: 1.4rem;
+      }
+    }
+
+    &.news {
+      top: 80%;
+
+      @media(max-width: 600px) {
+        top: 70%;
+      }
     }
   }
 
@@ -317,6 +332,19 @@ export const Produtos = styled.div`
   padding: 10rem 0;
   margin: auto;
   text-align: center;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+      margin: 1rem 1rem 2rem;
+      font-size: 2rem;
+      color: orange;
+      font-weight: bold;
+    }
+  }
 
   nav {
     display: flex;
@@ -611,17 +639,21 @@ export const Trabalhe = styled.div`
 `;
 
 export const Email = styled.div`
-  width: 30% !important;
+  width: 20% !important;
   align-self: center !important;
   background: #fff;
   border-radius: 30px;
-  padding: .5rem;
+  padding: .2rem;
 
   input {
     border: 0;
     width: 100%;
-    padding: 1rem;
+    padding: .5rem 1rem;
     border-radius: 30px;
+
+    @media(max-width: 600px) {
+      font-size: 1.4rem;
+    }
   }
 
   button {
@@ -630,9 +662,13 @@ export const Email = styled.div`
     color: #fff;
     padding: 1rem;
     border-radius: 30px;
+
+    @media(max-width: 600px) {
+      font-size: 1.4rem;
+    }
   }
 
   @media(max-width: 600px) {
-    width: 65% !important;
+    width: 50% !important;
   }
 `;
