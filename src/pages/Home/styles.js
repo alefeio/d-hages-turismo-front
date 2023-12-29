@@ -334,10 +334,8 @@ export const Produtos = styled.div`
   text-align: center;
 
   div {
-    margin: 1rem 1rem 2rem;
-
     a {
-      margin: 1rem 1rem 2rem;
+      margin: 1rem;
       font-size: 2rem;
       color: orange;
       font-weight: bold;
@@ -352,7 +350,7 @@ export const Produtos = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 0 3rem;
+    margin: 2rem 1rem 3rem;
     background: #fff;
     align-self: center;
     border: 5px solid orange;
@@ -391,6 +389,10 @@ export const Produtos = styled.div`
     font-weight: normal;
     text-align: center;
     margin-bottom: 2rem;
+  }
+
+  h3 {
+    margin: 1rem;
   }
 
   p {
