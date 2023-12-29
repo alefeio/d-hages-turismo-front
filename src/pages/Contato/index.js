@@ -23,7 +23,7 @@ const schema = Yup.object().shape({
 });
 
 export default function Contato() {
-  const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages");
+  const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages. Estou entrando em contato através do site.");
 
   async function handleSubmit({ nome, email, telefone, assunto, mensagem }) {
     try {

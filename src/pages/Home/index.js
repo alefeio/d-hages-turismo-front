@@ -54,7 +54,7 @@ const schema = Yup.object().shape({
 export default function Home() {
   const [banners, setBanners] = useState([]);
   const [produtos, setProdutos] = useState([]);
-  const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages");
+  const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages. Estou entrando em contato através do site.");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [busca, setBusca] = useState('');

@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 
 export default function Pacotes() {
   const [produtos, setProdutos] = useState([]);
-  const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages");
+  const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages. Estou entrando em contato através do site.");
   const [imagem, setImagem] = useState();
   const [query, setQuery] = useState(1);
   const [pageSize, setPageSize] = useState(12);
