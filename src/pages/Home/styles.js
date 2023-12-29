@@ -334,15 +334,17 @@ export const Produtos = styled.div`
   text-align: center;
 
   div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin: 1rem 1rem 2rem;
 
     a {
       margin: 1rem 1rem 2rem;
       font-size: 2rem;
       color: orange;
       font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: repeat(1, 1fr);
     }
   }
 
