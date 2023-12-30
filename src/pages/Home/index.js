@@ -54,6 +54,7 @@ const schema = Yup.object().shape({
 export default function Home() {
   const [banners, setBanners] = useState([]);
   const [produtos, setProdutos] = useState([]);
+  const [depoimentos, setDepoimentos] = useState([]);
   const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages. Estou entrando em contato através do site.");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -75,6 +76,14 @@ export default function Home() {
     console.log(`pacotes: ${JSON.stringify(response.data)}`);
 
     setProdutos(pacotes);
+  }
+
+  async function loadDepoimentos() {
+    const response = await api.get('depoimentos');
+
+    console.log(`depoimentos: ${JSON.stringify(response.data)}`);
+
+    setDepoimentos(response.data);
   }
 
   async function loadBuscaProduto(busca) {
@@ -190,31 +199,19 @@ export default function Home() {
     };
     return (
       <Slider {...settings}>
-        <div>
-          <video controls>
-            <source src={depoimento2} type="video/mp4" />
-            <object data="">
-              <embed src={depoimento2} />
-            </object>
-          </video>
-        </div>
-        <div>
-          <video controls>
-            <source src={depoimento1} type="video/mp4" />
-            <object data="">
-              <embed src={depoimento1} />
-            </object>
-          </video>
-        </div>
-        <div>
-          <video controls>
-            <source src={depoimento3} type="video/mp4" />
-            <object data="">
-              <embed src={depoimento3} />
-            </object>
-          </video>
-        </div>
-      </Slider>
+        {depoimentos.map(depo => (
+          depo.tipo === 'video' &&
+          <div>
+            <video controls>
+              <source src={depo.imagem.url} type="video/mp4" />
+              <object data="">
+                <embed src={depo.imagem.url} />
+              </object>
+            </video>
+          </div>
+        ))
+        }
+      </Slider >
     );
   }
 
@@ -248,36 +245,12 @@ export default function Home() {
     };
     return (
       <Slider {...settings}>
-        <div>
-          <img src={dep1} alt="" />
-        </div>
-        <div>
-          <img src={dep2} alt="" />
-        </div>
-        <div>
-          <img src={dep3} alt="" />
-        </div>
-        <div>
-          <img src={dep4} alt="" />
-        </div>
-        <div>
-          <img src={dep5} alt="" />
-        </div>
-        <div>
-          <img src={dep6} alt="" />
-        </div>
-        <div>
-          <img src={dep7} alt="" />
-        </div>
-        <div>
-          <img src={dep8} alt="" />
-        </div>
-        <div>
-          <img src={dep9} alt="" />
-        </div>
-        <div>
-          <img src={dep10} alt="" />
-        </div>
+        {depoimentos.map((depo) => (
+          depo.tipo === 'foto' &&
+          <div>
+            <img src={depo.imagem.url} alt="" />
+          </div>
+        ))}
       </Slider>
     );
   }
@@ -291,6 +264,7 @@ export default function Home() {
     if (!produtos.length) {
       busca ? loadBuscaProduto(busca) : loadProdutos();
     }
+    !depoimentos.length && loadDepoimentos();
   }, []);
 
   return (

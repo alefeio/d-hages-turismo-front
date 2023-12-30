@@ -141,7 +141,7 @@ export default function AdminPacotes() {
 
   useEffect(() => {
     !produtos.length && loadProdutos();
-  }, [produtos]);
+  }, []);
 
   return (
     <Container>

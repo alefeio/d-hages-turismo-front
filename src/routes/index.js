@@ -24,6 +24,7 @@ import Aeronaves from '../pages/Aeronaves';
 import Contato from '../pages/Contato';
 import AdminPacotes from '~/pages/Dashboard/Pacotes';
 import AdminBanners from '~/pages/Dashboard/Banners';
+import AdminDepoimentos from '~/pages/Dashboard/Depoimentos';
 
 export default function Routes() {
   return (
@@ -47,6 +48,7 @@ export default function Routes() {
       <Route path="/dashboard" component={Dashboard} isPrivate />
       <Route path="/admin/roteiros" component={AdminPacotes} isPrivate />
       <Route path="/admin/banners" component={AdminBanners} isPrivate />
+      <Route path="/admin/depoimentos" component={AdminDepoimentos} isPrivate />
     </Switch>
   );
 }

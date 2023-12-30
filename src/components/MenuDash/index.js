@@ -15,6 +15,11 @@ export default function MenuDash() {
         </Link>
       </li>
       <li>
+        <Link to="/admin/depoimentos">
+          Adm Depoimentos
+        </Link>
+      </li>
+      <li>
         <Link to="/admin/roteiros">
           Adm Roteiros
         </Link>

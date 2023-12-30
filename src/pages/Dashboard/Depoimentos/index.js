@@ -11,22 +11,23 @@ import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 
-export default function AdminBanners() {
+export default function AdminDepoimentos() {
   const [file, setFile] = useState('');
   const [preview, setPreview] = useState('');
   const [produtos, setProdutos] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [tipo, setTipo] = useState('');
 
   async function loadProdutos() {
-    const response = await api.get('banners');
+    const response = await api.get('depoimentos');
 
-    console.log(`banners: ${JSON.stringify(response.data)}`);
+    console.log(`depoimentos: ${JSON.stringify(response.data)}`);
 
     setProdutos(response.data);
   }
 
   async function deleteProdutos(id) {
-    const response = await api.delete(`banner/${id}`);
+    const response = await api.delete(`depoimento/${id}`);
 
     loadProdutos();
   }
@@ -48,19 +49,20 @@ export default function AdminBanners() {
     setLoading(true);
     const newData = data;
     newData.img_id = file;
+    newData.tipo = tipo;
 
     try {
-      await api.post('banner', newData);
+      await api.post('depoimento', newData);
       loadProdutos();
 
       toast.success(
-        'O banner foi criado com sucesso.'
+        'O depoimento foi criado com sucesso.'
       );
 
       setFile('');
       setPreview('');
     } catch (error) {
-      toast.error('Erro ao criar o banner. Tente novamente!');
+      toast.error('Erro ao criar o depoimento. Tente novamente!');
     } finally {
       setLoading(false);
     }
@@ -80,32 +82,47 @@ export default function AdminBanners() {
           </li>
           <li>/</li>
           <li>
-            Admin Banners
+            Admin Depoimentos
           </li>
         </ul>
       </Barra>
       <section id="top">
-        <h2>Administrar Banners</h2>
-        <h3>Inserir novo banner</h3>
+        <h2>Administrar Depoimentos</h2>
+        <h3>Inserir novo depoimento</h3>
         <Form onSubmit={handleSubmit}>
           {preview && <img src={preview} />}
           {/* <AvatarInput name="img_id" /> */}
 
-          <input
-            type="file"
-            id="imagem"
-            data-file={file}
-            onChange={handleFile}
-          />
+          Nome: <Input name="nome" placeholder="Nome do cliente" /><br />
 
-          Título: <Input name="titulo" placeholder="Qual o destino?" />
+          Tipo:<br />
+          <Input type='radio' name="tipo" value='texto' onClick={() => setTipo('texto')} /> Texto<br />
+          <Input type='radio' name="tipo" value='foto' onClick={() => setTipo('foto')} /> Foto<br />
+          <Input type='radio' name="tipo" value='video' onClick={() => setTipo('video')} /> Vídeo<br />
+
+          {(tipo === 'foto' || tipo === 'video') &&
+            <>
+              <input
+                type="file"
+                id="imagem"
+                data-file={file}
+                onChange={handleFile}
+              /><br />
+            </>
+          }
+
+          {tipo === 'texto' &&
+            <>
+              Texto: <Input multiline name="texto" placeholder="Texto do depoimento (opcional)" className='textoDepo' /><br />
+            </>
+          }
 
           <button disabled={loading} type="submit">Salvar</button>
         </Form>
       </section>
       <section>
         <Produtos id="pacotes">
-          <h2>BANNERS</h2>
+          <h2>DEPOIMENTOS</h2>
           <ListaProdutos>
             {produtos.map((p) => (
               <li key={p.id}>
@@ -125,11 +142,13 @@ export default function AdminBanners() {
                       </object>
                     </video>
                   ) : (
-                    <img src={p.imagem.url} alt={p.titulo} />
+                    <img src={p.imagem.url} alt={p.nome} />
                   )
                 }
                 <section>
-                  <h2>{p.titulo}</h2>
+                  <h2>{p.nome}</h2>
+                  <small>{p.tipo}</small>
+                  <p>{p.texto}</p>
                 </section>
                 <Link onClick={() => deleteProdutos(p.id)}>
                   <div>

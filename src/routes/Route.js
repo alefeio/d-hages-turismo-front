@@ -16,7 +16,7 @@ export default function RouteWrapper({
   const { logado } = store.getState().auth;
 
   if (!logado && isPrivate) {
-    return <Redirect to="/" />;
+    return <Redirect to="/login" />;
   }
 
   if (logado && isLogado) {
