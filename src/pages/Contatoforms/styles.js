@@ -39,11 +39,9 @@ export const Barra = styled.div`
 export const ListaPontos = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 5rem;
+  grid-gap: 2rem;
 
   li {
-    display: flex;
-    flex-direction: column;
     border: 1px solid #efefef;
     background: #fff;
     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.3);
@@ -67,19 +65,14 @@ export const ListaPontos = styled.ul`
       font-size: 16px;
       line-height: 20px;
       color: #333;
-      margin-top: 5px;
+      margin-top: 10px;
     }
 
     a {
-      background: #644d25;
-      color: #fff;
+      color: green;
       border: 0;
-      border-radius: 4px;
-      overflow: hidden;
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      transition: background 0.2s;
+      font-weight: bold;
+      /* transition: background 0.2s; */
 
       div {
         display: flex;
@@ -94,9 +87,9 @@ export const ListaPontos = styled.ul`
         font-weight: bold;
       }
 
-      &:hover {
+      /* &:hover {
         background: ${darken(0.07, '#644d25')};
-      }
+      } */
     }
 
     button {

@@ -32,8 +32,21 @@ export default function Contatoforms({ arquivadas }) {
           <>
             <li key={c.id}>
               <strong>Nome:</strong> {c.nome} <br />
-              <strong>Email:</strong> {c.email} <br />
-              <strong>Telefone:</strong> {c.telefone} <br />
+              <strong>Email:</strong>
+              {c.email}
+              <br />
+              <a href={`mailto:${c.email}?bcc=dhagesturismo@gmail.com&subject=D' Hages Turismo - ${c.assunto}&body=Resposta ao seu contato no site D' Hages Turismo. Assunto: ${c.assunto}. Mensagem: ${c.mensagem}`}>Responder e-mail</a>
+              {c.telefone &&
+                <>
+                  <br />
+                  <strong>Telefone:</strong>
+                  {c.telefone}
+                  <br />
+                  <a href={`https://wa.me//55${c.telefone.length === 11 ? c.telefone : `91${c.telefone}`}?text=Resposta ao seu contato no site D' Hages Turismo. Assunto: ${c.assunto}. Mensagem: ${c.mensagem}`} target='_blank'>
+                    Responder WhatsApp
+                  </a>
+                </>}
+              <br />
               <strong>Assunto:</strong> {c.assunto} <br />
               <strong>Mensagem:</strong> {c.mensagem} <br />
               <strong>Data:</strong> {c.createdAt && c.createdAt.split('T')[0].split('-').reverse().join('/')} {c.createdAt && `${c.createdAt.split('T')[1].split(':')[0] === '00' ? '21' : c.createdAt.split('T')[1].split(':')[0] === '01' ? '22' : c.createdAt.split('T')[1].split(':')[0] === '02' ? '23' : String(c.createdAt.split('T')[1].split(':')[0] - 3)}:${String(c.createdAt.split('T')[1].split(':')[1])}`}

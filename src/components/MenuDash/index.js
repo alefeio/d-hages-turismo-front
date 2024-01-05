@@ -1,7 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { logout } from '~/store/modules/auth/actions';
 
 export default function MenuDash() {
+  const dispatch = useDispatch();
+
+  function handleLogout() {
+    dispatch(logout());
+  }
+
   return (
     <ul>
       <li>
@@ -27,6 +36,11 @@ export default function MenuDash() {
       <li>
         <Link to="/dashboard">
           Msgs Contato
+        </Link>
+      </li>
+      <li>
+        <Link onClick={handleLogout}>
+          Sair
         </Link>
       </li>
     </ul>
