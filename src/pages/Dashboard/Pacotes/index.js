@@ -2,16 +2,8 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { MdEdit, MdDelete } from 'react-icons/md';
 
-import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertToRaw, ContentState, convertFromHTML } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
-
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-
-// import { Editor } from '@tinymce/tinymce-react';
 
 import { Container, Banner, Barra, Produtos, ListaProdutos } from './styles';
 import { Link } from 'react-router-dom';
@@ -61,9 +53,6 @@ export default function AdminPacotes() {
     setFile(response.data.imagem.id);
     setPreview(response.data.imagem.url);
 
-    // const raw = EditorState.createWithContent(ContentState.createFromBlockArray(
-    //   convertFromHTML(response.data.descricao)
-    // ));
     setDescricao(response.data.descricao);
     // setProduto(response.data);
     // setImagem(response.data.imagem.url);
@@ -221,12 +210,6 @@ export default function AdminPacotes() {
               console.log('Focus.', editor);
             }}
           />
-
-          {/* <Editor
-            editorState={descricao}
-            editorClassName="editor"
-            onEditorStateChange={handleChange}
-          /> */}
 
           <button disabled={loading} id='salvar' type="submit">{!produtoEdit ? 'Salvar' : 'Editar'}</button>
         </Form>
