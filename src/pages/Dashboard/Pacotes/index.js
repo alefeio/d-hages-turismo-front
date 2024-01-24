@@ -1,8 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { MdEdit, MdDelete } from 'react-icons/md';
 
-import { Editor } from '@tinymce/tinymce-react';
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, convertToRaw, ContentState, convertFromHTML } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+// import { Editor } from '@tinymce/tinymce-react';
 
 import { Container, Banner, Barra, Produtos, ListaProdutos } from './styles';
 import { Link } from 'react-router-dom';
@@ -12,7 +21,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 
 export default function AdminPacotes() {
-  const [descricao, setDescricao] = useState('');
+  const [descricao, setDescricao] = useState('<p></p>');
   const [file, setFile] = useState('');
   const [preview, setPreview] = useState('');
   const [produtos, setProdutos] = useState([]);
@@ -51,6 +60,10 @@ export default function AdminPacotes() {
 
     setFile(response.data.imagem.id);
     setPreview(response.data.imagem.url);
+
+    // const raw = EditorState.createWithContent(ContentState.createFromBlockArray(
+    //   convertFromHTML(response.data.descricao)
+    // ));
     setDescricao(response.data.descricao);
     // setProduto(response.data);
     // setImagem(response.data.imagem.url);
@@ -75,12 +88,10 @@ export default function AdminPacotes() {
     setPreview(url);
   }
 
-  function handleDescricao() {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-      setDescricao(editorRef.current.getContent());
-    }
-  }
+  const handleChange = useCallback((editorState) => {
+    console.log('editorState', editorState);
+    setDescricao(editorState);
+  }, []);
 
   async function handleSubmit(data, { resetForm }) {
     setLoading(true);
@@ -90,7 +101,7 @@ export default function AdminPacotes() {
     newData.parcelas = Number(data.parcelas);
     newData.descricao = descricao;
     newData.img_id = file;
-    console.log(newData);
+    console.log('newData', newData);
 
     try {
       await api.post('pacotes', newData);
@@ -139,6 +150,14 @@ export default function AdminPacotes() {
     }
   }
 
+  function onContentStateChange(contentState) {
+    console.log('contentState', { contentState })
+    console.log('contentState2', contentState)
+    setDescricao({
+      contentState,
+    });
+  };
+
   useEffect(() => {
     !produtos.length && loadProdutos();
   }, []);
@@ -184,24 +203,30 @@ export default function AdminPacotes() {
           Número de parcelas <Input name="parcelas" type="number" placeholder="Quantas parcelas?" />
           <br />
           Descrição:
-          <Editor
-            onInit={(evt, editor) => editorRef.current = editor}
-            apiKey='3c28jqjsc4nmjampvz58xlmn27199hl69pbziip6fiiuuu8n'
-            init={{
-              height: 500,
-              plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
-              toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-              tinycomments_mode: 'embedded',
-              tinycomments_author: 'Author name',
-              mergetags_list: [
-                { value: 'First.Name', title: 'First Name' },
-                { value: 'Email', title: 'Email' },
-              ],
-              ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+
+          <CKEditor
+            editor={ClassicEditor}
+            data={descricao}
+            onReady={editor => {
+              // You can store the "editor" and use when it is needed.
+              console.log('Editor is ready to use!', editor);
             }}
-            initialValue={descricao}
-            onChange={handleDescricao}
+            onChange={(event, editor) => {
+              handleChange(editor.getData());
+            }}
+            onBlur={(event, editor) => {
+              console.log('Blur.', editor);
+            }}
+            onFocus={(event, editor) => {
+              console.log('Focus.', editor);
+            }}
           />
+
+          {/* <Editor
+            editorState={descricao}
+            editorClassName="editor"
+            onEditorStateChange={handleChange}
+          /> */}
 
           <button disabled={loading} id='salvar' type="submit">{!produtoEdit ? 'Salvar' : 'Editar'}</button>
         </Form>

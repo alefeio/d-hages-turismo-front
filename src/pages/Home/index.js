@@ -58,6 +58,8 @@ export default function Home() {
   const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages. Estou entrando em contato através do site.");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [enviado, setEnviado] = useState(false);
+  const [sendNews, setSendNews] = useState(false);
   const [busca, setBusca] = useState('');
 
   async function loadBanners() {
@@ -110,6 +112,8 @@ export default function Home() {
       toast.success(
         'Seu email foi cadastrado com sucesso. Em breve retornaremos.'
       );
+
+      data.nome ? setEnviado(true) : setSendNews(true);
 
       setEmail('');
     } catch (error) {
@@ -282,10 +286,15 @@ export default function Home() {
         </section>
         <section className='news'>
           <p>Acompanhe nossas novidades</p>
-          <Email>
-            <Input name="email" placeholder='Cadastre seu email' value={email} onChange={(e) => setEmail(e.target.value)} />
-            <button disabled={loading} onClick={handleSubmit}>Enviar</button>
-          </Email>
+          {!sendNews ? (
+            <Email>
+              <Input name="email" placeholder='Cadastre seu email' value={email} onChange={(e) => setEmail(e.target.value)} />
+              <button disabled={loading} onClick={handleSubmit}>Enviar</button>
+            </Email>
+          ) : (
+            <h3>Obrigado por se cadastrar!</h3>
+          )
+          }
         </section>
         <SimpleSlider />
       </Banner>
@@ -472,15 +481,23 @@ export default function Home() {
           </p>
           <p>Envie uma mensagem para um de nossos consultores.</p>
         </div>
-        <Form schema={schema} onSubmit={handleSubmit}>
-          <Input name="nome" placeholder="Nome" />
-          <Input name="telefone" placeholder="Telefone" />
-          <Input name="email" type="email" placeholder="E-mail" />
-          <Input name="assunto" placeholder="Assunto" />
-          <Textarea name="mensagem" placeholder="Sua mensagem" />
+        {!enviado ? (
+          <Form schema={schema} onSubmit={handleSubmit}>
+            <Input name="nome" placeholder="Nome" />
+            <Input name="telefone" placeholder="Telefone" />
+            <Input name="email" type="email" placeholder="E-mail" />
+            <Input name="assunto" placeholder="Assunto" />
+            <Textarea name="mensagem" placeholder="Sua mensagem" />
 
-          <button disabled={loading} type="submit">Enviar</button>
-        </Form>
+            <button disabled={loading} type="submit">Enviar</button>
+          </Form>
+        ) : (
+          <div>
+            <h2>Sua mensagem foi enviada com sucesso!</h2>
+            <p>Em breve nossa equipe entrará em contato.</p>
+          </div>
+        )
+        }
         {/* <img src={logo} alt="Logo HCS" /> */}
       </Trabalhe>
     </Container >
