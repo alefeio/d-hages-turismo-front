@@ -62,6 +62,16 @@ export default function Home() {
   const [sendNews, setSendNews] = useState(false);
   const [busca, setBusca] = useState('');
 
+  function removerEspacosEAcentos(texto) {
+    // Remover espaços
+    let textoSemEspacos = texto.replace(/\s/g, '-');
+
+    // Remover acentuações
+    let textoSemAcentos = textoSemEspacos.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    return textoSemAcentos.toLowerCase();
+  }
+
   async function loadBanners() {
     const response = await api.get('banners');
 
@@ -75,9 +85,15 @@ export default function Home() {
 
     const { pacotes } = response.data;
 
+    const newPacotes = pacotes.map(pacote => {
+      pacote.url = removerEspacosEAcentos(pacote.nome);
+
+      return pacote;
+    })
+
     console.log(`pacotes: ${JSON.stringify(response.data)}`);
 
-    setProdutos(pacotes);
+    setProdutos(newPacotes);
   }
 
   async function loadDepoimentos() {
@@ -363,7 +379,7 @@ export default function Home() {
         <ListaProdutos>
           {produtos.map((p) => (
             <li key={p.id}>
-              <Link to={`roteiros/${p.id}`}>
+              <Link to={`roteiros/${p.url}/${p.id}`}>
                 <img src={p.imagem.url} alt={p.nome} />
               </Link>
               <section>
@@ -374,7 +390,7 @@ export default function Home() {
                 <small>À vista: R$ {p.valoravista}</small><br />
                 {p.valoraprazo && <small>{p.parcelas}x no cartão: R$ {p.valoraprazo}</small>}
               </section>
-              <Link to={`roteiros/${p.id}`}>
+              <Link to={`roteiros/${p.url}/${p.id}`}>
                 <div>
                   <MdAdd size={16} color="#FFF" />
                   <span>Informações</span>
