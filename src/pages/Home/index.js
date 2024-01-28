@@ -61,6 +61,7 @@ export default function Home() {
   const [enviado, setEnviado] = useState(false);
   const [sendNews, setSendNews] = useState(false);
   const [busca, setBusca] = useState('');
+  const [dominio, setDominio] = useState('');
 
   function removerEspacosEAcentos(texto) {
     // Remover espaços
@@ -81,7 +82,7 @@ export default function Home() {
   }
 
   async function loadProdutos() {
-    const response = await api.get('pacotes');
+    const response = await api.get(`pacotes?client=${dominio}`);
 
     const { pacotes } = response.data;
 
@@ -285,6 +286,22 @@ export default function Home() {
       busca ? loadBuscaProduto(busca) : loadProdutos();
     }
     !depoimentos.length && loadDepoimentos();
+  }, []);
+
+  useEffect(() => {
+    // Extrair o domínio automaticamente da URL da página
+    const extrairDominioDaURLAtual = () => {
+      try {
+        const urlObj = new URL(window.location.href);
+        setDominio(urlObj.hostname.split('.')[0]);
+      } catch (error) {
+        console.error('Erro ao extrair o domínio da URL atual');
+        setDominio('');
+      }
+    };
+
+    // Chamar a função ao montar o componente
+    extrairDominioDaURLAtual();
   }, []);
 
   return (
