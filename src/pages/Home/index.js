@@ -283,10 +283,10 @@ export default function Home() {
   useEffect(() => {
     !banners.length && loadBanners();
     if (!produtos.length) {
-      busca ? loadBuscaProduto(busca) : loadProdutos();
+      busca ? loadBuscaProduto(busca) : dominio && loadProdutos();
     }
     !depoimentos.length && loadDepoimentos();
-  }, []);
+  }, [dominio]);
 
   useEffect(() => {
     // Extrair o domínio automaticamente da URL da página
