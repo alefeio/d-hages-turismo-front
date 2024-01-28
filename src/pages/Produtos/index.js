@@ -54,7 +54,7 @@ export default function Pacotes() {
   }
 
   async function loadBuscaProduto(busca) {
-    const response = await api.get(`busca?page=1&busca=${busca}`);
+    const response = await api.get(`busca?client=${dominio}&page=1&busca=${busca}`);
 
     const { produtos, total } = response.data;
 

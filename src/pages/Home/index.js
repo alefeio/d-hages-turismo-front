@@ -97,20 +97,20 @@ export default function Home() {
     setProdutos(newPacotes);
   }
 
+  async function loadBuscaProduto(busca) {
+    const response = await api.get(`busca?client=${dominio}&page=1&busca=${busca}`);
+
+    const { produtos, total } = response.data;
+
+    setProdutos(produtos);
+  }
+
   async function loadDepoimentos() {
     const response = await api.get('depoimentos');
 
     console.log(`depoimentos: ${JSON.stringify(response.data)}`);
 
     setDepoimentos(response.data);
-  }
-
-  async function loadBuscaProduto(busca) {
-    const response = await api.get(`busca?page=1&busca=${busca}`);
-
-    const { produtos, total } = response.data;
-
-    setProdutos(produtos);
   }
 
   async function handleSubmit(data = {}) {
