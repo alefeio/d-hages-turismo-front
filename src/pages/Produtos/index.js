@@ -19,6 +19,16 @@ export default function Pacotes() {
   const [nextPage, setNextPage] = useState(false);
   const [busca, setBusca] = useState('');
 
+  function removerEspacosEAcentos(texto) {
+    // Remover espaços
+    let textoSemEspacos = texto.replace(/\s/g, '-');
+
+    // Remover acentuações
+    let textoSemAcentos = textoSemEspacos.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    return textoSemAcentos.toLowerCase();
+  }
+
   async function loadProdutos() {
     const response = await api.get(`pacotes?page=${query}`);
 
@@ -26,8 +36,14 @@ export default function Pacotes() {
 
     const totalPage = Math.ceil(total / pageSize);
 
+    const newPacotes = pacotes.map(pacote => {
+      pacote.url = removerEspacosEAcentos(pacote.nome);
+
+      return pacote;
+    })
+
     setImagem(pacotes[0]?.imagem.url);
-    setProdutos(pacotes);
+    setProdutos(newPacotes);
     setTotalCount(total);
 
     if (query < totalPage) setNextPage(true);
@@ -91,7 +107,7 @@ export default function Pacotes() {
           <ListaProdutos>
             {produtos.map((p) => (
               <li key={p.id}>
-                <Link to={`roteiros/${p.id}`}>
+                <Link to={`roteiros/${p.url}/${p.id}`}>
                   <img src={p.imagem.url} alt={p.nome} />
                 </Link>
                 <section>
@@ -102,7 +118,7 @@ export default function Pacotes() {
                   <p>À vista: R$ {p.valoravista}</p>
                   {p.valoraprazo && <p>{p.parcelas}x no cartão: R$ {p.valoraprazo}</p>}
                 </section>
-                <Link to={`roteiros/${p.id}`}>
+                <Link to={`roteiros/${p.url}/${p.id}`}>
                   <div>
                     <MdAdd size={16} color="#FFF" />
                     <span>Informações</span>

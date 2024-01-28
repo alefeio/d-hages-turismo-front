@@ -28,6 +28,7 @@ export default function Pacote(props) {
   const [viewFormReserva, setViewFormReserva] = useState(false);
   const [reservado, setReservado] = useState(false);
 
+  const nome = props.match.params.nome;
   const id = props.match.params.id;
 
   function logit() {
@@ -57,7 +58,7 @@ export default function Pacote(props) {
 
   async function loadProduto() {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    const response = await api.get(`pacotes/${id}`);
+    const response = await api.get(`pacotes/${nome}/${id}`);
 
     console.log(response.data);
     setProduto(response.data);
