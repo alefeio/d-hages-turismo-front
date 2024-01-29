@@ -21,11 +21,12 @@ export default function AdminPacotes() {
   const [initialData, setInitialData] = useState({});
   const [produtoEdit, setProdutoEdit] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [dominio, setDominio] = useState('');
 
   const editorRef = useRef(null);
 
   async function loadProdutos() {
-    const response = await api.get('todas');
+    const response = await api.get(`todas?client=${dominio}`);
 
     const { pacotes } = response.data;
 
@@ -37,7 +38,7 @@ export default function AdminPacotes() {
   async function loadProduto(id, edit = true) {
     edit && setProdutoEdit(id);
 
-    const response = await api.get(`pacotes/${id}`);
+    const response = await api.get(`pacotes/nome/${id}`);
 
     console.log(response.data);
 
@@ -90,6 +91,7 @@ export default function AdminPacotes() {
     newData.parcelas = Number(data.parcelas);
     newData.descricao = descricao;
     newData.img_id = file;
+    newData.client = dominio;
     console.log('newData', newData);
 
     try {
@@ -118,7 +120,8 @@ export default function AdminPacotes() {
     newData.valoraprazo = Number(data.valoraprazo);
     newData.parcelas = Number(data.parcelas);
     newData.descricao = descricao;
-    newData.img_id = file
+    newData.img_id = file;
+    newData.client = dominio;
     console.log(newData);
 
     try {
@@ -149,6 +152,22 @@ export default function AdminPacotes() {
 
   useEffect(() => {
     !produtos.length && loadProdutos();
+  }, [dominio]);
+
+  useEffect(() => {
+    // Extrair o domínio automaticamente da URL da página
+    const extrairDominioDaURLAtual = () => {
+      try {
+        const urlObj = new URL(window.location.href);
+        setDominio(urlObj.hostname.split('.')[0]);
+      } catch (error) {
+        console.error('Erro ao extrair o domínio da URL atual');
+        setDominio('');
+      }
+    };
+
+    // Chamar a função ao montar o componente
+    extrairDominioDaURLAtual();
   }, []);
 
   return (

@@ -24,6 +24,7 @@ const schema = Yup.object().shape({
 
 export default function Contato() {
   const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages. Estou entrando em contato através do site.");
+  const [dominio, setDominio] = useState('');
 
   async function handleSubmit({ nome, email, telefone, assunto, mensagem }) {
     try {
@@ -33,6 +34,7 @@ export default function Contato() {
         telefone,
         assunto,
         mensagem,
+        client: dominio
       });
 
       toast.success(
@@ -46,6 +48,22 @@ export default function Contato() {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, [])
+
+  useEffect(() => {
+    // Extrair o domínio automaticamente da URL da página
+    const extrairDominioDaURLAtual = () => {
+      try {
+        const urlObj = new URL(window.location.href);
+        setDominio(urlObj.hostname.split('.')[0]);
+      } catch (error) {
+        console.error('Erro ao extrair o domínio da URL atual');
+        setDominio('');
+      }
+    };
+
+    // Chamar a função ao montar o componente
+    extrairDominioDaURLAtual();
+  }, []);
 
   return (
     <Container>

@@ -124,6 +124,7 @@ export default function Home() {
         telefone: data.telefone ? data.telefone : "",
         assunto: data.assunto ? data.assunto : "Newsletter",
         mensagem: data.mensagem ? data.mensagem : "Acompanhar as novidades sobre os roteiros da D' Hages",
+        client: dominio
       });
 
       toast.success(
