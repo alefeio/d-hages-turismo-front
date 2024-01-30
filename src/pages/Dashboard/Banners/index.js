@@ -10,15 +10,17 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
+import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 
 export default function AdminBanners() {
   const [file, setFile] = useState('');
   const [preview, setPreview] = useState('');
   const [produtos, setProdutos] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [dominio, setDominio] = useState('');
 
   async function loadProdutos() {
-    const response = await api.get('banners');
+    const response = await api.get(`banners?client=${dominio}`);
 
     console.log(`banners: ${JSON.stringify(response.data)}`);
 
@@ -48,6 +50,7 @@ export default function AdminBanners() {
     setLoading(true);
     const newData = data;
     newData.img_id = file;
+    newData.client = dominio;
 
     try {
       await api.post('banner', newData);
@@ -68,6 +71,11 @@ export default function AdminBanners() {
 
   useEffect(() => {
     !produtos.length && loadProdutos();
+  }, [dominio]);
+
+  useEffect(() => {
+    // Chamar a função ao montar o componente
+    setDominio(extrairDominioDaURLAtual());
   }, []);
 
   return (

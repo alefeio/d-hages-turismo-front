@@ -8,6 +8,7 @@ import wpp from '~/assets/wpp.png';
 
 import { Container, Barra, ListaProdutos, Banner, WhatsApp, Produtos } from './styles';
 import { Helmet } from 'react-helmet';
+import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 
 export default function Pacotes() {
   const [produtos, setProdutos] = useState([]);
@@ -74,19 +75,8 @@ export default function Pacotes() {
   }, [query, dominio]);
 
   useEffect(() => {
-    // Extrair o domínio automaticamente da URL da página
-    const extrairDominioDaURLAtual = () => {
-      try {
-        const urlObj = new URL(window.location.href);
-        setDominio(urlObj.hostname.split('.')[0]);
-      } catch (error) {
-        console.error('Erro ao extrair o domínio da URL atual');
-        setDominio('');
-      }
-    };
-
     // Chamar a função ao montar o componente
-    extrairDominioDaURLAtual();
+    setDominio(extrairDominioDaURLAtual());
   }, []);
 
   return (

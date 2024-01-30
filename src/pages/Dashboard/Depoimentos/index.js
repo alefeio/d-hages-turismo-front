@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
+import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 
 export default function AdminDepoimentos() {
   const [file, setFile] = useState('');
@@ -17,9 +18,10 @@ export default function AdminDepoimentos() {
   const [produtos, setProdutos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [tipo, setTipo] = useState('');
+  const [dominio, setDominio] = useState('');
 
   async function loadProdutos() {
-    const response = await api.get('depoimentos');
+    const response = await api.get(`depoimentos?client=${dominio}`);
 
     console.log(`depoimentos: ${JSON.stringify(response.data)}`);
 
@@ -50,6 +52,7 @@ export default function AdminDepoimentos() {
     const newData = data;
     newData.img_id = file;
     newData.tipo = tipo;
+    newData.client = dominio;
 
     try {
       await api.post('depoimento', newData);
@@ -70,6 +73,11 @@ export default function AdminDepoimentos() {
 
   useEffect(() => {
     !produtos.length && loadProdutos();
+  }, [dominio]);
+
+  useEffect(() => {
+    // Chamar a função ao montar o componente
+    setDominio(extrairDominioDaURLAtual());
   }, []);
 
   return (

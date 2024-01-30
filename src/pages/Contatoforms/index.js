@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '~/services/api';
 
 import { Container, Barra, ListaPontos, Banner } from './styles';
+import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 
 export default function Contatoforms({ arquivadas }) {
   const [contatos, setContatos] = useState([]);
@@ -27,19 +28,8 @@ export default function Contatoforms({ arquivadas }) {
   }, [arquivadas, dominio]);
 
   useEffect(() => {
-    // Extrair o domínio automaticamente da URL da página
-    const extrairDominioDaURLAtual = () => {
-      try {
-        const urlObj = new URL(window.location.href);
-        setDominio(urlObj.hostname.split('.')[0]);
-      } catch (error) {
-        console.error('Erro ao extrair o domínio da URL atual');
-        setDominio('');
-      }
-    };
-
     // Chamar a função ao montar o componente
-    extrairDominioDaURLAtual();
+    setDominio(extrairDominioDaURLAtual());
   }, []);
 
   return (

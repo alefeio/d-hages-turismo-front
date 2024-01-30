@@ -42,6 +42,7 @@ import {
   Trabalhe
 } from './styles';
 import { Helmet } from 'react-helmet';
+import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
@@ -74,7 +75,7 @@ export default function Home() {
   }
 
   async function loadBanners() {
-    const response = await api.get('banners');
+    const response = await api.get(`banners?client=${dominio}`);
 
     console.log(`banners: ${JSON.stringify(response.data)}`);
 
@@ -106,7 +107,7 @@ export default function Home() {
   }
 
   async function loadDepoimentos() {
-    const response = await api.get('depoimentos');
+    const response = await api.get(`depoimentos?client=${dominio}`);
 
     console.log(`depoimentos: ${JSON.stringify(response.data)}`);
 
@@ -290,19 +291,8 @@ export default function Home() {
   }, [dominio]);
 
   useEffect(() => {
-    // Extrair o domínio automaticamente da URL da página
-    const extrairDominioDaURLAtual = () => {
-      try {
-        const urlObj = new URL(window.location.href);
-        setDominio(urlObj.hostname.split('.')[0]);
-      } catch (error) {
-        console.error('Erro ao extrair o domínio da URL atual');
-        setDominio('');
-      }
-    };
-
     // Chamar a função ao montar o componente
-    extrairDominioDaURLAtual();
+    setDominio(extrairDominioDaURLAtual());
   }, []);
 
   return (
