@@ -152,7 +152,7 @@ export default function AdminPacotes() {
   };
 
   useEffect(() => {
-    !produtos.length && loadProdutos();
+    !produtos.length && dominio && loadProdutos();
   }, [dominio]);
 
   useEffect(() => {

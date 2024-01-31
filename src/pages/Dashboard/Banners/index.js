@@ -70,7 +70,7 @@ export default function AdminBanners() {
   }
 
   useEffect(() => {
-    !produtos.length && loadProdutos();
+    !produtos.length && dominio && loadProdutos();
   }, [dominio]);
 
   useEffect(() => {

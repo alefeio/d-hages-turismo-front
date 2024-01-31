@@ -72,7 +72,7 @@ export default function AdminDepoimentos() {
   }
 
   useEffect(() => {
-    !produtos.length && loadProdutos();
+    !produtos.length && dominio && loadProdutos();
   }, [dominio]);
 
   useEffect(() => {

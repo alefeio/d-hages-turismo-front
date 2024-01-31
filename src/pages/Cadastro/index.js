@@ -25,9 +25,10 @@ export default function Cadastro() {
 
   return (
     <>
-      <img src={logo} alt="Brazilian Black Pepper" />
 
       <Form schema={schema} onSubmit={handleSubmit}>
+        <img src={logo} alt="Brazilian Black Pepper" />
+        <br />
         <Input name="nome" placeholder="Seu nome" />
         <Input name="email" type="email" placeholder="Seu e-mail" />
         <Input name="password" type="password" placeholder="Sua senha" />

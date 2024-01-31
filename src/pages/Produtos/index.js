@@ -71,7 +71,7 @@ export default function Pacotes() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    busca ? loadBuscaProduto(busca) : dominio && loadProdutos();
+    busca ? dominio && loadBuscaProduto(busca) : dominio && loadProdutos();
   }, [query, dominio]);
 
   useEffect(() => {

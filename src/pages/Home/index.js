@@ -285,7 +285,7 @@ export default function Home() {
   useEffect(() => {
     !banners.length && dominio && loadBanners();
     if (!produtos.length) {
-      busca ? loadBuscaProduto(busca) : dominio && loadProdutos();
+      busca ? dominio && loadBuscaProduto(busca) : dominio && loadProdutos();
     }
     !depoimentos.length && dominio && loadDepoimentos();
   }, [dominio]);

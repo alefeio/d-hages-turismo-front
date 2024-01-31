@@ -24,7 +24,7 @@ export default function Contatoforms({ arquivadas }) {
   }
 
   useEffect(() => {
-    loadContatos();
+    dominio && loadContatos();
   }, [arquivadas, dominio]);
 
   useEffect(() => {
