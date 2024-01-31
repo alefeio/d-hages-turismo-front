@@ -283,11 +283,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    !banners.length && loadBanners();
+    !banners.length && dominio && loadBanners();
     if (!produtos.length) {
       busca ? loadBuscaProduto(busca) : dominio && loadProdutos();
     }
-    !depoimentos.length && loadDepoimentos();
+    !depoimentos.length && dominio && loadDepoimentos();
   }, [dominio]);
 
   useEffect(() => {
