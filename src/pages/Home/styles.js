@@ -2,6 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
 
 import porque from '~/assets/home/onibus.jpg';
+import sorrisos from '~/assets/sorrisos.jpeg';
 
 export const Container = styled.div`
   background: #fff;
@@ -15,7 +16,7 @@ const breatheAnimation = keyframes`
 
 export const Banner = styled.div`
   width: 100%;
-  height: 100vh;
+  height: ${({client}) => client === 'dhagesturismo' ? '100vh' : client === 'iopa' ? '50vh' : '50vh'};
   position: relative;
   overflow: hidden !important;
 
@@ -74,7 +75,7 @@ export const Banner = styled.div`
     img {
       height: 100%;
       width: 100%;
-      animation-name: ${breatheAnimation};
+      animation-name: ${({client}) => client === 'dhagesturismo' ? breatheAnimation : ''};
       animation-duration: 12s;
       animation-direction: alternate;
       animation-iteration-count: infinite;
@@ -173,7 +174,7 @@ export const Quemsomos = styled.div`
   ul {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 5rem;
     padding-left: 1rem;
     margin-top: 3rem;
@@ -197,11 +198,13 @@ export const Quemsomos = styled.div`
     gap: 5rem;
 
     section {
-      width: 20%;
+      width: ${({client}) => client === 'dhagesturismo' ? '20%' : '40%'};
+      text-align: center;
 
       img {
         width: 100%;
         border-radius: 0 50px;
+        margin: 1rem 0;
       }
 
       video {
@@ -290,7 +293,7 @@ export const Depoimentos = styled.div`
       color: #ffd873;
       font-size: 2rem;
       font-weight: normal;
-      margin-top: 5rem;
+      margin: 5rem 0;
     }
 
     div {
@@ -403,13 +406,13 @@ export const Produtos = styled.div`
 
 export const ListaProdutos = styled.ul`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(${({client}) => client === 'dhagesturismo' ? 4 : 3}, 1fr);
   grid-gap: 7rem;
   text-align: left;
 
   li {
     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.3);
-    border-radius: 2rem;
+    border-radius: ${({client}) => client === 'dhagesturismo' ? '2rem' : '1rem'};
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -433,7 +436,7 @@ export const ListaProdutos = styled.ul`
         margin: 2rem;
         text-align: center;
         font-weight: bold;
-        color: orange
+        color: ${({client}) => client === 'dhagesturismo' ? 'orange' : '#333'};
       }
 
       h3 {
@@ -443,14 +446,14 @@ export const ListaProdutos = styled.ul`
     }
 
     a {
-      background: #000;
-      color: #fff;
+      background: ${({client}) => client === 'dhagesturismo' ? '#000' : '#aee7cf'};
+      color: ${({client}) => client === 'dhagesturismo' ? '#fff' : '#555'};
       border: 0;
       overflow: hidden;
       margin-top: auto;
       display: flex;
       align-items: center;
-      border-radius: 2rem;
+      border-radius: ${({client}) => client === 'dhagesturismo' ? '2rem' : '0'};
 
       img {
         width: 100%;
@@ -473,7 +476,8 @@ export const ListaProdutos = styled.ul`
       }
 
       &:hover {
-        background: ${darken(0.07, '#000')};
+        background: ${({client}) => client === 'dhagesturismo' ? darken(0.3, '#fff') : darken(0.3, '#aee7cf')};
+        color: #fff;
       }
     }
   }
@@ -490,7 +494,7 @@ export const ListaProdutos = styled.ul`
 
 
 export const Porque = styled.div`
-  background: url(${porque}) center center no-repeat;
+  background: url(${({client}) => client === 'dhagesturismo' ? porque : sorrisos}) center center no-repeat;
   background-size: cover;
   height: 100vh;
   display: flex;
@@ -555,11 +559,11 @@ export const Trabalhe = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  background: #000;
+  background: ${({client}) => client === 'dhagesturismo' ? '#000' : darken(0.3, '#aee7cf')};
   padding: 10rem;
 
   h2, p {
-    color: #fff;
+    color: ${({client}) => client === 'dhagesturismo' ? '#fff' : darken(0.7, '#aee7cf')};
   }
 
   form {
@@ -603,7 +607,7 @@ export const Trabalhe = styled.div`
 
     button {
       height: 44px;
-      background: #333;
+      background: ${({client}) => client === 'dhagesturismo' ? '#333' : darken(0.4, '#aee7cf')};
       font-weight: bold;
       color: #fff;
       border: 0;
@@ -611,7 +615,7 @@ export const Trabalhe = styled.div`
       transition: background 0.2s;
 
       &:hover {
-        background: ${darken(0.2, '#333')};
+        background: ${darken(0.5, '#aee7cf')};
       }
     }
 

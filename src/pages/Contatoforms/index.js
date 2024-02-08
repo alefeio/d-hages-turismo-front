@@ -42,14 +42,14 @@ export default function Contatoforms({ arquivadas }) {
               <strong>Email:</strong>
               {c.email}
               <br />
-              <a href={`mailto:${c.email}?bcc=dhagesturismo@gmail.com&subject=D' Hages Turismo - ${c.assunto}&body=Resposta ao seu contato no site D' Hages Turismo. Assunto: ${c.assunto}. Mensagem: ${c.mensagem}`}>Responder e-mail</a>
+              <a href={`mailto:${c.email}?bcc=${dominio === 'dhagesturismo' ? 'dhagesturismo@gmail.com' : 'contato@iopa.com.br'}&subject=${dominio === 'dhagesturismo' ? "D' Hages Turismo" : 'Site IOPA'} - ${c.assunto}&body=Resposta ao seu contato no site. Assunto: ${c.assunto}. Mensagem: ${c.mensagem}`}>Responder e-mail</a>
               {c.telefone &&
                 <>
                   <br />
                   <strong>Telefone:</strong>
                   {c.telefone}
                   <br />
-                  <a href={`https://wa.me//55${c.telefone.length === 11 ? c.telefone : `91${c.telefone}`}?text=Resposta ao seu contato no site D' Hages Turismo. Assunto: ${c.assunto}. Mensagem: ${c.mensagem}`} target='_blank'>
+                  <a href={`https://wa.me//55${c.telefone.length === 11 ? c.telefone : `91${c.telefone}`}?text=Resposta ao seu contato no site ${dominio === 'dhagesturismo' ? "D' Hages Turismo" : 'IOPA'}. Assunto: ${c.assunto}. Mensagem: ${c.mensagem}`} target='_blank'>
                     Responder WhatsApp
                   </a>
                 </>}

@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
+import { useSelector } from 'react-redux';
 
 export default function AdminDepoimentos() {
   const [file, setFile] = useState('');
@@ -19,6 +20,8 @@ export default function AdminDepoimentos() {
   const [loading, setLoading] = useState(false);
   const [tipo, setTipo] = useState('');
   const [dominio, setDominio] = useState('');
+
+  const perfil = useSelector((state) => state.usuario.perfil);
 
   async function loadProdutos() {
     const response = await api.get(`depoimentos?client=${dominio}`);
@@ -52,7 +55,7 @@ export default function AdminDepoimentos() {
     const newData = data;
     newData.img_id = file;
     newData.tipo = tipo;
-    newData.client = dominio;
+    newData.client = perfil.email.split('@')[1].split('.')[0];
 
     try {
       await api.post('depoimento', newData);

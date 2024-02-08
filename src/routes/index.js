@@ -25,6 +25,8 @@ import Contato from '../pages/Contato';
 import AdminPacotes from '~/pages/Dashboard/Pacotes';
 import AdminBanners from '~/pages/Dashboard/Banners';
 import AdminDepoimentos from '~/pages/Dashboard/Depoimentos';
+import AdminServicos from '~/pages/Dashboard/Servicos';
+import Servico from '~/pages/Servico';
 
 export default function Routes() {
   return (
@@ -35,6 +37,7 @@ export default function Routes() {
       <Route path="/sobre" exact component={Sobre} />
       <Route path="/busca" component={Busca} />
       <Route path="/roteiros/:nome/:id" component={Produto} />
+      <Route path="/servicos/:nome/:id" component={Servico} />
       <Route path="/taxiaereo" component={Taxiaereo} />
       <Route path="/blog" exact component={Blog} />
       <Route path="/blog/:id" component={Blog} />
@@ -47,6 +50,7 @@ export default function Routes() {
       <Route path="/perfil" component={Perfil} isPrivate />
       <Route path="/dashboard" component={Dashboard} isPrivate />
       <Route path="/admin/roteiros" component={AdminPacotes} isPrivate />
+      <Route path="/admin/servicos" component={AdminServicos} isPrivate />
       <Route path="/admin/banners" component={AdminBanners} isPrivate />
       <Route path="/admin/depoimentos" component={AdminDepoimentos} isPrivate />
     </Switch>

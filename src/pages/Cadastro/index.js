@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
 import logo from '~/assets/logo.png';
+import logoIopa from '~/assets/logo-iopa.png';
 
 import { cadastroRequest } from '~/store/modules/auth/actions';
+import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
@@ -18,16 +20,29 @@ const schema = Yup.object().shape({
 
 export default function Cadastro() {
   const dispatch = useDispatch();
+  const [dominio, setDominio] = useState('');
 
   function handleSubmit({ nome, email, password }) {
     dispatch(cadastroRequest(nome, email, password));
   }
 
+  useEffect(() => {
+    // Chamar a função ao montar o componente
+    setDominio(extrairDominioDaURLAtual());
+  }, []);
+
   return (
     <>
 
       <Form schema={schema} onSubmit={handleSubmit}>
-        <img src={logo} alt="Brazilian Black Pepper" />
+        {dominio === 'dhagesturismo' ? (
+          <img src={logo} alt="Logomarca da agência D' Hages Turismo" />
+        ) : dominio === 'iopa' ? (
+          <img src={logoIopa} alt="IOPA" />
+        ) : (
+          <></>
+        )
+        }
         <br />
         <Input name="nome" placeholder="Seu nome" />
         <Input name="email" type="email" placeholder="Seu e-mail" />

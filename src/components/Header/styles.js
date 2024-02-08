@@ -16,11 +16,10 @@ export const Img = styled.img`
 export const Container = styled.div`
   padding: 1rem;
   background: ${(props) => props.bgMenu};
-  position: relative;
   position: ${(props) => props.viewMenu};
   width: 100%;
   margin: auto !important;
-  z-index: 10000000000000000000000000000000000000000000000000000000000000;
+  z-index: 1000;
 `;
 
 export const Content = styled.div`
@@ -34,8 +33,10 @@ export const Content = styled.div`
 
   a {
     img {
-      max-height: ${(props) => props.bgMenu === 'transparent' ? '90px' : '40px'};
-      max-width: ${(props) => props.bgMenu === 'transparent' ? '90px' : '40px'};
+      background: ${({ client }) => client === 'iopa' ? '#fff' : 'transparent'};
+      padding: ${({ client }) => client === 'iopa' ? '.5rem 1rem' : '0'};
+      border-radius: ${({ client }) => client === 'iopa' ? '10px' : '0'};
+      max-width: ${(props) => props.bgMenu === 'transparent' ? props.client === 'iopa' ? '150px' : '90px' : props.client === 'iopa' ? '90px' : '40px'};
       margin-right: 50px;
     }
   }
@@ -61,7 +62,7 @@ export const Nav = styled.nav`
   ul li a {
     font-size: 16px;
     font-weight: bold;
-    color: #fff;
+    color: ${({ client, bgMenu }) => client === 'iopa' ? '#333' : '#fff'};
     margin: 1rem;
     padding: 1rem;
     transition: 0.2s;

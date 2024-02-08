@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { darken } from 'polished';
+import { darken, rgba } from 'polished';
 
 export const Wrapper = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #000;
+  background: ${({client}) => client === 'dhagesturismo' ? '#000' : '#fff'};
 `;
 
 export const Content = styled.div`
@@ -20,7 +20,7 @@ export const Content = styled.div`
     margin-top: 30px;
 
     input {
-      background: rgba(255, 255, 255, 0.1);
+      background: ${({client}) => client === 'dhagesturismo' ? rgba(255, 255, 255, 0.1) : rgba(0, 0, 0, 0.5)};
       border: 0;
       border-radius: 4px;
       height: 44px;
@@ -29,7 +29,7 @@ export const Content = styled.div`
       margin: 0 0 10px;
 
       &::placeholder {
-        color: rgba(255, 255, 255, 0.7);
+        color: rgba(255, 255, 255, 0.9);
       }
     }
 

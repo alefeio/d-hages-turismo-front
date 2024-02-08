@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 
-export default function AdminPacotes() {
+export default function AdminServicos() {
   const [descricao, setDescricao] = useState('<p></p>');
   const [file, setFile] = useState('');
   const [preview, setPreview] = useState('');
@@ -31,7 +31,7 @@ export default function AdminPacotes() {
   const editorRef = useRef(null);
 
   async function loadProdutos() {
-    const response = await api.get(`todas?client=${dominio}`);
+    const response = await api.get(`servicos?client=${dominio}`);
 
     const { pacotes } = response.data;
 
@@ -43,7 +43,7 @@ export default function AdminPacotes() {
   async function loadProduto(id, edit = true) {
     edit && setProdutoEdit(id);
 
-    const response = await api.get(`pacotes/nome/${id}`);
+    const response = await api.get(`servicos/nome/${id}`);
 
     console.log(response.data);
 
@@ -65,7 +65,7 @@ export default function AdminPacotes() {
   }
 
   async function deleteProdutos(id) {
-    const response = await api.delete(`pacotes/${id}`);
+    const response = await api.delete(`servicos/${id}`);
 
     loadProdutos();
   }
@@ -91,18 +91,13 @@ export default function AdminPacotes() {
   async function handleSubmit(data, { resetForm }) {
     setLoading(true);
     const newData = data;
-    newData.valoravista = dominio === 'iopa' ? 0 : Number(data.valoravista);
-    newData.valoraprazo = dominio === 'iopa' ? 0 : Number(data.valoraprazo);
-    newData.parcelas = dominio === 'iopa' ? 0 : Number(data.parcelas);
-    if (dominio === 'iopa') newData.saida = new Date();
-    if (dominio === 'iopa') newData.retorno = new Date();
     newData.descricao = descricao;
     newData.img_id = file;
     newData.client = perfil.email.split('@')[1].split('.')[0];
     console.log('newData', newData);
 
     try {
-      await api.post('pacotes', newData);
+      await api.post('servicos', newData);
       loadProdutos();
 
       toast.success(
@@ -134,7 +129,7 @@ export default function AdminPacotes() {
     console.log(newData);
 
     try {
-      await api.put(`pacotes/${produtoEdit}`, newData);
+      await api.put(`servicos/${produtoEdit}`, newData);
       loadProdutos();
 
       toast.success(
@@ -177,12 +172,12 @@ export default function AdminPacotes() {
             <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>/</li>
-          <li>Admin Roteiros</li>
+          <li>Admin Serviços</li>
         </ul>
       </Barra>
       <section id="top">
         <h2>Administrar Serviços</h2>
-        {!produtoEdit ? <h3>Inserir novo pacote</h3> : <h3>Editar pacote</h3>}
+        {!produtoEdit ? <h3>Inserir novo serviço</h3> : <h3>Editar serviço</h3>}
         <Form onSubmit={!produtoEdit ? handleSubmit : handleUpdate} initialData={initialData}>
           {preview && <img src={preview} />}
           {/* <AvatarInput name="img_id" /> */}
@@ -195,16 +190,6 @@ export default function AdminPacotes() {
           />
 
           Nome: <Input name="nome" placeholder="Qual o destino?" />
-          <br />
-          Data saída: <Input name="saida" type="date" placeholder="Data saída" />
-          <br />
-          Data retorno: <Input name="retorno" type="date" placeholder="Data retorno" />
-          <br />
-          Valor à vista <Input name="valoravista" type="number" placeholder="Apenas números" />
-          <br />
-          Valor a prazo <Input name="valoraprazo" type="number" placeholder="Apenas números" />
-          <br />
-          Número de parcelas <Input name="parcelas" type="number" placeholder="Quantas parcelas?" />
           <br />
           Descrição:
 
@@ -231,7 +216,7 @@ export default function AdminPacotes() {
       </section>
       <section>
         <Produtos id="pacotes">
-          <h2>Roteiros</h2>
+          <h2>Serviços</h2>
           <ListaProdutos>
             {produtos.map((p) => (
               <li key={p.id}>
@@ -240,11 +225,6 @@ export default function AdminPacotes() {
                 </Link>
                 <section>
                   <h2>{p.nome}</h2>
-                  <h3>Saída: {p.saida.split('T')[0].split('-').reverse().join('/')}</h3>
-                  <h3>Retorno: {p.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
-                  <h3>Valor por pessoa:</h3>
-                  <p>À vista: R$ {p.valoravista}</p>
-                  {p.valoraprazo && <p>{p.parcelas}x no cartão: R$ {p.valoraprazo}</p>}
                 </section>
                 <a href='#top' onClick={() => loadProduto(p.id)}>
                   <div>

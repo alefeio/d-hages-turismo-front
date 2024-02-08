@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { HashLink as Link } from 'react-router-hash-link';
 import api from '~/services/api';
 import { Form, Input, Textarea } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -18,7 +18,7 @@ const schema = Yup.object().shape({
   mensagem: Yup.string().required('Campo obrigatório!'),
 });
 
-export default function Pacote(props) {
+export default function Servico(props) {
   const [produto, setProduto] = useState({});
   const [imagem, setImagem] = useState();
   const [detalhes, setDetalhes] = useState([]);
@@ -47,7 +47,7 @@ export default function Pacote(props) {
       });
 
       toast.success(
-        'Obrigado! Sua mensagem foi enviada com sucesso. Em breve retornaremos.'
+        'Obrigado! Sua pmensagem foi enviada com sucesso. Em breve retornaremos.'
       );
 
       setReservado(true);
@@ -58,21 +58,17 @@ export default function Pacote(props) {
 
   async function loadProduto() {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    const response = await api.get(`pacotes/${nome}/${id}`);
+    const response = await api.get(`servicos/${nome}/${id}`);
 
     console.log(response.data);
     setProduto(response.data);
     setImagem(response.data.imagem.url);
 
     setInitialData({
-      assunto: `Mais informações sobre ${response.data.nome}, de ${response.data.saida.split('T')[0].split('-')[1] === response.data.retorno.split('T')[0].split('-')[1]
-        ? response.data.saida.split('T')[0].split('-').reverse()[0]
-        : response.data.saida.split('T')[0].split('-').reverse().join('/')} a ${response.data.retorno && response.data.retorno.split('T')[0].split('-').reverse().join('/')}`,
+      assunto: response.data.nome,
     });
 
-    setTextWpp(`Quero + inf. sobre ${response.data.nome}, de ${response.data.saida.split('T')[0].split('-')[1] === response.data.retorno.split('T')[0].split('-')[1]
-      ? response.data.saida.split('T')[0].split('-').reverse()[0]
-      : response.data.saida.split('T')[0].split('-').reverse().join('/')} a ${response.data.retorno && response.data.retorno.split('T')[0].split('-').reverse().join('/')}`)
+    setTextWpp(`Quero + inf. sobre ${response.data.nome}`)
   }
 
   useEffect(() => {
@@ -94,7 +90,7 @@ export default function Pacote(props) {
       <Helmet>
         <title>
           {produto.saida && (
-            `Viaje com a D' Hages para ${produto.nome} - saída: ${produto.saida.split('T')[0].split('-').reverse().join('/')}, retorno: ${produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}`
+            `IOPA - ${produto.nome}`
           )}
         </title>
       </Helmet>
@@ -105,7 +101,6 @@ export default function Pacote(props) {
             <img src={wpp} alt="Logo HCS" />
           </a>
         </WhatsApp>
-        <Banner imagem={imagem} />
         <Barra>
           <ul>
             <li>
@@ -113,7 +108,7 @@ export default function Pacote(props) {
             </li>
             <li>/</li>
             <li>
-              <Link to="/roteiros">Roteiros</Link>
+              <Link to="/#servicos">Serviços</Link>
             </li>
             <li>/</li>
             <li>{produto && produto.nome}</li>
@@ -127,27 +122,21 @@ export default function Pacote(props) {
                 : produto.saida.split('T')[0].split('-').reverse().join('/')} a {produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}
             </h1>}
             <img src={imagem} alt="Produto" />
-            <h2>Destino: {produto.nome}</h2>
-            <h3>Saída: {produto.saida && produto.saida.split('T')[0].split('-').reverse().join('/')}</h3>
-            <h3>Retorno: {produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
-            <h3>Valor por pessoa:</h3>
-            <span>À vista: R$ {produto.valoravista}</span><br />
-            {produto.valoraprazo && <span>{produto.parcelas}x no cartão: R$ {produto.valoraprazo}</span>}
-            <h3>Detalhes:</h3>
             <section dangerouslySetInnerHTML={{ __html: produto.descricao }}></section>
+            <p><a href='#' onClick={() => setViewFormReserva(true)}>Clique aqui e agende uma consulta.</a></p>
           </div>
           {!viewFormReserva ? (
-            <aside onClick={() => setViewFormReserva(true)}>Mais informações</aside>
+            <aside onClick={() => setViewFormReserva(true)}>Agendar consulta</aside>
           ) : (
             <Form schema={schema} onSubmit={handleSubmit} initialData={initialData} id='#reserva'>
-              <h2 onClick={() => setViewFormReserva(false)}>Mais informações</h2>
+              <h2 onClick={() => setViewFormReserva(false)}>Agende sua consulta</h2>
               {!reservado ? (
                 <>
                   <Input name="nome" placeholder="Seu nome" />
                   <Input name="email" type="email" placeholder="Seu e-mail" />
                   <Input name="telefone" placeholder="Telefone ou celular" />
                   <Input name="assunto" placeholder="Assunto" />
-                  <Textarea name="mensagem" placeholder="Especifique aqui a quantidade de reservas ou alguma necessidade específica" />
+                  <Textarea name="mensagem" placeholder="Digite sua mensagem" />
 
                   <button type="submit">Enviar</button>
                 </>

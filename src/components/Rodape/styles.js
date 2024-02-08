@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Rod = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
   color: #fff;
-  background: #000;
+  background: ${({client}) => client === 'dhagesturismo' ? '#000' : darken(0.3, '#aee7cf')};
   border-top: 1px solid #fff;
   text-align: center;
   padding: 1rem 2rem;

@@ -14,6 +14,7 @@ import icoface from '~/assets/ico-face.jpg';
 import { Container, Barra, Banner, Prod, Contact, WhatsApp } from './styles';
 import { useEffect } from 'react';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
+import { useSelector } from 'react-redux';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
@@ -24,8 +25,10 @@ const schema = Yup.object().shape({
 });
 
 export default function Contato() {
-  const [textWpp, setTextWpp] = useState("Quero viajar com a D' Hages. Estou entrando em contato através do site.");
+  const [textWpp, setTextWpp] = useState("Quero mais informações. Estou entrando em contato através do site.");
   const [dominio, setDominio] = useState('');
+
+  const perfil = useSelector((state) => state.usuario.perfil);
 
   async function handleSubmit({ nome, email, telefone, assunto, mensagem }) {
     try {

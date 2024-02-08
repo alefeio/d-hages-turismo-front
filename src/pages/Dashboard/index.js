@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Container, Banner, Barra } from './styles';
 import Contatoforms from '../Contatoforms';
 import MenuDash from '~/components/MenuDash';
 import { Link } from 'react-router-dom';
+import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 
 export default function Dashboard() {
   const [arquivadas, setArquivadas] = useState(false);
+  const [dominio, setDominio] = useState('');
+
+  useEffect(() => {
+    // Chamar a função ao montar o componente
+    setDominio(extrairDominioDaURLAtual());
+  }, []);
 
   return (
     <Container>
-      <Banner />
+      {dominio === 'dhagesturismo' && (
+        <Banner />
+      )}
       <Barra>
         <ul>
           <li>

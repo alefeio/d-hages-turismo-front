@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { logout } from '~/store/modules/auth/actions';
+import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 
 export default function MenuDash() {
+  const [dominio, setDominio] = useState('');
+
   const dispatch = useDispatch();
 
   function handleLogout() {
     dispatch(logout());
   }
+
+  useEffect(() => {
+    // Chamar a função ao montar o componente
+    setDominio(extrairDominioDaURLAtual());
+  }, []);
 
   return (
     <ul>
@@ -28,11 +36,19 @@ export default function MenuDash() {
           Adm Depoimentos
         </Link>
       </li>
-      <li>
-        <Link to="/admin/roteiros">
-          Adm Roteiros
-        </Link>
-      </li>
+      {dominio === 'dhagesturismo' ? (
+        <li>
+          <Link to="/admin/roteiros">
+            Adm Roteiros
+          </Link>
+        </li>
+      ) : dominio === 'iopa' ? (
+        <li>
+          <Link to="/admin/servicos">
+            Adm Serviços
+          </Link>
+        </li>
+      ) : ''}
       <li>
         <Link to="/dashboard">
           Msgs Contato
