@@ -332,7 +332,7 @@ export const Produtos = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 1300px;
-  padding: 10rem 0;
+  padding: ${({client}) => client === 'dhagesturismo' ? '10rem 0' : '0rem 0rem 10rem 0rem'};
   margin: auto;
   text-align: center;
 

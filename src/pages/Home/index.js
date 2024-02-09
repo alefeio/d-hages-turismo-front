@@ -351,37 +351,23 @@ export default function Home() {
                 <p>
                   Somos uma clínica que pratica odontologia de ponta, utilizando materiais e métodos consagrados que produzem ótimos resultados funcionais e estéticos para nossos clientes. Tudo isso em um ambiente especialmente desenvolvido para uma prática odontológica diferenciada. Venha sorrir conosco. Clique aqui e agende uma consulta.
                 </p>
-                <p>&nbsp;</p>
-                <h2>Convênios</h2>
                 <p>
-                  Temos convênios com a Uniodonto e Bradesco Saúde. Saiba mais sobre cada um deles.
+                  Temos convênios com a Uniodonto. Saiba mais:
                 </p>
-                <ul>
-                  <li>
-                    <h3>UNIODONTO</h3>
-                    <p>
-                      Site: <a href='https://uniodontobelem.com.br/portal' target='_blank'>www.uniodontobelem.com.br</a>
-                    </p>
-                    <p>
-                      (91) 3202-4100
-                    </p>
-                  </li>
-                  <li>
-                    <h3>Bradesco Saúde</h3>
-                    <p>
-                      Site: <a href='https://www.bradescoseguros.com.br/clientes/produtos/plano-saude' target='_blank'>www.bradescosaude.com.br</a>
-                    </p>
-                    <p>
-                      4004 2700 (Capitais e Regiões Metropolitanas)<br />
-                      0800 701 2700 (Demais localidades)
-                    </p>
-                  </li>
-                </ul>
+                <h3>UNIODONTO</h3>
+                <p>
+                  Site: <a href='https://uniodontobelem.com.br/portal' target='_blank'>www.uniodontobelem.com.br</a>
+                </p>
+                <p>
+                  (91) 3202-4140<br />
+                  (91) 3202-4118<br />
+                  (91) 98528-6538
+                </p>
               </div>
             </div >
           </Quemsomos>
         )}
-        <Produtos id="pacotes">
+        <Produtos id="pacotes" client={dominio}>
           {dominio === 'dhagesturismo' ? (
             <>
               <h2>ROTEIROS</h2>
@@ -470,24 +456,28 @@ export default function Home() {
               </ListaProdutos>
             </>
           ) : dominio === 'iopa' ? (
-            <ListaProdutos client={dominio} id="servicos">
-              {produtos.map((p) => (
-                <li key={p.id}>
-                  <Link to={`servicos/${p.url}/${p.id}`}>
-                    <img src={p.imagem.url} alt={p.nome} />
-                  </Link>
-                  <section>
-                    <h2>{p.nome}</h2>
-                  </section>
-                  <Link to={`servicos/${p.url}/${p.id}`}>
-                    <div>
-                      <MdAdd size={16} color="#FFF" />
-                      <span>Informações</span>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ListaProdutos>
+            <>
+              <h2>NOSSOS SERVIÇOS</h2>
+              <p>Conte com a nossa equipe para atendê-lo com qualidade e conforto.</p>
+              <ListaProdutos client={dominio} id="servicos">
+                {produtos.map((p) => (
+                  <li key={p.id}>
+                    <Link to={`servicos/${p.url}/${p.id}`}>
+                      <img src={p.imagem.url} alt={p.nome} />
+                    </Link>
+                    <section>
+                      <h2>{p.nome}</h2>
+                    </section>
+                    <Link to={`servicos/${p.url}/${p.id}`}>
+                      <div>
+                        <MdAdd size={16} color="#FFF" />
+                        <span>Informações</span>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ListaProdutos>
+            </>
           ) : ('')}
           {produtos.length > 12 && (
             <aside>
