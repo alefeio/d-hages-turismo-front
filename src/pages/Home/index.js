@@ -352,7 +352,7 @@ export default function Home() {
                   Somos uma clínica que pratica odontologia de ponta, utilizando materiais e métodos consagrados que produzem ótimos resultados funcionais e estéticos para nossos clientes. Tudo isso em um ambiente especialmente desenvolvido para uma prática odontológica diferenciada. Venha sorrir conosco. Clique aqui e agende uma consulta.
                 </p>
                 <p>
-                  Temos convênios com a Uniodonto. Saiba mais:
+                  Temos convênio com a Uniodonto. Saiba mais:
                 </p>
                 <h3>UNIODONTO</h3>
                 <p>
