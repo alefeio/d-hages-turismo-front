@@ -16,7 +16,7 @@ const breatheAnimation = keyframes`
 
 export const Banner = styled.div`
   width: 100%;
-  height: ${({client}) => client === 'dhagesturismo' ? '100vh' : client === 'iopa' ? '50vh' : '50vh'};
+  height: ${({client}) => client === 'dhagesturismo' ? '100vh' : client === 'iopa' ? '60vh' : '50vh'};
   position: relative;
   overflow: hidden !important;
 
@@ -549,7 +549,7 @@ export const Porque = styled.div`
 export const Ondeestamos = styled.div`
   iframe {
     width: 100%;
-    height: 100vh;
+    height: ${({client}) => client === 'dhagesturismo' ? '100vh' : '50vh'};
 
   }
 `;

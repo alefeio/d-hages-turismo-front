@@ -85,7 +85,6 @@ export default function Pacotes() {
         <title>
           D' Hages Turismo - Trabalhamos com excursões regionais e nacionais. Conheça nossos principais destinos: Salinópolis- PA, Ajuruteua- PA, Carolina- MA e suas belas cachoeiras, Lençóis Maranhenses, Jericoacoara, Fortaleza- CE, Recife- PE, Maragogi- AL, Salvador- BA, estendendo até a cidade maravilhosa do Rio de Janeiro e os encantos da região sul do país com Gramado, Canela, Bento Gonçalves...
         </title>
-        <meta name="keywords" content="react, meta tags, seo" />
       </Helmet>
       <Container>
         <WhatsApp>

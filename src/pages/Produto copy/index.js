@@ -9,7 +9,6 @@ import { Container, Barra, Banner, Prod, WhatsApp } from './styles';
 
 import wpp from '~/assets/wpp.png';
 import { Helmet } from 'react-helmet';
-import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
@@ -28,7 +27,6 @@ export default function Servico(props) {
   const [textWpp, setTextWpp] = useState("");
   const [viewFormReserva, setViewFormReserva] = useState(false);
   const [reservado, setReservado] = useState(false);
-  const [dominio, setDominio] = useState('');
 
   const nome = props.match.params.nome;
   const id = props.match.params.id;
@@ -87,11 +85,6 @@ export default function Servico(props) {
     };
   });
 
-  useEffect(() => {
-    // Chamar a função ao montar o componente
-    setDominio(extrairDominioDaURLAtual());
-  }, []);
-
   return (
     <>
       <Helmet>
@@ -104,7 +97,7 @@ export default function Servico(props) {
       <Container>
         <WhatsApp>
           <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
-          <a href={`https://wa.me/55${dominio === 'dhagesturismo' ? '91981149800' : '91980867245'}?text=${textWpp}`} target='_blank'>
+          <a href={`https://wa.me//5591981149800?text=${textWpp}`} target='_blank'>
             <img src={wpp} alt="Logo HCS" />
           </a>
         </WhatsApp>

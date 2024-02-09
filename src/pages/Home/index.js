@@ -310,7 +310,7 @@ export default function Home() {
       <Container>
         <WhatsApp>
           <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
-          <a href={`https://wa.me//5591981149800?text=${textWpp}`} target='_blank'>
+          <a href={`https://wa.me//55${dominio === 'dhagesturismo' ? '91981149800' : '91980867245'}?text=${textWpp}`} target='_blank'>
             <img src={wpp} alt="Logo HCS" />
           </a>
         </WhatsApp>
@@ -503,7 +503,7 @@ export default function Home() {
               <h2>DEPOIMENTOS</h2>
               <span>Confira a opinião de quem já viajou com a gente</span>
               <SimpleSlider2 />
-              <h3>AVALIAÇÕES NO GOOGLE</h3>
+              {/* <h3>AVALIAÇÕES NO GOOGLE</h3> */}
               <SimpleSlider3 />
               <p>
                 <a href='https://g.page/r/CVJZFvP8DiABEB0/review' target='_blank'>
@@ -585,7 +585,7 @@ export default function Home() {
             </ul>
           </Porque>
         )}
-        <Ondeestamos id="ondeestamos">
+        <Ondeestamos id="ondeestamos" client={dominio}>
           {dominio === 'dhagesturismo' ? (
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15954.345782500639!2d-48.4780747!3d-1.4238214!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92a48bfd67c896fd%3A0x1200efcf3165952!2sD&#39;%20Hages%20Turismo!5e0!3m2!1spt-BR!2sbr!4v1700398532335!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           ) : dominio === 'iopa' ? (

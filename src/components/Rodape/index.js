@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import icoinsta from '~/assets/ico-insta.jpg';
-import icoface from '~/assets/ico-face.jpg';
+import icoinsta from '~/assets/ico-insta.png';
+import icoface from '~/assets/ico-face.png';
 
 import { store } from '~/store';
 
@@ -18,9 +18,9 @@ export default function Rodape() {
   }, []);
 
   return (
-    <Rod>
-      {dominio === 'dhagesturismo' && (
-        <ul>
+    <Rod client={dominio}>
+      <ul>
+        {dominio === 'dhagesturismo' ? (
           <li>
             <a href="https://instagram.com/dhages_turismo" target="_blank">
               <img src={icoinsta} alt="Instagram" />
@@ -29,8 +29,17 @@ export default function Rodape() {
               <img src={icoface} alt="Facebook" />
             </a>
           </li>
-        </ul>
-      )}
+        ) : dominio === 'iopa' ? (
+          <li>
+            <a href="https://www.instagram.com/iopa.odonto" target="_blank">
+              <img src={icoinsta} alt="Instagram" />
+            </a>
+            <a href="https://m.facebook.com/p/Clinica-IOPA-100078250309605/?locale=pt_BR" target="_blank">
+              <img src={icoface} alt="Facebook" />
+            </a>
+          </li>
+        ) :  ('')}
+      </ul>
     </Rod>
   );
 }
