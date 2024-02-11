@@ -479,7 +479,7 @@ export default function Home() {
               </ListaProdutos>
             </>
           ) : ('')}
-          {produtos.length > 12 && (
+          {dominio === 'dhagesturismo' && (
             <aside>
               <Link to='/roteiros'>
                 Ver todos
