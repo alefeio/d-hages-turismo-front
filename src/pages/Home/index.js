@@ -583,32 +583,6 @@ export default function Home() {
           )
             : ('')}
         </Ondeestamos>
-        <Trabalhe id="contato" client={dominio}>
-          <div>
-            <h2>Envie-nos uma mensagem</h2>
-            <p>Ainda tem dúvidas sobre qual roteiro escolher?
-            </p>
-            <p>Envie uma mensagem para um de nossos consultores.</p>
-          </div>
-          {!enviado ? (
-            <Form schema={schema} onSubmit={handleSubmit}>
-              <Input name="nome" placeholder="Nome" />
-              <Input name="telefone" placeholder="Telefone" />
-              <Input name="email" type="email" placeholder="E-mail" />
-              <Input name="assunto" placeholder="Assunto" />
-              <Textarea name="mensagem" placeholder="Sua mensagem" />
-
-              <button disabled={loading} type="submit">Enviar</button>
-            </Form>
-          ) : (
-            <div>
-              <h2>Sua mensagem foi enviada com sucesso!</h2>
-              <p>Em breve nossa equipe entrará em contato.</p>
-            </div>
-          )
-          }
-          {/* <img src={logo} alt="Logo HCS" /> */}
-        </Trabalhe>
       </Container >
     </>
   );

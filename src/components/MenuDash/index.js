@@ -51,7 +51,7 @@ export default function MenuDash() {
       ) : ''}
       <li>
         <Link to="/dashboard">
-          Msgs Contato
+          Mensagens do Site
         </Link>
       </li>
       <li>

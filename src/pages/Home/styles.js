@@ -16,7 +16,7 @@ const breatheAnimation = keyframes`
 
 export const Banner = styled.div`
   width: 100%;
-  height: ${({client}) => client === 'dhagesturismo' ? '100vh' : client === 'iopa' ? '60vh' : '50vh'};
+  height: ${({ client }) => client === 'dhagesturismo' ? '100vh' : client === 'iopa' ? '60vh' : '50vh'};
   position: relative;
   overflow: hidden !important;
 
@@ -75,7 +75,7 @@ export const Banner = styled.div`
     img {
       height: 100%;
       width: 100%;
-      animation-name: ${({client}) => client === 'dhagesturismo' ? breatheAnimation : ''};
+      animation-name: ${({ client }) => client === 'dhagesturismo' ? breatheAnimation : ''};
       animation-duration: 12s;
       animation-direction: alternate;
       animation-iteration-count: infinite;
@@ -198,7 +198,7 @@ export const Quemsomos = styled.div`
     gap: 5rem;
 
     section {
-      width: ${({client}) => client === 'dhagesturismo' ? '20%' : '40%'};
+      width: ${({ client }) => client === 'dhagesturismo' ? '20%' : '40%'};
       text-align: center;
 
       img {
@@ -332,7 +332,7 @@ export const Produtos = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 1300px;
-  padding: ${({client}) => client === 'dhagesturismo' ? '10rem 0' : '0rem 0rem 10rem 0rem'};
+  padding: ${({ client }) => client === 'dhagesturismo' ? '10rem 0' : '0rem 0rem 10rem 0rem'};
   margin: auto;
   text-align: center;
 
@@ -406,13 +406,13 @@ export const Produtos = styled.div`
 
 export const ListaProdutos = styled.ul`
   display: grid;
-  grid-template-columns: repeat(${({client}) => client === 'dhagesturismo' ? 4 : 3}, 1fr);
+  grid-template-columns: repeat(${({ client }) => client === 'dhagesturismo' ? 4 : 3}, 1fr);
   grid-gap: 7rem;
   text-align: left;
 
   li {
-    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.3);
-    border-radius: ${({client}) => client === 'dhagesturismo' ? '2rem' : '1rem'};
+    box-shadow: ${({ client }) => client === 'dhagesturismo' && '0px 7px 7px rgba(0, 0, 0, 0.3)'};
+    border-radius: ${({ client }) => client === 'dhagesturismo' ? '2rem' : '1rem'};
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -436,7 +436,7 @@ export const ListaProdutos = styled.ul`
         margin: 2rem;
         text-align: center;
         font-weight: bold;
-        color: ${({client}) => client === 'dhagesturismo' ? 'orange' : '#333'};
+        color: ${({ client }) => client === 'dhagesturismo' ? 'orange' : '#333'};
       }
 
       h3 {
@@ -446,14 +446,14 @@ export const ListaProdutos = styled.ul`
     }
 
     a {
-      background: ${({client}) => client === 'dhagesturismo' ? '#000' : '#aee7cf'};
-      color: ${({client}) => client === 'dhagesturismo' ? '#fff' : '#555'};
+      background: ${({ client }) => client === 'dhagesturismo' ? '#000' : '#aee7cf'};
+      color: ${({ client }) => client === 'dhagesturismo' ? '#fff' : '#555'};
       border: 0;
       overflow: hidden;
       margin-top: auto;
       display: flex;
       align-items: center;
-      border-radius: ${({client}) => client === 'dhagesturismo' ? '2rem' : '0'};
+      border-radius: ${({ client }) => client === 'dhagesturismo' ? '2rem' : client === 'iopa' ? '1rem' : '0'};
 
       img {
         width: 100%;
@@ -476,7 +476,7 @@ export const ListaProdutos = styled.ul`
       }
 
       &:hover {
-        background: ${({client}) => client === 'dhagesturismo' ? darken(0.3, '#fff') : darken(0.3, '#aee7cf')};
+        background: ${({ client }) => client === 'dhagesturismo' ? darken(0.3, '#fff') : darken(0.3, '#aee7cf')};
         color: #fff;
       }
     }
@@ -494,7 +494,7 @@ export const ListaProdutos = styled.ul`
 
 
 export const Porque = styled.div`
-  background: url(${({client}) => client === 'dhagesturismo' ? porque : sorrisos}) center center no-repeat;
+  background: url(${({ client }) => client === 'dhagesturismo' ? porque : sorrisos}) center center no-repeat;
   background-size: cover;
   height: 100vh;
   display: flex;
@@ -549,7 +549,7 @@ export const Porque = styled.div`
 export const Ondeestamos = styled.div`
   iframe {
     width: 100%;
-    height: ${({client}) => client === 'dhagesturismo' ? '100vh' : '50vh'};
+    height: ${({ client }) => client === 'dhagesturismo' ? '100vh' : '50vh'};
 
   }
 `;
@@ -559,11 +559,11 @@ export const Trabalhe = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  background: ${({client}) => client === 'dhagesturismo' ? '#000' : darken(0.3, '#aee7cf')};
+  background: ${({ client }) => client === 'dhagesturismo' ? '#000' : darken(0.3, '#aee7cf')};
   padding: 10rem;
 
   h2, p {
-    color: ${({client}) => client === 'dhagesturismo' ? '#fff' : darken(0.7, '#aee7cf')};
+    color: ${({ client }) => client === 'dhagesturismo' ? '#fff' : darken(0.7, '#aee7cf')};
   }
 
   form {
@@ -607,7 +607,7 @@ export const Trabalhe = styled.div`
 
     button {
       height: 44px;
-      background: ${({client}) => client === 'dhagesturismo' ? '#333' : darken(0.4, '#aee7cf')};
+      background: ${({ client }) => client === 'dhagesturismo' ? '#333' : darken(0.4, '#aee7cf')};
       font-weight: bold;
       color: #fff;
       border: 0;
