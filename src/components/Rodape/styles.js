@@ -46,6 +46,12 @@ export const Trabalhe = styled.div`
     color: ${({ client }) => client === 'dhagesturismo' ? '#fff' : darken(0.7, '#aee7cf')};
   }
 
+  section {
+    img {
+      margin: 1rem 1rem 0 0;
+    }
+  }
+
   form {
     width: 35%;
     display: flex;

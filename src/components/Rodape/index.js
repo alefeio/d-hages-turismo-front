@@ -81,15 +81,32 @@ export default function Rodape() {
           <p>
             Sua opinião, crítica ou elogio é muito importante para o nosso sucesso.
           </p>
-          <p>Ou fale conosco no <a href={`https://wa.me//5591981149800?text=${textWpp}`} target='_blank'>WhatsApp: (91) 98114-9800</a>.</p>
-          <section>
-            <a href="https://instagram.com/dhages_turismo" target="_blank">
-              <img src={icoinsta} alt="Instagram" />
-            </a>
-            <a href="https://facebook.com/dhagesturismo" target="_blank">
-              <img src={icoface} alt="Facebook" />
-            </a>
-          </section>
+          {dominio === 'dhagesturismo' ?
+            (
+              <>
+                <p>Ou fale conosco no <a href={`https://wa.me//5591981149800?text=${textWpp}`} target='_blank'>WhatsApp: (91) 98114-9800</a>.</p>
+                <section>
+                  <a href="https://instagram.com/dhages_turismo" target="_blank">
+                    <img src={icoinsta} alt="Instagram" />
+                  </a>
+                  <a href="https://facebook.com/dhagesturismo" target="_blank">
+                    <img src={icoface} alt="Facebook" />
+                  </a>
+                </section>
+              </>
+            ) : dominio === 'iopa' ? (
+              <>
+                <p>Ou fale conosco no <a href={`https://wa.me/5591980867245?text=${textWpp}`} target='_blank'>WhatsApp: (91) 98086-7245</a>.</p>
+                <section>
+                  <a href="https://www.instagram.com/iopa.odonto" target="_blank">
+                    <img src={icoinsta} alt="Instagram" />
+                  </a>
+                  <a href="https://m.facebook.com/p/Clinica-IOPA-100078250309605/?locale=pt_BR" target="_blank">
+                    <img src={icoface} alt="Facebook" />
+                  </a>
+                </section>
+              </>
+            ) : ''}
         </div>
         {!enviado ? (
           <Form schema={schema} onSubmit={handleSubmit}>
