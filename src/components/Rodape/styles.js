@@ -6,7 +6,7 @@ export const Rod = styled.div`
   align-items: center;
   justify-content: flex-start;
   color: #fff;
-  background: ${({ client }) => client === 'dhagesturismo' ? '#000' : darken(0.3, '#aee7cf')};
+  background: ${({ primary_color }) => primary_color && darken(0.3, `#${primary_color}`)};
   border-top: 1px solid #fff;
   text-align: center;
   padding: 1rem 2rem;
@@ -39,11 +39,11 @@ export const Trabalhe = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  background: ${({ client }) => client === 'dhagesturismo' ? '#000' : darken(0.3, '#aee7cf')};
+  background: ${({ primary_color }) => primary_color && darken(0.3, `#${primary_color}`)};
   padding: 10rem;
 
   h2, p {
-    color: ${({ client }) => client === 'dhagesturismo' ? '#fff' : darken(0.7, '#aee7cf')};
+    color: ${({ second_color }) => `#${second_color}`};
   }
 
   section {
@@ -93,7 +93,7 @@ export const Trabalhe = styled.div`
 
     button {
       height: 44px;
-      background: ${({ client }) => client === 'dhagesturismo' ? '#333' : darken(0.4, '#aee7cf')};
+      background: ${({ primary_color }) => primary_color && darken(0.4, `#${primary_color}`)};
       font-weight: bold;
       color: #fff;
       border: 0;
@@ -101,7 +101,7 @@ export const Trabalhe = styled.div`
       transition: background 0.2s;
 
       &:hover {
-        background: ${darken(0.5, '#aee7cf')};
+        background: ${({ primary_color }) => primary_color && darken(0.5, `#${primary_color}`)};
       }
     }
 

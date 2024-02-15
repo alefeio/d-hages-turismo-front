@@ -27,6 +27,11 @@ export default function MenuDash() {
         </Link>
       </li>
       <li>
+        <Link to="/admin/site">
+          Adm Site
+        </Link>
+      </li>
+      <li>
         <Link to="/admin/banners">
           Adm Banners
         </Link>

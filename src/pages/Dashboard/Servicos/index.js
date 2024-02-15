@@ -48,12 +48,7 @@ export default function AdminServicos() {
     console.log(response.data);
 
     setInitialData({
-      nome: response.data.nome,
-      saida: response.data.saida.split('T')[0],
-      retorno: response.data.retorno.split('T')[0],
-      valoravista: response.data.valoravista,
-      valoraprazo: response.data.valoraprazo,
-      parcelas: response.data.parcelas
+      nome: response.data.nome
     });
 
     setFile(response.data.imagem.id);

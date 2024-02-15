@@ -16,7 +16,7 @@ const breatheAnimation = keyframes`
 
 export const Banner = styled.div`
   width: 100%;
-  height: ${({ client }) => client === 'dhagesturismo' ? '100vh' : client === 'iopa' ? '60vh' : '50vh'};
+  height: ${({ height }) => `${height}vh`};
   position: relative;
   overflow: hidden !important;
 

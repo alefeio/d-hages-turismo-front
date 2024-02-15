@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { HashLink as Link } from 'react-router-hash-link';
 
@@ -14,6 +14,7 @@ import { Container, Content, Profile, Img, Nav } from './styles';
 import { store } from '~/store';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 import { useLocation } from 'react-router-dom';
+import SiteContext from '~/context/site';
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -24,6 +25,8 @@ export default function Header() {
   const [viewMenu, setViewMenu] = useState('fixed');
   const [bgMenu, setBgMenu] = useState('transparent');
   const [dominio, setDominio] = useState('');
+
+  const { state } = useContext(SiteContext);
 
   const perf = useSelector((state) => state.usuario.perfil);
 
@@ -89,111 +92,53 @@ export default function Header() {
     <Container viewMenu={viewMenu} bgMenu={bgMenu}>
       <Content bgMenu={bgMenu} client={dominio}>
         <Link to="/#home" onClick={altChecked}>
-          {dominio === 'dhagesturismo' ? (
-            <img src={logo} alt="Logomarca da agência D' Hages Turismo" />
-          ) : dominio === 'iopa' ? (
-            <img src={logoIopa} alt="IOPA" />
-          ) : (
-            <></>
-          )
-          }
+          <img src={state?.logo?.url} alt={state?.nome} />
         </Link>
         <Toggle />
         <Nav exibir={checked} client={dominio} bgMenu={bgMenu}>
           <ul>
-            {dominio === 'dhagesturismo' ? (
-              <>
-                <li>
-                  <a href="/#home" onClick={altChecked}>
-                    HOME
-                  </a>
-                </li>
-                <li>
-                  <a href="/roteiros" onClick={altChecked}>
-                    ROTEIROS
-                  </a>
-                </li>
-                <li>
-                  <a href="/#depoimentos" onClick={altChecked}>
-                    DEPOIMENTOS
-                  </a>
-                </li>
-                <li>
-                  <a href="/#sobre" onClick={altChecked}>
-                    A D' HAGES
-                  </a>
-                </li>
-                <li>
-                  <a href="https://wa.me/5591981149800?text=Quero fazer uma reserva" target='_blank' onClick={altChecked}>
-                    FAÇA SUA RESERVA
-                  </a>
-                </li>
-                <li>
-                  <a href="/#ondeestamos" onClick={altChecked}>
-                    ONDE ESTAMOS
-                  </a>
-                </li>
-                <li>
-                  <Link to="/contato" onClick={altChecked}>
-                    CONTATO
-                  </Link>
-                </li>
-              </>
-            ) : dominio === 'iopa' ? (
-              <>
-                <li>
-                  <Link to={"/#home"} onClick={altChecked}>
-                    HOME
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/#sobre" onClick={altChecked}>
-                    SOBRE NÓS
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/#sobre" onClick={altChecked}>
-                    CONVÊNIOS
-                  </Link>
-                </li>
-                <li>
-                  <Link to={dominio === 'dhagesturismo' ? "/roteiros" : '/#servicos'} onClick={altChecked}>
-                    SERVIÇOS
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/#ondeestamos" onClick={altChecked}>
-                    ONDE ESTAMOS
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/#contato" onClick={altChecked}>
-                    CONTATO
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <></>
-            )
-            }
-
+            <li>
+              <Link to="/#home" onClick={altChecked}>
+                HOME
+              </Link>
+            </li>
+            {state?.servicos && <li>
+              <Link to='/#servicos' onClick={altChecked}>
+                SERVIÇOS
+              </Link>
+            </li>}
+            {state?.pacotes && <li>
+              <Link to="/#pacotes" onClick={altChecked}>
+                ROTEIROS
+              </Link>
+            </li>}
+            {state?.depoimentos && <li>
+              <Link to="/#depoimentos" onClick={altChecked}>
+                DEPOIMENTOS
+              </Link>
+            </li>}
+            <li>
+              <a href={`https://wa.me/55${state?.whatsapp}?text=Olá! Estou entrando em contato através do site.`} target='_blank' onClick={altChecked}>
+                FALE PELO ZAP
+              </a>
+            </li>
+            <li>
+              <Link to="/#sobre" onClick={altChecked}>
+                SOBRE NÓS
+              </Link>
+            </li>
+            <li>
+              <Link to="/#ondeestamos" onClick={altChecked}>
+                ONDE ESTAMOS
+              </Link>
+            </li>
+            <li>
+              <Link to="/#contato" onClick={altChecked}>
+                CONTATO
+              </Link>
+            </li>
             {logado && (
               <>
-                {/* <li>
-                  <Link to="/perfil">
-                    Meu perfil
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/admin/roteiros">
-                    Adm Roteiros
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/contatoforms">
-                    Msgs Contato
-                  </Link>
-                </li> */}
                 <li>
                   <Link to='/dashboard'>
                     ADM

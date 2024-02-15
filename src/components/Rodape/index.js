@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import icoinsta from '~/assets/ico-insta.png';
 import icoface from '~/assets/ico-face.png';
@@ -13,6 +13,7 @@ import api from '~/services/api';
 import { toast } from 'react-toastify';
 
 import * as Yup from 'yup';
+import SiteContext from '~/context/site';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
@@ -34,6 +35,8 @@ export default function Rodape() {
   const [enviado, setEnviado] = useState(false);
   const [sendNews, setSendNews] = useState(false);
   const [busca, setBusca] = useState('');
+
+  const { state } = useContext(SiteContext);
 
   async function handleSubmit(data = {}) {
     console.log('data', data);
@@ -70,43 +73,18 @@ export default function Rodape() {
 
   return (
     <Container>
-      <Trabalhe id="contato" client={dominio}>
+      <Trabalhe id="contato" primary_color={state?.primary_color} second_color={state?.second_color}>
         <div>
-          <h2>Envie-nos uma mensagem</h2>
-          <p>Tem alguma dúvida?
-          </p>
-          <p>
-            Envie uma mensagem para nós.
-          </p>
-          <p>
-            Sua opinião, crítica ou elogio é muito importante para o nosso sucesso.
-          </p>
-          {dominio === 'dhagesturismo' ?
-            (
-              <>
-                <p>Ou fale conosco no <a href={`https://wa.me//5591981149800?text=${textWpp}`} target='_blank'>WhatsApp: (91) 98114-9800</a>.</p>
-                <section>
-                  <a href="https://instagram.com/dhages_turismo" target="_blank">
-                    <img src={icoinsta} alt="Instagram" />
-                  </a>
-                  <a href="https://facebook.com/dhagesturismo" target="_blank">
-                    <img src={icoface} alt="Facebook" />
-                  </a>
-                </section>
-              </>
-            ) : dominio === 'iopa' ? (
-              <>
-                <p>Ou fale conosco no <a href={`https://wa.me/5591980867245?text=${textWpp}`} target='_blank'>WhatsApp: (91) 98086-7245</a>.</p>
-                <section>
-                  <a href="https://www.instagram.com/iopa.odonto" target="_blank">
-                    <img src={icoinsta} alt="Instagram" />
-                  </a>
-                  <a href="https://m.facebook.com/p/Clinica-IOPA-100078250309605/?locale=pt_BR" target="_blank">
-                    <img src={icoface} alt="Facebook" />
-                  </a>
-                </section>
-              </>
-            ) : ''}
+          <h2>{state?.rodape_titulo}</h2>
+          <div dangerouslySetInnerHTML={{ __html: state?.rodape_texto }}></div>
+          <section>
+            <a href={state?.instagram} target="_blank">
+              <img src={icoinsta} alt="Instagram" />
+            </a>
+            <a href={state?.facebook} target="_blank">
+              <img src={icoface} alt="Facebook" />
+            </a>
+          </section>
         </div>
         {!enviado ? (
           <Form schema={schema} onSubmit={handleSubmit}>
@@ -127,27 +105,16 @@ export default function Rodape() {
         }
         {/* <img src={logo} alt="Logo HCS" /> */}
       </Trabalhe>
-      <Rod client={dominio}>
+      <Rod primary_color={state?.primary_color}>
         <ul>
-          {dominio === 'dhagesturismo' ? (
-            <li>
-              <a href="https://instagram.com/dhages_turismo" target="_blank">
-                <img src={icoinsta} alt="Instagram" />
-              </a>
-              <a href="https://facebook.com/dhagesturismo" target="_blank">
-                <img src={icoface} alt="Facebook" />
-              </a>
-            </li>
-          ) : dominio === 'iopa' ? (
-            <li>
-              <a href="https://www.instagram.com/iopa.odonto" target="_blank">
-                <img src={icoinsta} alt="Instagram" />
-              </a>
-              <a href="https://m.facebook.com/p/Clinica-IOPA-100078250309605/?locale=pt_BR" target="_blank">
-                <img src={icoface} alt="Facebook" />
-              </a>
-            </li>
-          ) : ('')}
+          <li>
+            <a href={state?.instagram} target="_blank">
+              <img src={icoinsta} alt="Instagram" />
+            </a>
+            <a href={state?.facebook} target="_blank">
+              <img src={icoface} alt="Facebook" />
+            </a>
+          </li>
         </ul>
       </Rod>
     </Container>

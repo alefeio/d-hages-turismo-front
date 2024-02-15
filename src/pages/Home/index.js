@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Slider from "react-slick";
 import { Form, Input, Textarea } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -31,6 +31,7 @@ import {
 import { Helmet } from 'react-helmet';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 import { useSelector } from 'react-redux';
+import SiteContext from '~/context/site';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
@@ -43,6 +44,7 @@ const schema = Yup.object().shape({
 export default function Home() {
   const [banners, setBanners] = useState([]);
   const [produtos, setProdutos] = useState([]);
+  const [total, setTotal] = useState(0);
   const [depoimentos, setDepoimentos] = useState([]);
   const [textWpp, setTextWpp] = useState("Quero mais informações. Estou entrando em contato através do site.");
   const [email, setEmail] = useState("");
@@ -51,6 +53,8 @@ export default function Home() {
   const [sendNews, setSendNews] = useState(false);
   const [busca, setBusca] = useState('');
   const [dominio, setDominio] = useState('');
+
+  const { state } = useContext(SiteContext);
 
   const perfil = useSelector((state) => state.usuario.perfil);
 
@@ -77,7 +81,7 @@ export default function Home() {
 
     console.log('response', response);
 
-    const { pacotes } = response.data;
+    const { pacotes, total } = response.data;
 
     const newPacotes = pacotes.map(pacote => {
       pacote.url = removerEspacosEAcentos(pacote.nome);
@@ -88,6 +92,7 @@ export default function Home() {
     console.log(`pacotes: ${JSON.stringify(response.data)}`);
 
     setProdutos(newPacotes);
+    setTotal(total);
   }
 
   async function loadBuscaProduto(busca) {
@@ -96,6 +101,7 @@ export default function Home() {
     const { produtos, total } = response.data;
 
     setProdutos(produtos);
+    setTotal(total);
   }
 
   async function loadDepoimentos() {
@@ -290,22 +296,7 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        {dominio === 'dhagesturismo' ?
-          <title>
-            D' Hages Turismo - Trabalhamos com excursões regionais e nacionais. Conheça nossos principais destinos: Salinópolis-
-            PA, Ajuruteua- PA, Carolina- MA e suas belas cachoeiras, Lençóis Maranhenses, Jericoacoara, Fortaleza- CE, Recife-
-            PE, Maragogi- AL, Salvador- BA, estendendo até a cidade maravilhosa do Rio de Janeiro e os encantos da região sul do
-            país com Gramado, Canela, Bento Gonçalves...
-          </title>
-          : dominio === 'iopa' ?
-            <title>
-              IOPA - INSTITUTO ODONTOLÓGICO DO PARÁ -
-              Somos uma clínica que pratica odontologia de ponta, utilizando materiais e métodos consagrados
-              que produzem ótimos resultados funcionais e estéticos para nossos clientes.
-              Tudo isso em um ambiente especialmente desenvolvido para uma prática odontológica diferenciada.
-              Venha sorrir conosco. Clique aqui e agende uma consulta.
-            </title>
-            : ''}
+        <title>{state?.title}</title>
       </Helmet>
       <Container>
         <WhatsApp>
@@ -314,7 +305,7 @@ export default function Home() {
             <img src={wpp} alt="Logo HCS" />
           </a>
         </WhatsApp>
-        <Banner id="home" client={dominio}>
+        {state?.banner && <Banner id="home" height={state?.banner_h}>
           {dominio === 'dhagesturismo' ? (
             <>
               <section>
@@ -338,160 +329,142 @@ export default function Home() {
             <></>
           )}
           <SimpleSlider />
-        </Banner>
+        </Banner>}
         {dominio === 'iopa' && (
           <Quemsomos client={dominio} id="sobre">
             <div>
               <section>
-                <img src={iopa} />
+                <img src={state?.imagem?.url} />
                 <p>Rua dos Tamoios, 1370 - Batista Campos, Belém - PA</p>
               </section>
               <div>
-                <h1>IOPA - Instituto Odontológico do Pará</h1>
-                <p>
-                  Somos uma clínica que pratica odontologia de ponta, utilizando materiais e métodos consagrados que produzem ótimos resultados funcionais e estéticos para nossos clientes. Tudo isso em um ambiente especialmente desenvolvido para uma prática odontológica diferenciada. Venha sorrir conosco. Clique aqui e agende uma consulta.
-                </p>
-                <p>
-                  Temos convênio com a Uniodonto. Saiba mais:
-                </p>
-                <h3>UNIODONTO</h3>
-                <p>
-                  Site: <a href='https://uniodontobelem.com.br/portal' target='_blank'>www.uniodontobelem.com.br</a>
-                </p>
-                <p>
-                  (91) 3202-4140<br />
-                  (91) 3202-4118<br />
-                  (91) 98528-6538
-                </p>
+                <h1>{state?.nome}</h1>
+                <div dangerouslySetInnerHTML={{ __html: state?.descricao }}></div>
               </div>
             </div >
           </Quemsomos>
         )}
-        <Produtos id="pacotes" client={dominio}>
-          {dominio === 'dhagesturismo' ? (
-            <>
-              <h2>ROTEIROS</h2>
-              <p>Escolha seu destino e embarque com a D' Hages Turismo na melhor aventura pelo Brasil</p>
-              <h3>Principais roteiros</h3>
-              <div>
-                <Link onClick={() => {
-                  setBusca("Fortaleza");
-                  loadBuscaProduto("Fortaleza");
-                }
-                }>
-                  Fortaleza
-                </Link>
-                <Link onClick={() => {
-                  setBusca("Carolina-Ma");
-                  loadBuscaProduto("Carolina-Ma");
-                }
-                }>
-                  Carolina-Ma
-                </Link>
-                <Link onClick={() => {
-                  setBusca("Mini Nordeste");
-                  loadBuscaProduto("Mini Nordeste");
-                }
-                }>
-                  Mini Nordeste
-                </Link>
-                <Link onClick={() => {
-                  setBusca("Lençóis Maranhenses");
-                  loadBuscaProduto("Lençóis Maranhenses");
-                }
-                }>
-                  Lençóis Maranhenses
-                </Link>
-                <Link onClick={() => {
-                  setBusca("Rio de Janeiro");
-                  loadBuscaProduto("Rio de Janeiro");
-                }
-                }>
-                  Rio de Janeiro
-                </Link>
-                <Link onClick={() => {
-                  setBusca("Fortaleza com Jeri");
-                  loadBuscaProduto("Fortaleza com Jeri");
-                }
-                }>
-                  Fortaleza com Jeri
-                </Link>
-                <Link onClick={() => {
-                  setBusca("Ajuruteua");
-                  loadBuscaProduto("Ajuruteua");
-                }
-                }>
-                  Ajuruteua
-                </Link>
-              </div>
-              <nav>
-                <Input name="buscaProduto" value={busca} placeholder='Pesquisar roteiro' onChange={(e) => {
-                  setBusca(e.target.value);
-                  loadBuscaProduto(e.target.value);
-                }} />
-                <MdSearch size={26} color="#000" />
-              </nav>
-              <ListaProdutos client={dominio}>
-                {produtos.map((p) => (
-                  <li key={p.id}>
-                    <Link to={`roteiros/${p.url}/${p.id}`}>
-                      <img src={p.imagem.url} alt={p.nome} />
-                    </Link>
-                    <section>
-                      <h2>{p.nome}</h2>
-                      <h3><span>Saída:</span> {p.saida.split('T')[0].split('-').reverse().join('/')}</h3>
-                      <h3><span>Retorno:</span> {p.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
-                      <h3><span>Valor por pessoa:</span></h3>
-                      <small>À vista: R$ {p.valoravista}</small><br />
-                      {p.valoraprazo && <small>{p.parcelas}x no cartão: R$ {p.valoraprazo}</small>}
-                    </section>
-                    <Link to={`roteiros/${p.url}/${p.id}`}>
-                      <div>
-                        <MdAdd size={16} color="#FFF" />
-                        <span>Informações</span>
-                      </div>
-                    </Link>
-                  </li>
-                ))}
-              </ListaProdutos>
-            </>
-          ) : dominio === 'iopa' ? (
-            <>
-              <h2>NOSSOS SERVIÇOS</h2>
-              <p>Conte com a nossa equipe para atendê-lo com qualidade e conforto.</p>
-              <ListaProdutos client={dominio} id="servicos">
-                {produtos.map((p) => (
-                  <li key={p.id}>
-                    <Link to={`servicos/${p.url}/${p.id}`}>
-                      <img src={p.imagem.url} alt={p.nome} />
-                    </Link>
-                    <section>
-                      <h2>{p.nome}</h2>
-                    </section>
-                    <Link to={`servicos/${p.url}/${p.id}`}>
-                      <div>
-                        <MdAdd size={16} color="#FFF" />
-                        <span>Informações</span>
-                      </div>
-                    </Link>
-                  </li>
-                ))}
-              </ListaProdutos>
-            </>
-          ) : ('')}
-          {dominio === 'dhagesturismo' && (
+        {state?.pacotes && <Produtos id="pacotes" client={dominio}>
+          <>
+            <h2>{state?.pacotes}</h2>
+            {dominio === 'dhagesturismo' && <div>
+              <Link onClick={() => {
+                setBusca("Fortaleza");
+                loadBuscaProduto("Fortaleza");
+              }
+              }>
+                Fortaleza
+              </Link>
+              <Link onClick={() => {
+                setBusca("Carolina-Ma");
+                loadBuscaProduto("Carolina-Ma");
+              }
+              }>
+                Carolina-Ma
+              </Link>
+              <Link onClick={() => {
+                setBusca("Mini Nordeste");
+                loadBuscaProduto("Mini Nordeste");
+              }
+              }>
+                Mini Nordeste
+              </Link>
+              <Link onClick={() => {
+                setBusca("Lençóis Maranhenses");
+                loadBuscaProduto("Lençóis Maranhenses");
+              }
+              }>
+                Lençóis Maranhenses
+              </Link>
+              <Link onClick={() => {
+                setBusca("Rio de Janeiro");
+                loadBuscaProduto("Rio de Janeiro");
+              }
+              }>
+                Rio de Janeiro
+              </Link>
+              <Link onClick={() => {
+                setBusca("Fortaleza com Jeri");
+                loadBuscaProduto("Fortaleza com Jeri");
+              }
+              }>
+                Fortaleza com Jeri
+              </Link>
+              <Link onClick={() => {
+                setBusca("Ajuruteua");
+                loadBuscaProduto("Ajuruteua");
+              }
+              }>
+                Ajuruteua
+              </Link>
+            </div>}
+            <nav>
+              <Input name="buscaProduto" value={busca} placeholder='Pesquisar roteiro' onChange={(e) => {
+                setBusca(e.target.value);
+                loadBuscaProduto(e.target.value);
+              }} />
+              <MdSearch size={26} color="#000" />
+            </nav>
+            <ListaProdutos client={dominio}>
+              {produtos.map((p) => (
+                <li key={p.id}>
+                  <Link to={`roteiros/${p.url}/${p.id}`}>
+                    <img src={p.imagem.url} alt={p.nome} />
+                  </Link>
+                  <section>
+                    <h2>{p.nome}</h2>
+                    <h3><span>Saída:</span> {p.saida.split('T')[0].split('-').reverse().join('/')}</h3>
+                    <h3><span>Retorno:</span> {p.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
+                    <h3><span>Valor por pessoa:</span></h3>
+                    <small>À vista: R$ {p.valoravista}</small><br />
+                    {p.valoraprazo && <small>{p.parcelas}x no cartão: R$ {p.valoraprazo}</small>}
+                  </section>
+                  <Link to={`roteiros/${p.url}/${p.id}`}>
+                    <div>
+                      <MdAdd size={16} color="#FFF" />
+                      <span>Informações</span>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ListaProdutos>
+          </>
+          {total > 12 && (
             <aside>
               <Link to='/roteiros'>
                 Ver todos
               </Link>
             </aside>
           )}
-        </Produtos>
-        {dominio === 'dhagesturismo' && (
+        </Produtos>}
+        {state?.servicos && <Produtos id="pacotes" client={dominio}>
+          <>
+            <h2>{state?.servicos}</h2>
+            <p>Conte com a nossa equipe para atendê-lo com qualidade e conforto.</p>
+            <ListaProdutos client={dominio} id="servicos">
+              {produtos.map((p) => (
+                <li key={p.id}>
+                  <Link to={`servicos/${p.url}/${p.id}`}>
+                    <img src={p.imagem.url} alt={p.nome} />
+                  </Link>
+                  <section>
+                    <h2>{p.nome}</h2>
+                  </section>
+                  <Link to={`servicos/${p.url}/${p.id}`}>
+                    <div>
+                      <MdAdd size={16} color="#FFF" />
+                      <span>Informações</span>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ListaProdutos>
+          </>
+        </Produtos>}
+        {state?.depoimentos && (
           <Depoimentos id="depoimentos">
             <section>
-              <h2>DEPOIMENTOS</h2>
-              <span>Confira a opinião de quem já viajou com a gente</span>
+              <h2>{state?.depoimentos}</h2>
               <SimpleSlider2 />
               {/* <h3>AVALIAÇÕES NO GOOGLE</h3> */}
               <SimpleSlider3 />
@@ -515,45 +488,8 @@ export default function Home() {
                 </video>
               </section>
               <div>
-                <h1>Venha viajar com a D' Hages Turismo</h1>
-                <p>
-                  Fundada em agosto de 2015 com intuito de levar o nortista a conhecer as belezas da sua própria região e do Brasil, a D’ Hages Turismo atualmente trabalha com excursões regionais e nacionais. Contando com roteiros que vão do norte ao sul do país, contemplando a natureza, cultura e área urbana de cada região.
-                </p>
-                <p>
-                  Entre os principais destinos estão: Salinópolis- PA, Ajuruteua- PA, Carolina- MA e suas belas cachoeiras, Lençóis Maranhenses, Jericoacoara, Fortaleza- CE, Recife- PE, Maragogi- AL, Salvador- BA, estendendo até a cidade maravilhosa do Rio de Janeiro e os encantos da região sul do país com Gramado, Canela, Bento Gonçalves...
-                </p>
-                <p>
-                  Contando com frota própria de ônibus, a empresa também atua na área de fretamento de ônibus, assim, personaliza viagens e experiências únicas para grupos familiares, igrejas, estudantes, atletas.
-                </p>
-                <p>
-                  Escolha o roteiro de sua preferência e embarque em uma experiência única, com pacotes que irão te oferecer: transporte em ônibus de turismo completo, hospedagem com café da manhã, guia de turismo acompanhante e memórias inesquecíveis.
-                </p>
-                <ul>
-                  <li>
-                    <h2>PILARES</h2>
-                    <p>
-                      Segurança
-                    </p>
-                    <p>
-                      Conforto
-                    </p>
-                    <p>
-                      Atendimento
-                    </p>
-                  </li>
-                  <li>
-                    <h2>VISÃO</h2>
-                    <p>
-                      Ser a principal escolha em serviços de fretamento de ônibus de turismo na região Norte, oferecendo experiências inigualáveis e destacando-se como referência nacional.
-                    </p>
-                  </li>
-                  <li>
-                    <h2>MISSÃO</h2>
-                    <p>
-                      Proporcionar aos clientes nortistas a melhor aventura pelo Brasil, garantindo excelência em segurança, conforto e atendimento, tornando cada viagem uma experiência memorável.
-                    </p>
-                  </li>
-                </ul>
+                <h1>{state?.nome}</h1>
+                <div dangerouslySetInnerHTML={{ __html: state?.descricao }}></div>
               </div>
             </div >
           </Quemsomos>
