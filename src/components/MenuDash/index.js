@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { logout } from '~/store/modules/auth/actions';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
+import SiteContext from '~/context/site';
 
 export default function MenuDash() {
-  const [dominio, setDominio] = useState('');
+  const { state } = useContext(SiteContext);
 
   const dispatch = useDispatch();
 
   function handleLogout() {
     dispatch(logout());
   }
-
-  useEffect(() => {
-    // Chamar a função ao montar o componente
-    setDominio(extrairDominioDaURLAtual());
-  }, []);
 
   return (
     <ul>
@@ -31,29 +27,26 @@ export default function MenuDash() {
           Adm Site
         </Link>
       </li>
-      <li>
+      {state?.banner && <li>
         <Link to="/admin/banners">
           Adm Banners
         </Link>
-      </li>
-      <li>
+      </li>}
+      {state?.depoimentos && <li>
         <Link to="/admin/depoimentos">
           Adm Depoimentos
         </Link>
-      </li>
-      {dominio === 'dhagesturismo' ? (
-        <li>
-          <Link to="/admin/roteiros">
-            Adm Roteiros
-          </Link>
-        </li>
-      ) : dominio === 'iopa' ? (
-        <li>
-          <Link to="/admin/servicos">
-            Adm Serviços
-          </Link>
-        </li>
-      ) : ''}
+      </li>}
+      {state?.pacotes && <li>
+        <Link to="/admin/roteiros">
+          Adm Roteiros
+        </Link>
+      </li>}
+      {state?.servicos && <li>
+        <Link to="/admin/servicos">
+          Adm Serviços
+        </Link>
+      </li>}
       <li>
         <Link to="/dashboard">
           Mensagens do Site

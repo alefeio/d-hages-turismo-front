@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
@@ -9,6 +9,7 @@ import { loginRequest } from '~/store/modules/auth/actions';
 import logo from '~/assets/logo.png';
 import logoIopa from '~/assets/logo-iopa.png';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
+import SiteContext from '~/context/site';
 
 const schema = Yup.object().shape({
   email: Yup.string().email('E-mail inválido!').required('Campo obrigatório!'),
@@ -19,6 +20,8 @@ export default function Login() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth.loading);
   const [dominio, setDominio] = useState('');
+
+  const { state } = useContext(SiteContext);
 
   function handleSubmit({ email, password }) {
     dispatch(loginRequest(email, password));
@@ -32,14 +35,7 @@ export default function Login() {
   return (
     <>
       <Form schema={schema} onSubmit={handleSubmit}>
-        {dominio === 'dhagesturismo' ? (
-          <img src={logo} alt="Logomarca da agência D' Hages Turismo" />
-        ) : dominio === 'iopa' ? (
-          <img src={logoIopa} alt="IOPA" />
-        ) : (
-          <></>
-        )
-        }
+        <img src={state?.logo?.url} alt={state?.nome} />
         <br />
         <Input name="email" type="email" placeholder="Seu e-mail" />
         <Input name="password" type="password" placeholder="Sua senha" />

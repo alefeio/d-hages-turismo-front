@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${({client}) => client === 'dhagesturismo' ? '#000' : '#fff'};
+  background: ${({state}) => `#${state?.bg_fundo}`};
 `;
 
 export const Content = styled.div`
@@ -20,13 +20,14 @@ export const Content = styled.div`
     margin-top: 30px;
 
     input {
-      background: ${({client}) => client === 'dhagesturismo' ? rgba(255, 255, 255, 0.1) : rgba(0, 0, 0, 0.5)};
+      background: #555;
       border: 0;
       border-radius: 4px;
       height: 44px;
       padding: 0 15px;
       color: #fff;
       margin: 0 0 10px;
+      border: 1px solid #999;
 
       &::placeholder {
         color: rgba(255, 255, 255, 0.9);
@@ -43,7 +44,7 @@ export const Content = styled.div`
     button {
       margin: 5px 0 0;
       height: 44px;
-      background: #4c4738;
+      background: #333;
       font-weight: bold;
       color: #fff;
       border: 0;
@@ -52,7 +53,7 @@ export const Content = styled.div`
       transition: background 0.2s;
 
       &:hover {
-        background: ${darken(0.07, '#4c4738')};
+        background: ${darken(0.07, '#333')};
       }
     }
 
