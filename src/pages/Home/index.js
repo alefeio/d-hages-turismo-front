@@ -330,20 +330,6 @@ export default function Home() {
           )}
           <SimpleSlider />
         </Banner>}
-        {dominio === 'iopa' && (
-          <Quemsomos client={dominio} id="sobre">
-            <div>
-              <section>
-                <img src={state?.imagem?.url} />
-                <p>Rua dos Tamoios, 1370 - Batista Campos, Belém - PA</p>
-              </section>
-              <div>
-                <h1>{state?.nome}</h1>
-                <div dangerouslySetInnerHTML={{ __html: state?.descricao }}></div>
-              </div>
-            </div >
-          </Quemsomos>
-        )}
         {state?.pacotes && <Produtos id="pacotes" client={dominio}>
           <>
             <h2>{state?.pacotes}</h2>
@@ -437,6 +423,35 @@ export default function Home() {
             </aside>
           )}
         </Produtos>}
+        <Quemsomos client={dominio} id="sobre">
+          <div>
+            <section>
+              {(
+                state?.imagem?.url.split('.')[state?.imagem?.url.split('.').length - 1] === 'webm'
+                || state?.imagem?.url.split('.')[state?.imagem?.url.split('.').length - 1] === 'mp4'
+                || state?.imagem?.url.split('.')[state?.imagem?.url.split('.').length - 1] === 'mov'
+                || state?.imagem?.url.split('.')[state?.imagem?.url.split('.').length - 1] === 'wmv'
+                || state?.imagem?.url.split('.')[state?.imagem?.url.split('.').length - 1] === 'avi'
+                || state?.imagem?.url.split('.')[state?.imagem?.url.split('.').length - 1] === 'html5'
+              )
+                ? (
+                  <video loop="loop" controls>
+                    <source src={state?.imagem?.url} type="video/mp4" />
+                    <object data="">
+                      <embed src={state?.imagem?.url} />
+                    </object>
+                  </video>
+                ) : (
+                  <img src={state?.imagem?.url} />
+                )
+              }
+            </section>
+            <div>
+              <h1>{state?.nome}</h1>
+              <div dangerouslySetInnerHTML={{ __html: state?.descricao }}></div>
+            </div>
+          </div >
+        </Quemsomos>
         {state?.servicos && <Produtos id="pacotes" client={dominio}>
           <>
             <h2>{state?.servicos}</h2>
@@ -476,24 +491,6 @@ export default function Home() {
             </section>
           </Depoimentos>
         )}
-        {dominio === 'dhagesturismo' ? (
-          <Quemsomos client={dominio} id="sobre">
-            <div>
-              <section>
-                <video controls>
-                  <source src={apresentacao} type="video/mp4" />
-                  <object data="">
-                    <embed src={apresentacao} />
-                  </object>
-                </video>
-              </section>
-              <div>
-                <h1>{state?.nome}</h1>
-                <div dangerouslySetInnerHTML={{ __html: state?.descricao }}></div>
-              </div>
-            </div >
-          </Quemsomos>
-        ) : ('')}
         {dominio === 'dhagesturismo' && (
           <Porque client={dominio}>
             <h2>
