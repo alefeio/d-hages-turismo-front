@@ -15,29 +15,24 @@ export const Img = styled.img`
 
 export const Container = styled.div`
   padding: 1rem;
-  background: ${(props) => props.bgMenu};
-  position: ${(props) => props.viewMenu};
+  position: ${({ viewMenu }) => viewMenu};
   width: 100%;
   margin: auto !important;
-  z-index: 1000;
+  z-index: 10000000000000000000000000000000000000000000000000000000000000;
+  background-color: ${({ state, bgMenu }) => state?.primary_color === 'transparent' && bgMenu === 'transparent' ? state?.primary_color : `#${state?.primary_color}`};
 `;
 
 export const Content = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  height: 100%;
   max-width: 1300px;
   margin: auto;
-
+  height: ${({ viewMenu }) => viewMenu === 'relative' ? '90px' : '40px'};
   a {
+    height: 100%;
     img {
-      background: ${({ client }) => client === 'iopa' ? '#fff' : 'transparent'};
-      padding: ${({ client }) => client === 'iopa' ? '.5rem 1rem' : '0'};
-      border-radius: ${({ client }) => client === 'iopa' ? '10px' : '0'};
-      max-width: ${(props) => props.bgMenu === 'transparent' ? props.client === 'iopa' ? '150px' : '90px' : props.client === 'iopa' ? '90px' : '40px'};
-      margin-right: 50px;
+      height: 100%;
     }
   }
 
@@ -62,7 +57,7 @@ export const Nav = styled.nav`
   ul li a {
     font-size: 16px;
     font-weight: bold;
-    color: ${({ client, bgMenu }) => client === 'iopa' ? '#333' : '#fff'};
+    color: ${({ state }) => `#${state?.textbutton_color}`};
     margin: 1rem;
     padding: 1rem;
     transition: 0.2s;

@@ -22,7 +22,7 @@ export default function Header() {
   const [checked, setChecked] = useState(false);
   const [perfil, setPerfil] = useState();
   const [scrollY, setScrollY] = useState(0);
-  const [viewMenu, setViewMenu] = useState('fixed');
+  const [viewMenu, setViewMenu] = useState('absolute');
   const [bgMenu, setBgMenu] = useState('transparent');
   const [dominio, setDominio] = useState('');
 
@@ -33,10 +33,10 @@ export default function Header() {
   const { pathname } = useLocation();
 
   function logit() {
-    if (window.pageYOffset < 100) setBgMenu(dominio === 'dhagesturismo' ? 'transparent' : 'white');
-    else setBgMenu(dominio === 'dhagesturismo' ? 'black' : 'white');
-    // if (window.pageYOffset > scrollY && window.pageYOffset > 100) setViewMenu('absolute');
-    // else setViewMenu('fixed');
+    setBgMenu(window.pageYOffset < 100 && state?.primary_color === 'transparent' ? 'transparent' : state?.primary_color);
+    if (window.pageYOffset > scrollY && window.pageYOffset > 100) setViewMenu('absolute');
+    else if (window.pageYOffset < scrollY && window.pageYOffset > 0) setViewMenu('fixed');
+    else setViewMenu(state?.primary_color === 'transparent' ? 'absolute' : 'relative');
 
     setScrollY(window.pageYOffset);
     // console.log(window.pageYOffset);
@@ -84,18 +84,18 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    setBgMenu(dominio === 'dhagesturismo' ? 'transparent' : 'white');
-    setViewMenu(dominio === 'dhagesturismo' ? 'fixed' : 'relative');
+    setBgMenu(state?.primary_color);
+    setViewMenu(state?.primary_color === 'transparent' ? 'absolute' : 'relative');
   }, [dominio]);
 
   return (
-    <Container viewMenu={viewMenu} bgMenu={bgMenu}>
-      <Content bgMenu={bgMenu} client={dominio}>
+    <Container state={state} scrollY={scrollY} bgMenu={bgMenu} viewMenu={viewMenu} >
+      <Content viewMenu={viewMenu}>
         <Link to="/#home" onClick={altChecked}>
           <img src={state?.logo?.url} alt={state?.nome} />
         </Link>
         <Toggle />
-        <Nav exibir={checked} client={dominio} bgMenu={bgMenu}>
+        <Nav exibir={checked} state={state}>
           <ul>
             <li>
               <Link to="/#home" onClick={altChecked}>

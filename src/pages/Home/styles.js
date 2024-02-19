@@ -5,7 +5,7 @@ import porque from '~/assets/home/onibus.jpg';
 import sorrisos from '~/assets/sorrisos.jpeg';
 
 export const Container = styled.div`
-  background: #fff;
+  background: ${({ state }) => `#${state?.bg_fundo}`};
 `;
 
 const breatheAnimation = keyframes`

@@ -298,7 +298,7 @@ export default function Home() {
       <Helmet>
         <title>{state?.title}</title>
       </Helmet>
-      <Container>
+      <Container state={state}>
         <WhatsApp>
           <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
           <a href={`https://wa.me//55${dominio === 'dhagesturismo' ? '91981149800' : '91980867245'}?text=${textWpp}`} target='_blank'>

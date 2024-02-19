@@ -73,7 +73,7 @@ export default function Rodape() {
 
   return (
     <Container>
-      <Trabalhe id="contato" primary_color={state?.primary_color} second_color={state?.second_color}>
+      <Trabalhe id="contato" state={state}>
         <div>
           <h2>{state?.rodape_titulo}</h2>
           <div dangerouslySetInnerHTML={{ __html: state?.rodape_texto }}></div>
@@ -105,7 +105,7 @@ export default function Rodape() {
         }
         {/* <img src={logo} alt="Logo HCS" /> */}
       </Trabalhe>
-      <Rod primary_color={state?.primary_color}>
+      <Rod state={state}>
         <ul>
           <li>
             <a href={state?.instagram} target="_blank">
