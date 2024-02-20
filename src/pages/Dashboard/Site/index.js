@@ -28,6 +28,7 @@ export default function AdminSite() {
   const [produtoEdit, setProdutoEdit] = useState(null);
   const [loading, setLoading] = useState(false);
   const [viewBanner, setViewBanner] = useState(false);
+  const [textoBanner, setTextoBanner] = useState(false);
   const [dominio, setDominio] = useState('');
 
   const { state, loadSite } = useContext(SiteContext);
@@ -54,6 +55,7 @@ export default function AdminSite() {
       setRodape_texto(state.rodape_texto);
 
       setViewBanner(state.banner);
+      setTextoBanner(state.textonobanner);
     } catch (error) {
       console.log(error);
     }
@@ -99,6 +101,7 @@ export default function AdminSite() {
     setLoading(true);
     const newData = data;
     newData.banner = viewBanner;
+    newData.textonobanner = textoBanner;
     newData.descricao = descricao;
     newData.rodape_texto = rodape_texto;
     newData.img_id = file;
@@ -125,6 +128,7 @@ export default function AdminSite() {
     setLoading(true);
     const newData = data;
     newData.banner = viewBanner;
+    newData.textonobanner = textoBanner;
     newData.descricao = descricao;
     newData.rodape_texto = rodape_texto;
     newData.img_id = file;
@@ -239,8 +243,10 @@ export default function AdminSite() {
           </span>
 
           <span>
-            Banner:
             <aside>
+              <span>
+                Banner:
+              </span>
               <span>
                 <Input type='radio' name="banner" onChange={() => setViewBanner(true)} checked={!!viewBanner} /> Sim
               </span>
@@ -248,21 +254,99 @@ export default function AdminSite() {
                 <Input type='radio' name="banner" onChange={() => setViewBanner(false)} checked={!viewBanner} /> Não
               </span>
             </aside>
-            <span>
-              Altura do banner: <Input name="banner_h" placeholder="Digite apenas números" type='number' /> %
-            </span>
+            <aside>
+              <span>
+                Altura do banner:
+              </span>
+              <span><Input name="banner_h" placeholder="Digite apenas números" type='number' /> %</span>
+            </aside>
+            <aside>
+              <span>
+                Texto?
+              </span>
+              <span>
+                <Input type='radio' name="textonobanner" onChange={() => setTextoBanner(true)} checked={!!textoBanner} /> Sim
+              </span>
+              <span>
+                <Input type='radio' name="textonobanner" onChange={() => setTextoBanner(false)} checked={!textoBanner} /> Não
+              </span>
+            </aside>
+            <aside>
+              <span>
+                Título do banner:
+              </span>
+              <span><Input name="titulobanner" placeholder="" /></span>
+              <span>
+                Cor Título banner:
+              </span>
+              <span><Input name="cor_titulobanner" placeholder="" /></span>
+              <span>
+                Bg Título banner:
+              </span>
+              <span><Input name="bg_titulobanner" placeholder="" /></span>
+            </aside>
+            <aside>
+              <span>
+                Subtítulo do banner:
+              </span>
+              <span><Input name="descricaobanner" placeholder="" /></span>
+              <span>
+                Cor Subtítulo banner:
+              </span>
+              <span><Input name="cor_descricaobanner" placeholder="" /></span>
+              <span>
+                Bg Subtítulo banner:
+              </span>
+              <span><Input name="bg_descricaobanner" placeholder="" /></span>
+            </aside>
           </span>
           <span>
             Se houver produtos, digite o título: <Input name="produtos" placeholder="Título de Produtos" />
           </span>
           <span>
-            Se houver serviços, digite o título: <Input name="servicos" placeholder="Título de Serviços" />
+            {initialData.servicos && <aside>
+              <span>
+                Itens por linha:
+              </span>
+              <span>
+                <Input name="qtdlinhaservicos" placeholder="Digite apenas números" type='number' />
+              </span>
+            </aside>}
+            <aside>
+              <span>
+                Se houver serviços, digite o título: <Input name="servicos" placeholder="Título de Serviços" />
+              </span>
+            </aside>
           </span>
           <span>
-            Se houver blog, digite o título: <Input name="blog" placeholder="Título de Blog" />
+            {initialData.blog && <aside>
+              <span>
+                Itens por linha:
+              </span>
+              <span>
+                <Input name="qtd_linhablog" placeholder="Digite apenas números" type='number' />
+              </span>
+            </aside>}
+            <aside>
+              <span>
+                Se houver blog, digite o título: <Input name="blog" placeholder="Título de Blog" />
+              </span>
+            </aside>
           </span>
           <span>
-            Se houver pacotes, digite o título: <Input name="pacotes" placeholder="Título de Pacotes" />
+            {initialData.pacotes && <aside>
+              <span>
+                Itens por linha:
+              </span>
+              <span>
+                <Input name="qtd_linhapacotes" placeholder="Digite apenas números" type='number' />
+              </span>
+            </aside>}
+            <aside>
+              <span>
+                Se houver pacotes, digite o título: <Input name="pacotes" placeholder="Título de Blog" />
+              </span>
+            </aside>
           </span>
           <span>
             Se houver depoimentos, digite o título: <Input name="depoimentos" placeholder="Título de Depoimentos" />
@@ -303,11 +387,28 @@ export default function AdminSite() {
             Facebook: <Input name="facebook" placeholder="Ex: https://facebook.com/usuario" />
           </span>
           <span>
+            <aside>
+              <span>
+                Altura do menu:
+              </span>
+              <span><Input name="altura_menu" placeholder="Digite apenas números" type='number' /> %</span>
+            </aside>
+            <aside>
+              <span>
+                Cor do menu:
+              </span>
+              <span><Input name="primary_color" placeholder="ffffff" /> %</span>
+            </aside>
             <span>
-              Cor primária: <Input name="primary_color" placeholder="ffffff" />
+              Cor do rodapé: <Input name="second_color" placeholder="ffffff" />
+            </span>
+          </span>
+          <span>
+            <span>
+              Cor de títulos no site: <Input name="cor_titulosite" placeholder="ffffff" />
             </span>
             <span>
-              Cor secundária: <Input name="second_color" placeholder="ffffff" />
+              Cor de textos no site: <Input name="cor_textosite" placeholder="ffffff" />
             </span>
           </span>
           <span>
@@ -315,7 +416,7 @@ export default function AdminSite() {
               Cor de fundo: <Input name="bg_fundo" placeholder="ffffff" />
             </span>
             <span>
-              Cor do texto do botão: <Input name="textbutton_color" placeholder="ffffff" />
+              Cor do texto: menu e botões: <Input name="textbutton_color" placeholder="ffffff" />
             </span>
           </span>
 

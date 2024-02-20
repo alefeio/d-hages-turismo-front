@@ -90,7 +90,7 @@ export default function Header() {
 
   return (
     <Container state={state} scrollY={scrollY} bgMenu={bgMenu} viewMenu={viewMenu} >
-      <Content viewMenu={viewMenu}>
+      <Content viewMenu={viewMenu} state={state}>
         <Link to="/#home" onClick={altChecked}>
           <img src={state?.logo?.url} alt={state?.nome} />
         </Link>
@@ -118,11 +118,6 @@ export default function Header() {
               </Link>
             </li>}
             <li>
-              <a href={`https://wa.me/55${state?.whatsapp}?text=Olá! Estou entrando em contato através do site.`} target='_blank' onClick={altChecked}>
-                FALE PELO ZAP
-              </a>
-            </li>
-            <li>
               <Link to="/#sobre" onClick={altChecked}>
                 SOBRE NÓS
               </Link>
@@ -131,6 +126,11 @@ export default function Header() {
               <Link to="/#ondeestamos" onClick={altChecked}>
                 ONDE ESTAMOS
               </Link>
+            </li>
+            <li>
+              <a href={`https://wa.me/55${state?.whatsapp}?text=Olá! Estou entrando em contato através do site.`} target='_blank' onClick={altChecked}>
+                WHATSAPP
+              </a>
             </li>
             <li>
               <Link to="/#contato" onClick={altChecked}>

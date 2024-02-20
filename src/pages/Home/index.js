@@ -286,7 +286,8 @@ export default function Home() {
       busca ? dominio && loadBuscaProduto(busca) : dominio && loadProdutos();
     }
     !depoimentos.length && dominio && loadDepoimentos();
-  }, [dominio]);
+    console.log('state', state)
+  }, [dominio, state]);
 
   useEffect(() => {
     // Chamar a função ao montar o componente
@@ -301,21 +302,21 @@ export default function Home() {
       <Container state={state}>
         <WhatsApp>
           <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
-          <a href={`https://wa.me//55${dominio === 'dhagesturismo' ? '91981149800' : '91980867245'}?text=${textWpp}`} target='_blank'>
+          <a href={`https://wa.me//55${state?.whatsapp}?text=${textWpp}`} target='_blank'>
             <img src={wpp} alt="Logo HCS" />
           </a>
         </WhatsApp>
-        {state?.banner && <Banner id="home" height={state?.banner_h}>
-          {dominio === 'dhagesturismo' ? (
+        {state?.banner && <Banner id="home" state={state}>
+          {state?.textonobanner && (
             <>
               <section>
-                <h3>Seja muito bem-vindo</h3>
-                <h2>à sua próxima aventura</h2>
+                <h3>{state?.titulobanner}</h3>
+                <h2>{state?.descricaobanner}</h2>
               </section>
               <section className='news'>
                 <p>Acompanhe nossas novidades</p>
                 {!sendNews ? (
-                  <Email>
+                  <Email client={state}>
                     <Input name="email" placeholder='Cadastre seu email' value={email} onChange={(e) => setEmail(e.target.value)} />
                     <button disabled={loading} onClick={handleSubmit}>Enviar</button>
                   </Email>
@@ -325,12 +326,10 @@ export default function Home() {
                 }
               </section>
             </>
-          ) : (
-            <></>
           )}
           <SimpleSlider />
         </Banner>}
-        {state?.pacotes && <Produtos id="pacotes" client={dominio}>
+        {state?.pacotes && <Produtos id="pacotes" client={state}>
           <>
             <h2>{state?.pacotes}</h2>
             {dominio === 'dhagesturismo' && <div>
@@ -391,7 +390,7 @@ export default function Home() {
               }} />
               <MdSearch size={26} color="#000" />
             </nav>
-            <ListaProdutos client={dominio}>
+            <ListaProdutos client={state}>
               {produtos.map((p) => (
                 <li key={p.id}>
                   <Link to={`roteiros/${p.url}/${p.id}`}>
@@ -452,11 +451,10 @@ export default function Home() {
             </div>
           </div >
         </Quemsomos>
-        {state?.servicos && <Produtos id="pacotes" client={dominio}>
+        {state?.servicos && <Produtos id="pacotes" client={state}>
           <>
             <h2>{state?.servicos}</h2>
-            <p>Conte com a nossa equipe para atendê-lo com qualidade e conforto.</p>
-            <ListaProdutos client={dominio} id="servicos">
+            <ListaProdutos client={state} id="servicos">
               {produtos.map((p) => (
                 <li key={p.id}>
                   <Link to={`servicos/${p.url}/${p.id}`}>
@@ -492,7 +490,7 @@ export default function Home() {
           </Depoimentos>
         )}
         {dominio === 'dhagesturismo' && (
-          <Porque client={dominio}>
+          <Porque>
             <h2>
               POR QUE ESCOLHER
               <br />
@@ -508,7 +506,7 @@ export default function Home() {
             </ul>
           </Porque>
         )}
-        <Ondeestamos id="ondeestamos" client={dominio}>
+        <Ondeestamos id="ondeestamos">
           {dominio === 'dhagesturismo' ? (
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15954.345782500639!2d-48.4780747!3d-1.4238214!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92a48bfd67c896fd%3A0x1200efcf3165952!2sD&#39;%20Hages%20Turismo!5e0!3m2!1spt-BR!2sbr!4v1700398532335!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           ) : dominio === 'iopa' ? (

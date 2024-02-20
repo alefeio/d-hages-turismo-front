@@ -28,7 +28,7 @@ export const Content = styled.div`
   align-items: center;
   max-width: 1300px;
   margin: auto;
-  height: ${({ viewMenu }) => viewMenu === 'relative' ? '90px' : '40px'};
+  height: ${({ state, viewMenu }) => viewMenu === 'relative' ? `${state?.altura_menu}vh` : '40px'};
   a {
     height: 100%;
     img {
@@ -37,7 +37,8 @@ export const Content = styled.div`
   }
 
   @media(max-width: 600px) {
-    padding: 2rem 1rem;
+    padding: 1rem;
+    height: ${({ state, viewMenu }) => viewMenu === 'relative' ? `${state?.altura_menu*1.3}vh` : '40px'};
   }
 `;
 

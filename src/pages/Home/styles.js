@@ -16,7 +16,7 @@ const breatheAnimation = keyframes`
 
 export const Banner = styled.div`
   width: 100%;
-  height: ${({ height }) => `${height}vh`};
+  height: ${({ state }) => `${state?.banner_h}vh`};
   position: relative;
   overflow: hidden !important;
 
@@ -35,20 +35,26 @@ export const Banner = styled.div`
     h2 {
       font-size: 5rem;
       text-transform: uppercase;
+      align-self: center;
+      padding: .5rem;
+      color: ${({ state }) => !state?.cor_descricaobanner ? '#fff' : `#${state?.cor_descricaobanner}`};
+      background: ${({ state }) => !state?.bg_descricaobanner || state?.bg_descricaobanner === 'transparent' ? state?.bg_descricaobanner : `#${state?.bg_descricaobanner}`};
     }
 
     h3 {
       align-self: center;
       padding: .3rem .7rem;
-      color: black;
-      background: #ffd873;
+      color: ${({ state }) => !state?.cor_titulobanner ? '#fff' : `#${state?.cor_titulobanner}`};
+      background: ${({ state }) => !state?.bg_titulobanner || state?.bg_titulobanner === 'transparent' ? state?.bg_titulobanner : `#${state?.bg_titulobanner}`};
       font-size: 2rem;
       text-transform: uppercase;
+      padding: .5rem;
     }
 
     p {
       margin-bottom: .5rem;
-      background: #000;
+      background: ${({ state }) => `#${state?.primary_color}`};
+      color: ${({ state }) => `#${state.textbutton_color}`};
       align-self: center;
       padding: .5rem 1rem;
       border-radius: 4px;
@@ -75,7 +81,7 @@ export const Banner = styled.div`
     img {
       height: 100%;
       width: 100%;
-      animation-name: ${({ client }) => client === 'dhagesturismo' ? breatheAnimation : ''};
+      animation-name: ${breatheAnimation};
       animation-duration: 12s;
       animation-direction: alternate;
       animation-iteration-count: infinite;
@@ -88,11 +94,15 @@ export const Banner = styled.div`
   }
 
   @media(max-width: 600px) {
-    height: 40vh;
+    height: ${({ state }) => `${state?.banner_h/1.5}vh`};
 
     section {
       h2 {
-        font-size: 3rem;
+        font-size: 2rem;
+      }
+
+      h3 {
+        font-size: 1.5rem;
       }
     }
   }
@@ -198,7 +208,7 @@ export const Quemsomos = styled.div`
     gap: 5rem;
 
     section {
-      width: ${({ client }) => client === 'dhagesturismo' ? '20%' : '40%'};
+      width: 30%;
       text-align: center;
 
       img {
@@ -332,7 +342,7 @@ export const Produtos = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 1300px;
-  padding: ${({ client }) => client === 'dhagesturismo' ? '10rem 0' : '0rem 0rem 10rem 0rem'};
+  padding: 5rem;
   margin: auto;
   text-align: center;
 
@@ -402,17 +412,19 @@ export const Produtos = styled.div`
     font-size: 1.7rem;
     margin: 0 2rem 5rem;
   }
+
+  @media (max-width: 600px) {
+    padding: 5rem 1rem;
+  }
 `;
 
 export const ListaProdutos = styled.ul`
   display: grid;
-  grid-template-columns: repeat(${({ client }) => client === 'dhagesturismo' ? 4 : 3}, 1fr);
-  grid-gap: 7rem;
+  grid-template-columns: repeat(${({ client }) => client.qtdlinhaservicos}, 1fr);
+  grid-gap: 5rem;
   text-align: left;
 
   li {
-    box-shadow: ${({ client }) => client === 'dhagesturismo' && '0px 7px 7px rgba(0, 0, 0, 0.3)'};
-    border-radius: ${({ client }) => client === 'dhagesturismo' ? '2rem' : '1rem'};
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -432,11 +444,10 @@ export const ListaProdutos = styled.ul`
       h2 {
         font-size: 2.5rem;
         line-height: 20px;
-        color: #333;
+        color: ${({client}) => client?.cor_titulosite};
         margin: 2rem;
         text-align: center;
         font-weight: bold;
-        color: ${({ client }) => client === 'dhagesturismo' ? 'orange' : '#333'};
       }
 
       h3 {
@@ -446,14 +457,14 @@ export const ListaProdutos = styled.ul`
     }
 
     a {
-      background: ${({ client }) => client === 'dhagesturismo' ? '#000' : '#aee7cf'};
-      color: ${({ client }) => client === 'dhagesturismo' ? '#fff' : '#555'};
+      background: ${({ client }) => `#${client?.primary_color}`};
+      color: ${({ client }) => `#${client.textbutton_color}`};
       border: 0;
       overflow: hidden;
       margin-top: auto;
       display: flex;
       align-items: center;
-      border-radius: ${({ client }) => client === 'dhagesturismo' ? '2rem' : client === 'iopa' ? '1rem' : '0'};
+      border-radius: 1rem;
 
       img {
         width: 100%;
@@ -466,7 +477,7 @@ export const ListaProdutos = styled.ul`
         align-items: center;
         justify-content: center;
         padding: 12px;
-        background: rgba(0, 0, 0, 0.1);
+        background: ${({client}) => `#${client.primary_color}`};
       }
 
       span {
@@ -476,7 +487,7 @@ export const ListaProdutos = styled.ul`
       }
 
       &:hover {
-        background: ${({ client }) => client === 'dhagesturismo' ? darken(0.3, '#fff') : darken(0.3, '#aee7cf')};
+        background: ${({ client }) => darken(0.3, `#${client?.primary_color}`)};
         color: #fff;
       }
     }
@@ -487,14 +498,14 @@ export const ListaProdutos = styled.ul`
     gap: 5rem;
 
     li {
-      margin: 0 2rem;
+      margin: 1rem;
     }
   }
 `;
 
 
 export const Porque = styled.div`
-  background: url(${({ client }) => client === 'dhagesturismo' ? porque : sorrisos}) center center no-repeat;
+  background: url(porque) center center no-repeat;
   background-size: cover;
   height: 100vh;
   display: flex;
@@ -549,8 +560,7 @@ export const Porque = styled.div`
 export const Ondeestamos = styled.div`
   iframe {
     width: 100%;
-    height: ${({ client }) => client === 'dhagesturismo' ? '100vh' : '50vh'};
-
+    height: 50vh;
   }
 `;
 
@@ -666,8 +676,8 @@ export const Email = styled.div`
 
   button {
     border: 0;
-    background: #000;
-    color: #fff;
+    background: ${({ client }) => `#${client?.primary_color}`};
+    color: ${({ client }) => `#${client.textbutton_color}`};
     padding: 1rem;
     border-radius: 30px;
 
