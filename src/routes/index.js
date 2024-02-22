@@ -12,14 +12,10 @@ import Home from '../pages/Home';
 import Produtos from '../pages/Produtos';
 import Compraevenda from '../pages/Compraevenda';
 import Produto from '../pages/Produto';
-import Taxiaereo from '../pages/Taxiaereo';
 import Blog from '../pages/Blog';
-import Pontos from '../pages/Pontos';
-import Ponto from '../pages/Ponto';
 import Busca from '../pages/Busca';
 import Contatoforms from '../pages/Contatoforms';
 import Sobre from '../pages/Sobre';
-import Aeronaves from '../pages/Aeronaves';
 
 import Contato from '../pages/Contato';
 import AdminPacotes from '~/pages/Dashboard/Pacotes';
@@ -28,6 +24,8 @@ import AdminDepoimentos from '~/pages/Dashboard/Depoimentos';
 import AdminServicos from '~/pages/Dashboard/Servicos';
 import Servico from '~/pages/Servico';
 import AdminSite from '~/pages/Dashboard/Site';
+import AdminBlog from '~/pages/Dashboard/Blog';
+import Artigo from '~/pages/Artigo';
 
 export default function Routes() {
   return (
@@ -39,11 +37,8 @@ export default function Routes() {
       <Route path="/busca" component={Busca} />
       <Route path="/roteiros/:nome/:id" component={Produto} />
       <Route path="/servicos/:nome/:id" component={Servico} />
-      <Route path="/taxiaereo" component={Taxiaereo} />
       <Route path="/blog" exact component={Blog} />
-      <Route path="/blog/:id" component={Blog} />
-      <Route path="/pontos" exact component={Pontos} />
-      <Route path="/pontos/:id" component={Ponto} />
+      <Route path="/blog/:nome/:id" component={Artigo} />
       <Route path="/contato" component={Contato} />
       <Route path="/contatoforms" component={Contatoforms} />
       <Route path="/login" component={Login} isLogado />
@@ -53,6 +48,7 @@ export default function Routes() {
       <Route path="/admin/roteiros" component={AdminPacotes} isPrivate />
       <Route path="/admin/site" component={AdminSite} isPrivate />
       <Route path="/admin/servicos" component={AdminServicos} isPrivate />
+      <Route path="/admin/blog" component={AdminBlog} isPrivate />
       <Route path="/admin/banners" component={AdminBanners} isPrivate />
       <Route path="/admin/depoimentos" component={AdminDepoimentos} isPrivate />
     </Switch>

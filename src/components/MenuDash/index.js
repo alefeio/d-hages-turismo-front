@@ -29,22 +29,27 @@ export default function MenuDash() {
       </li>
       {state?.banner && <li>
         <Link to="/admin/banners">
-          Adm Banners
+          Adm Banner
         </Link>
       </li>}
       {state?.depoimentos && <li>
         <Link to="/admin/depoimentos">
-          Adm Depoimentos
+          {state?.depoimentos}
         </Link>
       </li>}
       {state?.pacotes && <li>
         <Link to="/admin/roteiros">
-          Adm Roteiros
+          {state?.pacotes}
         </Link>
       </li>}
       {state?.servicos && <li>
         <Link to="/admin/servicos">
-          Adm Serviços
+          {state?.servicos}
+        </Link>
+      </li>}
+      {state?.blog && <li>
+        <Link to="/admin/blog">
+          {state?.blog}
         </Link>
       </li>}
       <li>

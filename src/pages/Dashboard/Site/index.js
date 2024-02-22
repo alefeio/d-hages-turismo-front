@@ -301,7 +301,19 @@ export default function AdminSite() {
             </aside>
           </span>
           <span>
-            Se houver produtos, digite o título: <Input name="produtos" placeholder="Título de Produtos" />
+            {initialData.servicos && <aside>
+              <span>
+                Itens por linha:
+              </span>
+              <span>
+                <Input name="qtdlinhaprodutos" placeholder="Digite apenas números" type='number' />
+              </span>
+            </aside>}
+            <aside>
+              <span>
+                Se houver produtos, digite o título: <Input name="produtos" placeholder="Título de Produtos" />
+              </span>
+            </aside>
           </span>
           <span>
             {initialData.servicos && <aside>
@@ -349,7 +361,19 @@ export default function AdminSite() {
             </aside>
           </span>
           <span>
-            Se houver depoimentos, digite o título: <Input name="depoimentos" placeholder="Título de Depoimentos" />
+            {initialData.pacotes && <aside>
+              <span>
+                Itens por linha:
+              </span>
+              <span>
+                <Input name="qtdlinhadepoimentos" placeholder="Digite apenas números" type='number' />
+              </span>
+            </aside>}
+            <aside>
+              <span>
+                Se houver depoimentos, digite o título: <Input name="depoimentos" placeholder="Título de Depoimentos" />
+              </span>
+            </aside>
           </span>
           <span>
             Endereço no Google Maps: <Input name="mapa" placeholder="Endereço no mapa" />

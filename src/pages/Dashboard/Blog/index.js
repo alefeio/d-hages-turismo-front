@@ -16,12 +16,11 @@ import api from '~/services/api';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 import SiteContext from '~/context/site';
 
-export default function AdminServicos() {
-  const [descricao, setDescricao] = useState('<p></p>');
+export default function AdminBlog() {
+  const [texto, setTexto] = useState('<p></p>');
   const [file, setFile] = useState('');
   const [preview, setPreview] = useState('');
   const [produtos, setProdutos] = useState([]);
-  const [realizadas, setRealizadas] = useState([]);
   const [initialData, setInitialData] = useState({});
   const [produtoEdit, setProdutoEdit] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -34,36 +33,34 @@ export default function AdminServicos() {
   const editorRef = useRef(null);
 
   async function loadProdutos() {
-    const response = await api.get(`servicos?client=${dominio}`);
+    const response = await api.get(`blog?client=${dominio}`);
 
-    const { pacotes } = response.data;
+    const { blog } = response.data;
 
-    console.log(`pacotes: ${JSON.stringify(response.data)}`);
+    console.log(`blog: ${JSON.stringify(response.data)}`);
 
-    setProdutos(pacotes);
+    setProdutos(blog);
   }
 
   async function loadProduto(id, edit = true) {
     edit && setProdutoEdit(id);
 
-    const response = await api.get(`servicos/nome/${id}`);
+    const response = await api.get(`blog/nome/${id}`);
 
     console.log(response.data);
 
-    setInitialData({
-      nome: response.data.nome
-    });
+    setInitialData(response.data);
 
     setFile(response.data.imagem.id);
     setPreview(response.data.imagem.url);
 
-    setDescricao(response.data.descricao);
+    setTexto(response.data.texto);
     // setProduto(response.data);
     // setImagem(response.data.imagem.url);
   }
 
   async function deleteProdutos(id) {
-    const response = await api.delete(`servicos/${id}`);
+    const response = await api.delete(`blog/${id}`);
 
     loadProdutos();
   }
@@ -83,71 +80,69 @@ export default function AdminServicos() {
 
   const handleChange = useCallback((editorState) => {
     console.log('editorState', editorState);
-    setDescricao(editorState);
+    setTexto(editorState);
   }, []);
 
   async function handleSubmit(data, { resetForm }) {
     setLoading(true);
     const newData = data;
-    newData.descricao = descricao;
+    newData.texto = texto;
     newData.img_id = file;
     newData.client = perfil.email.split('@')[1].split('.')[0];
     console.log('newData', newData);
 
     try {
-      await api.post('servicos', newData);
+      await api.post('blog', newData);
       loadProdutos();
 
       toast.success(
-        'O produto foi criado com sucesso.'
+        'Registro efetuado com sucesso.'
       );
 
       setInitialData({});
-      setDescricao('');
+      setTexto('');
       setFile('');
       setPreview('');
       setProdutoEdit(null);
     } catch (error) {
-      toast.error('Erro ao criar o produto. Tente novamente!');
+      toast.error('Erro ao criar o registro. Tente novamente!');
     } finally {
       setLoading(false);
     }
   }
 
   async function handleUpdate(data, { resetForm }) {
+    setLoading(true);
     const newData = data;
-    newData.valoravista = dominio === 'iopa' ? 0 : Number(data.valoravista);
-    newData.valoraprazo = dominio === 'iopa' ? 0 : Number(data.valoraprazo);
-    newData.parcelas = dominio === 'iopa' ? 0 : Number(data.parcelas);
-    if (dominio === 'iopa') newData.saida = new Date();
-    if (dominio === 'iopa') newData.retorno = new Date();
-    newData.descricao = descricao;
+    newData.texto = texto;
     newData.img_id = file;
     newData.client = perfil.email.split('@')[1].split('.')[0];
-    console.log(newData);
+    console.log('newData', newData);
 
     try {
-      await api.put(`servicos/${produtoEdit}`, newData);
+      await api.put(`blog/${produtoEdit}`, newData);
       loadProdutos();
 
       toast.success(
-        'O produto foi atualizado com sucesso.'
+        'O registro foi atualizado com sucesso.'
       );
 
       setInitialData({});
-      setDescricao('');
+      setTexto('');
       setFile('');
       setPreview('');
       setProdutoEdit(null);
     } catch (error) {
-      toast.error('Erro ao atualizar o produto. Tente novamente!');
+      toast.error('Erro ao atualizar o registro. Tente novamente!');
+    } finally {
+      setLoading(false);
     }
   }
 
   function onContentStateChange(contentState) {
     console.log('contentState', { contentState })
     console.log('contentState2', contentState)
-    setDescricao({
+    setTexto({
       contentState,
     });
   };
@@ -170,11 +165,11 @@ export default function AdminServicos() {
             <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>/</li>
-          <li>Admin {state?.servicos}</li>
+          <li>Admin {state?.blog}</li>
         </ul>
       </Barra>
       <section id="top">
-        <h2>Administrar {state?.servicos}</h2>
+        <h2>Administrar {state?.blog}</h2>
         {!produtoEdit ? <h3>Inserir novo registro</h3> : <h3>Editar registro</h3>}
         <Form onSubmit={!produtoEdit ? handleSubmit : handleUpdate} initialData={initialData}>
           {preview && <img src={preview} />}
@@ -187,13 +182,16 @@ export default function AdminServicos() {
             onChange={handleFile}
           />
 
-          Nome: <Input name="nome" placeholder="Qual o destino?" />
+          Título: <Input name="titulo" placeholder="Qual o destino?" />
           <br />
-          Descrição:
+
+          Descrição: <Input name="descricao" placeholder="Qual o destino?" />
+          <br />
+          Texto:
 
           <CKEditor
             editor={ClassicEditor}
-            data={descricao}
+            data={texto}
             onReady={editor => {
               // You can store the "editor" and use when it is needed.
               console.log('Editor is ready to use!', editor);
@@ -208,13 +206,17 @@ export default function AdminServicos() {
               console.log('Focus.', editor);
             }}
           />
+          <br />
+
+          Autor: <Input name="autor" placeholder="Autor do artigo" />
+          <br />
 
           <button disabled={loading} id='salvar' type="submit">{!produtoEdit ? 'Salvar' : 'Editar'}</button>
         </Form>
       </section>
       <section>
-        <Produtos id="pacotes">
-          <h2>{state?.servicos}</h2>
+        <Produtos id="blog">
+          <h2>{state?.blog}</h2>
           <ListaProdutos>
             {produtos.map((p) => (
               <li key={p.id}>
@@ -222,7 +224,7 @@ export default function AdminServicos() {
                   <img src={p.imagem.url} alt={p.nome} />
                 </Link>
                 <section>
-                  <h2>{p.nome}</h2>
+                  <h2>{p.titulo}</h2>
                 </section>
                 <a href='#top' onClick={() => loadProduto(p.id)}>
                   <div>

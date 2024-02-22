@@ -20,10 +20,9 @@ const schema = Yup.object().shape({
   mensagem: Yup.string().required('Campo obrigatório!'),
 });
 
-export default function Servico(props) {
+export default function Artigo(props) {
   const [produto, setProduto] = useState({});
   const [imagem, setImagem] = useState();
-  const [detalhes, setDetalhes] = useState([]);
   const [initialData, setInitialData] = useState({});
   const [display, setDisplay] = useState('relative');
   const [textWpp, setTextWpp] = useState("");
@@ -63,7 +62,7 @@ export default function Servico(props) {
 
   async function loadProduto() {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    const response = await api.get(`servicos/${nome}/${id}`);
+    const response = await api.get(`blog/${nome}/${id}`);
 
     console.log(response.data);
     setProduto(response.data);
@@ -118,10 +117,10 @@ export default function Servico(props) {
             </li>
             <li>/</li>
             <li>
-              <Link to="/#servicos">{state?.servicos}</Link>
+              <Link to="/blog">{state?.blog}</Link>
             </li>
             <li>/</li>
-            <li>{produto && produto.nome}</li>
+            <li>{produto && produto.titulo}</li>
           </ul>
         </Barra>
         <Prod display={display}>
@@ -131,9 +130,12 @@ export default function Servico(props) {
             </nav>
             <span>
               <h1>
-                {produto.nome}
+                {produto.titulo}
               </h1>
-              <section dangerouslySetInnerHTML={{ __html: produto.descricao }}></section>
+              <h2>
+                {produto.descricao}
+              </h2>
+              <section dangerouslySetInnerHTML={{ __html: produto.texto }}></section>
               <p><a href='#' onClick={() => setViewFormReserva(true)}>Clique aqui e agende uma consulta.</a></p>
             </span>
           </div>

@@ -26,7 +26,8 @@ import {
   WhatsApp,
   Email,
   ListaProdutos,
-  Trabalhe
+  ListaBlog,
+  Equipe
 } from './styles';
 import { Helmet } from 'react-helmet';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
@@ -44,7 +45,9 @@ const schema = Yup.object().shape({
 export default function Home() {
   const [banners, setBanners] = useState([]);
   const [produtos, setProdutos] = useState([]);
+  const [blog, setBlog] = useState([]);
   const [total, setTotal] = useState(0);
+  const [totalBlog, setTotalBlog] = useState(0);
   const [depoimentos, setDepoimentos] = useState([]);
   const [textWpp, setTextWpp] = useState("Quero mais informações. Estou entrando em contato através do site.");
   const [email, setEmail] = useState("");
@@ -52,6 +55,7 @@ export default function Home() {
   const [enviado, setEnviado] = useState(false);
   const [sendNews, setSendNews] = useState(false);
   const [busca, setBusca] = useState('');
+  const [buscaBlog, setBuscaBlog] = useState('');
   const [dominio, setDominio] = useState('');
 
   const { state } = useContext(SiteContext);
@@ -95,6 +99,25 @@ export default function Home() {
     setTotal(total);
   }
 
+  async function loadBlog() {
+    const response = await api.get(`blog?client=${dominio}`);
+
+    console.log('blog', response);
+
+    const { blog, total } = response.data;
+
+    const newData = blog.map(data => {
+      data.url = removerEspacosEAcentos(data.titulo);
+
+      return data;
+    })
+
+    console.log(`data: ${JSON.stringify(response.data)}`);
+
+    setBlog(newData);
+    setTotalBlog(total);
+  }
+
   async function loadBuscaProduto(busca) {
     const response = await api.get(`busca?client=${dominio}&page=1&busca=${busca}`);
 
@@ -102,6 +125,12 @@ export default function Home() {
 
     setProdutos(produtos);
     setTotal(total);
+  }
+
+  async function loadBuscaBlog(busca) {
+    const response = await api.get(`buscablog?client=${dominio}&page=1&busca=${buscaBlog}`);
+
+    setBlog(response.data);
   }
 
   async function loadDepoimentos() {
@@ -285,6 +314,9 @@ export default function Home() {
     if (!produtos.length) {
       busca ? dominio && loadBuscaProduto(busca) : dominio && loadProdutos();
     }
+    if (!blog.length) {
+      buscaBlog ? dominio && loadBuscaBlog(buscaBlog) : dominio && loadBlog();
+    }
     !depoimentos.length && dominio && loadDepoimentos();
     console.log('state', state)
   }, [dominio, state]);
@@ -422,7 +454,7 @@ export default function Home() {
             </aside>
           )}
         </Produtos>}
-        <Quemsomos client={dominio} id="sobre">
+        <Quemsomos client={state} id="sobre">
           <div>
             <section>
               {(
@@ -451,10 +483,10 @@ export default function Home() {
             </div>
           </div >
         </Quemsomos>
-        {state?.servicos && <Produtos id="pacotes" client={state}>
+        {state?.servicos && <Produtos id="servicos" client={state}>
           <>
             <h2>{state?.servicos}</h2>
-            <ListaProdutos client={state} id="servicos">
+            <ListaProdutos client={state}>
               {produtos.map((p) => (
                 <li key={p.id}>
                   <Link to={`servicos/${p.url}/${p.id}`}>
@@ -473,6 +505,87 @@ export default function Home() {
               ))}
             </ListaProdutos>
           </>
+        </Produtos>}
+        <Equipe client={state} id="equipe">
+          <h1>NOSSA EQUIPE</h1>
+          <div>
+            <aside>
+              <h2>Anazilda Lins</h2>
+              <h3>OAB-SP N 435.122</h3>
+              <p>Graduada em Direito pela renomada Universidade Estácio de Sá, em Belém-PA,
+                e com transferência de sua inscrição na OAB para a cidade de São Paulo, Dra. Anazilda
+                iniciou sua carreira jurídica em um escritório de advocacia no Grande ABC/SP, além
+                de ter trabalhado em escritórios de destaque na capital paulista. Especializou-se em
+                Direito Material e Processual do Trabalho pela Fabel/PA, e em Compliance, LGPD e
+                Prática Trabalhista pelo Centro Universitário do Sul de Minas - UNIS/MG.</p>
+              <p>Movida pelo desejo de oferecer um atendimento personalizado e proporcionar
+                a cada cliente uma representação jurídica sólida, decidiu fundar, juntamente com sua
+                sócia Dra. Silvanice Moura, o escritório de advocacia Lins &amp; Moura. Este escritório é
+                caracterizado por ser um espaço acolhedor, com foco na satisfação e na proteção dos
+                interesses individuais de cada cliente.</p>
+            </aside>
+            <section>
+              <img src={state?.imagem?.url} />
+            </section>
+          </div >
+          <div>
+            <section>
+              <img src={state?.imagem?.url} />
+            </section>
+            <aside>
+              <h2>Silvanice Moura</h2>
+              <h3>OAB-PA N 29.005</h3>
+              <p>Formada em Direito pela Universidade Estácio de Sá, em Belém do Pará, a
+                advogada desenvolveu sua carreira em dois dos maiores bancos privados do Brasil.
+                Com sua vasta experiência na área bancária, adquiriu conhecimento especializado em
+                prestar atendimento humanizado e resolver as demandas dos clientes, além de
+                dominar o direito do consumidor bancário, taxas, investimentos, cláusulas
+                contratuais de empréstimos e financiamentos, bem como os serviços oferecidos pelos
+                bancos aos clientes.</p>
+              <p>Dra. Silvanice é especialista em Direito Previdenciário e do Consumidor
+                Bancário. Motivada por todo o acervo de conhecimento e prática adquiridos durante
+                anos de atuação no setor bancário e como advogada, ela oferece aos seus clientes um
+                atendimento de excelência, baseado em sua sólida base de conhecimento e
+                experiência.</p>
+            </aside>
+          </div >
+        </Equipe>
+        {state?.blog && <Produtos id="blog" client={state}>
+          <>
+            <h2>{state?.blog}</h2>
+            <nav>
+              <Input name="buscaProduto" value={buscaBlog} placeholder='Pesquisar artigo' onChange={(e) => {
+                setBuscaBlog(e.target.value);
+                loadBuscaBlog(e.target.value);
+              }} />
+              <MdSearch size={26} color="#000" />
+            </nav>
+            <ListaBlog client={state}>
+              {blog.map((p) => (
+                <li key={p.id}>
+                  <Link to={`blog/${p.url}/${p.id}`}>
+                    <img src={p.imagem.url} alt={p.nome} />
+                  </Link>
+                  <section>
+                    <h2>{p.titulo}</h2>
+                    <p>{p.descricao}</p>
+                  </section>
+                  <Link to={`blog/${p.url}/${p.id}`}>
+                    <div>
+                      <span>Ler <MdAdd size={16} color="#FFF" /></span>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ListaBlog>
+          </>
+          {totalBlog > 12 && (
+            <aside>
+              <Link to='/roteiros'>
+                Ver todos
+              </Link>
+            </aside>
+          )}
         </Produtos>}
         {state?.depoimentos && (
           <Depoimentos id="depoimentos">

@@ -102,31 +102,36 @@ export default function Header() {
                 HOME
               </Link>
             </li>
-            {state?.servicos && <li>
-              <Link to='/#servicos' onClick={altChecked}>
-                SERVIÇOS
-              </Link>
-            </li>}
-            {state?.pacotes && <li>
-              <Link to="/#pacotes" onClick={altChecked}>
-                ROTEIROS
-              </Link>
-            </li>}
-            {state?.depoimentos && <li>
-              <Link to="/#depoimentos" onClick={altChecked}>
-                DEPOIMENTOS
-              </Link>
-            </li>}
             <li>
               <Link to="/#sobre" onClick={altChecked}>
                 SOBRE NÓS
               </Link>
             </li>
-            <li>
+            {state?.servicos && <li>
+              <Link to='/#servicos' onClick={altChecked}>
+                {state?.servicos}
+              </Link>
+            </li>}
+            {state?.pacotes && <li>
+              <Link to="/#pacotes" onClick={altChecked}>
+                {state?.pacotes}
+              </Link>
+            </li>}
+            {state?.depoimentos && <li>
+              <Link to="/#depoimentos" onClick={altChecked}>
+                {state?.depoimentos}
+              </Link>
+            </li>}
+            {state?.blog && <li>
+              <Link to="/#blog" onClick={altChecked}>
+                {state?.blog}
+              </Link>
+            </li>}
+            {state?.mapa && <li>
               <Link to="/#ondeestamos" onClick={altChecked}>
                 ONDE ESTAMOS
               </Link>
-            </li>
+            </li>}
             <li>
               <a href={`https://wa.me/55${state?.whatsapp}?text=Olá! Estou entrando em contato através do site.`} target='_blank' onClick={altChecked}>
                 WHATSAPP
