@@ -506,7 +506,7 @@ export default function Home() {
             </ListaProdutos>
           </>
         </Produtos>}
-        <Equipe client={state} id="equipe">
+        {dominio === 'linsemouraadvocacia' && <Equipe client={state} id="equipe">
           <article>
             <h1>NOSSA EQUIPE</h1>
             <div>
@@ -551,7 +551,7 @@ export default function Home() {
               </section>
             </div >
           </article>
-        </Equipe>
+        </Equipe>}
         {state?.blog && <Produtos id="blog" client={state}>
           <>
             <h2>{state?.blog}</h2>
