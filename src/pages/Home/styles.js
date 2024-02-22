@@ -6,6 +6,7 @@ import sorrisos from '~/assets/sorrisos.jpeg';
 
 export const Container = styled.div`
   background: ${({ state }) => `#${state?.bg_fundo}`};
+  overflow: hidden;
 `;
 
 const breatheAnimation = keyframes`
@@ -147,7 +148,7 @@ export const Quemsomos = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: 1300px;
-  padding: 10rem 0;
+  padding: 5rem;
   margin: auto;
   color: ${({ client }) => `#${client?.cor_textosite}`};
 
@@ -273,10 +274,15 @@ export const Quemsomos = styled.div`
 `;
 export const Equipe = styled.div`
   width: 100%;
-  max-width: 1300px;
-  padding: 10rem 0;
-  margin: auto;
+  background: #f9f4ec;
+  margin: 5rem auto;
   color: ${({ client }) => `#${client?.cor_textosite}`};
+
+  article {
+    max-width: 1300px;
+    margin: auto;
+    padding: 5rem;
+  }
 
   h1 {
     color: #4b4b4b;
@@ -293,8 +299,16 @@ export const Equipe = styled.div`
   h2 {
     color: ${({ client }) => `#${client?.cor_titulosite}`};
     border-bottom: 2px solid #ffb156;
-    margin-top: 1rem;
-    padding: 0 2rem .5rem 0;
+    margin: 1rem 0;
+    padding: 0 2rem .5rem;
+  }
+
+  h3 {
+    margin: 1rem 2rem;
+  }
+
+  p {
+    margin: 1rem 2rem;
   }
 
   ol {
@@ -305,41 +319,17 @@ export const Equipe = styled.div`
     }
   }
 
-  ul {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-around;
-    gap: 5rem;
-    padding-left: 1rem;
-    margin-top: 3rem;
-
-    h2 {
-      color: #4b4b4b;
-      border-bottom: 2px solid #ffb156;
-      margin-bottom: 1rem;
-      align-self: flex-start;
-      padding: 0 2rem .5rem 0;
-    }
-
-    li {
-      padding: .5rem 0;
-      color: #000;
-    }
-  }
-
   div {
     display: flex;
     gap: 5rem;
-    margin: 5rem;
 
     section {
-      width: 30%;
+      width: 100%;
       text-align: center;
 
       img {
         width: 100%;
         border-radius: 0 50px;
-        margin: 0 0 1rem;
       }
 
       video {
@@ -378,6 +368,10 @@ export const Equipe = styled.div`
         video {
           height: 50vh;
         }
+      }
+
+      &:last-child {
+        flex-direction: column-reverse;
       }
     }
 
@@ -565,12 +559,9 @@ export const ListaProdutos = styled.ul`
       }
 
       h2 {
-        font-size: 2.5rem;
-        line-height: 20px;
         color: ${({ client }) => client?.cor_titulosite};
         margin: 2rem;
         text-align: center;
-        font-weight: bold;
       }
 
       h3 {
@@ -691,7 +682,7 @@ export const ListaBlog = styled.ul`
       span {
           display: flex;
           align-items: center;
-          justify-content: center;  
+          justify-content: center;
         }
 
       &:hover {

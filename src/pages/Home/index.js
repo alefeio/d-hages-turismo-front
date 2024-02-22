@@ -12,8 +12,8 @@ import "slick-carousel/slick/slick-theme.css";
 import api from '~/services/api';
 
 import wpp from '~/assets/wpp.png';
-import iopa from '~/assets/iopa.png';
-import apresentacao from '~/assets/home/apresentacao.mp4';
+import lins from '~/assets/lins.jpg';
+import moura from '~/assets/moura.jpg';
 
 import {
   Banner,
@@ -507,48 +507,50 @@ export default function Home() {
           </>
         </Produtos>}
         <Equipe client={state} id="equipe">
-          <h1>NOSSA EQUIPE</h1>
-          <div>
-            <aside>
-              <h2>Anazilda Lins</h2>
-              <h3>OAB-SP N 435.122</h3>
-              <p>Graduada em Direito pela renomada Universidade Estácio de Sá, em Belém-PA,
-                e com transferência de sua inscrição na OAB para a cidade de São Paulo, Dra. Anazilda
-                iniciou sua carreira jurídica em um escritório de advocacia no Grande ABC/SP, além
-                de ter trabalhado em escritórios de destaque na capital paulista. Especializou-se em
-                Direito Material e Processual do Trabalho pela Fabel/PA, e em Compliance, LGPD e
-                Prática Trabalhista pelo Centro Universitário do Sul de Minas - UNIS/MG.</p>
-              <p>Movida pelo desejo de oferecer um atendimento personalizado e proporcionar
-                a cada cliente uma representação jurídica sólida, decidiu fundar, juntamente com sua
-                sócia Dra. Silvanice Moura, o escritório de advocacia Lins &amp; Moura. Este escritório é
-                caracterizado por ser um espaço acolhedor, com foco na satisfação e na proteção dos
-                interesses individuais de cada cliente.</p>
-            </aside>
-            <section>
-              <img src={state?.imagem?.url} />
-            </section>
-          </div >
-          <div>
-            <section>
-              <img src={state?.imagem?.url} />
-            </section>
-            <aside>
-              <h2>Silvanice Moura</h2>
-              <h3>OAB-PA N 29.005</h3>
-              <p>Formada em Direito pela Universidade Estácio de Sá, em Belém do Pará, a
-                advogada desenvolveu sua carreira em dois dos maiores bancos privados do Brasil.
-                Com sua vasta experiência na área bancária, adquiriu conhecimento especializado em
-                prestar atendimento humanizado e resolver as demandas dos clientes, além de
-                dominar o direito do consumidor bancário, taxas, investimentos, cláusulas
-                contratuais de empréstimos e financiamentos, bem como os serviços oferecidos pelos
-                bancos aos clientes.</p>
-              <p>Dra. Silvanice é especialista em Direito Previdenciário e do Consumidor
-                Bancário. Motivada por todo o acervo de conhecimento e prática adquiridos durante
-                anos de atuação no setor bancário e como advogada, ela oferece aos seus clientes um
-                atendimento de excelência, baseado em sua sólida base de conhecimento e
-                experiência.</p>
-            </aside>
-          </div >
+          <article>
+            <h1>NOSSA EQUIPE</h1>
+            <div>
+              <section>
+                <img src={lins} />
+              </section>
+              <aside>
+                <h2>Anazilda Lins</h2>
+                <h3>OAB-SP N 435.122</h3>
+                <p>Graduada em Direito pela renomada Universidade Estácio de Sá, em Belém-PA,
+                  e com transferência de sua inscrição na OAB para a cidade de São Paulo, Dra. Anazilda
+                  iniciou sua carreira jurídica em um escritório de advocacia no Grande ABC/SP, além
+                  de ter trabalhado em escritórios de destaque na capital paulista. Especializou-se em
+                  Direito Material e Processual do Trabalho pela Fabel/PA, e em Compliance, LGPD e
+                  Prática Trabalhista pelo Centro Universitário do Sul de Minas - UNIS/MG.</p>
+                <p>Movida pelo desejo de oferecer um atendimento personalizado e proporcionar
+                  a cada cliente uma representação jurídica sólida, decidiu fundar, juntamente com sua
+                  sócia Dra. Silvanice Moura, o escritório de advocacia Lins &amp; Moura. Este escritório é
+                  caracterizado por ser um espaço acolhedor, com foco na satisfação e na proteção dos
+                  interesses individuais de cada cliente.</p>
+              </aside>
+            </div >
+            <div>
+              <aside>
+                <h2>Silvanice Moura</h2>
+                <h3>OAB-PA N 29.005</h3>
+                <p>Formada em Direito pela Universidade Estácio de Sá, em Belém do Pará, a
+                  advogada desenvolveu sua carreira em dois dos maiores bancos privados do Brasil.
+                  Com sua vasta experiência na área bancária, adquiriu conhecimento especializado em
+                  prestar atendimento humanizado e resolver as demandas dos clientes, além de
+                  dominar o direito do consumidor bancário, taxas, investimentos, cláusulas
+                  contratuais de empréstimos e financiamentos, bem como os serviços oferecidos pelos
+                  bancos aos clientes.</p>
+                <p>Dra. Silvanice é especialista em Direito Previdenciário e do Consumidor
+                  Bancário. Motivada por todo o acervo de conhecimento e prática adquiridos durante
+                  anos de atuação no setor bancário e como advogada, ela oferece aos seus clientes um
+                  atendimento de excelência, baseado em sua sólida base de conhecimento e
+                  experiência.</p>
+              </aside>
+              <section>
+                <img src={moura} />
+              </section>
+            </div >
+          </article>
         </Equipe>
         {state?.blog && <Produtos id="blog" client={state}>
           <>
