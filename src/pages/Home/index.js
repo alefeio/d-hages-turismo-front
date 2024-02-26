@@ -14,6 +14,7 @@ import api from '~/services/api';
 import wpp from '~/assets/wpp.png';
 import lins from '~/assets/lins.jpg';
 import moura from '~/assets/moura.jpg';
+import apresentacao from '~/assets/home/apresentacao.mp4';
 
 import {
   Banner,
@@ -433,8 +434,8 @@ export default function Home() {
                     <h3><span>Saída:</span> {p.saida.split('T')[0].split('-').reverse().join('/')}</h3>
                     <h3><span>Retorno:</span> {p.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
                     <h3><span>Valor por pessoa:</span></h3>
-                    <small>À vista: R$ {p.valoravista}</small><br />
-                    {p.valoraprazo && <small>{p.parcelas}x no cartão: R$ {p.valoraprazo}</small>}
+                    <h3><span>À vista:</span> R$ {p.valoravista}</h3>
+                    {p.valoraprazo && <h3><span>{p.parcelas}x no cartão:</span> R$ {p.valoraprazo}</h3>}
                   </section>
                   <Link to={`roteiros/${p.url}/${p.id}`}>
                     <div>

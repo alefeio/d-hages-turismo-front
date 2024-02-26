@@ -537,7 +537,12 @@ export const Produtos = styled.div`
 
 export const ListaProdutos = styled.ul`
   display: grid;
-  grid-template-columns: repeat(${({ client }) => client.qtdlinhaservicos}, 1fr);
+  grid-template-columns: repeat(${({ client }) =>
+    client.servicos ? client.qtdlinhaservicos
+      : client.produtos ? client.qtdlinhaprodutos
+        : client.pacotes ? client.qtd_linhapacotes
+          : 3
+  }, 1fr);
   grid-gap: 5rem;
   text-align: left;
 
@@ -562,6 +567,7 @@ export const ListaProdutos = styled.ul`
         color: ${({ client }) => client?.cor_titulosite};
         margin: 2rem;
         text-align: center;
+        font-weight: bold;
       }
 
       h3 {
@@ -578,10 +584,11 @@ export const ListaProdutos = styled.ul`
       margin-top: auto;
       display: flex;
       align-items: center;
-      border-radius: 1rem;
+      border-radius: 2rem;
 
       img {
         width: 100%;
+        height: 220px;
       }
 
       div {
