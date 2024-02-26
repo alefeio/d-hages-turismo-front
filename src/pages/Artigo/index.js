@@ -14,7 +14,9 @@ import SiteContext from '~/context/site';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
-  email: Yup.string().email('E-mail inválido!').required('Campo obrigatório!'),
+  email: Yup.string()
+    .email('E-mail inválido!')
+    .required('Campo obrigatório!'),
   telefone: Yup.string().required('Campo obrigatório!'),
   assunto: Yup.string(),
   mensagem: Yup.string().required('Campo obrigatório!'),
@@ -25,10 +27,11 @@ export default function Artigo(props) {
   const [imagem, setImagem] = useState();
   const [initialData, setInitialData] = useState({});
   const [display, setDisplay] = useState('relative');
-  const [textWpp, setTextWpp] = useState("");
+  const [textWpp, setTextWpp] = useState('');
   const [viewFormReserva, setViewFormReserva] = useState(false);
   const [reservado, setReservado] = useState(false);
   const [dominio, setDominio] = useState('');
+  const [blog, setBlog] = useState([]);
 
   const { state } = useContext(SiteContext);
 
@@ -40,24 +43,32 @@ export default function Artigo(props) {
     else setDisplay('relative');
   }
 
-  async function handleSubmit({ nome, email, telefone, assunto, mensagem }) {
-    try {
-      await api.post('contato', {
-        nome,
-        email,
-        telefone,
-        assunto,
-        mensagem,
-      });
+  function removerEspacosEAcentos(texto) {
+    // Remover espaços
+    let textoSemEspacos = texto.replace(/\s/g, '-');
 
-      toast.success(
-        'Obrigado! Sua pmensagem foi enviada com sucesso. Em breve retornaremos.'
-      );
+    // Remover acentuações
+    let textoSemAcentos = textoSemEspacos.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-      setReservado(true);
-    } catch (error) {
-      toast.error('Erro ao enviar sua mensagem. Tente novamente!');
-    }
+    return textoSemAcentos.toLowerCase();
+  }
+
+  async function loadBlog() {
+    const response = await api.get(`blog?client=${dominio}`);
+
+    console.log('blog', response);
+
+    const { blog, total } = response.data;
+
+    const newData = blog.map(data => {
+      data.url = removerEspacosEAcentos(data.titulo);
+
+      return data;
+    });
+
+    console.log(`data: ${JSON.stringify(response.data)}`);
+
+    setBlog(newData);
   }
 
   async function loadProduto() {
@@ -72,22 +83,26 @@ export default function Artigo(props) {
       assunto: response.data.nome,
     });
 
-    setTextWpp(`Quero + inf. sobre ${response.data.nome}`)
+    setTextWpp(`Quero + inf. sobre ${response.data.nome}`);
   }
 
   useEffect(() => {
     loadProduto();
-  }, []);
+  }, [nome, id]);
 
   useEffect(() => {
     function watchScroll() {
-      window.addEventListener("scroll", logit);
+      window.addEventListener('scroll', logit);
     }
     watchScroll();
     return () => {
-      window.removeEventListener("scroll", logit);
+      window.removeEventListener('scroll', logit);
     };
   });
+
+  useEffect(() => {
+    !blog.length && loadBlog();
+  }, [dominio, state]);
 
   useEffect(() => {
     // Chamar a função ao montar o componente
@@ -97,16 +112,19 @@ export default function Artigo(props) {
   return (
     <>
       <Helmet>
-        <title>
-          {produto.saida && (
-            `IOPA - ${produto.nome}`
-          )}
-        </title>
+        <title>{produto.saida && `IOPA - ${produto.nome}`}</title>
       </Helmet>
       <Container>
         <WhatsApp>
-          <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
-          <a href={`https://wa.me/55${state?.whatsapp}?text=${textWpp}`} target='_blank'>
+          <Input
+            name="whatsapp"
+            value={textWpp}
+            onChange={e => setTextWpp(e.target.value)}
+          />
+          <a
+            href={`https://wa.me/55${state?.whatsapp}?text=${textWpp}`}
+            target="_blank"
+          >
             <img src={wpp} alt="Logo HCS" />
           </a>
         </WhatsApp>
@@ -123,43 +141,40 @@ export default function Artigo(props) {
             <li>{produto && produto.titulo}</li>
           </ul>
         </Barra>
-        <Prod display={display}>
+        <Prod client={state} display={display}>
           <div>
             <nav>
               <img src={imagem} alt="Produto" />
             </nav>
             <span>
-              <h1>
-                {produto.titulo}
-              </h1>
-              <h2>
-                {produto.descricao}
-              </h2>
-              <section dangerouslySetInnerHTML={{ __html: produto.texto }}></section>
+              <h1>{produto.titulo}</h1>
+              <h2>{produto.descricao}</h2>
+              <section
+                dangerouslySetInnerHTML={{ __html: produto.texto }}
+              ></section>
               {/* <p><a href='#' onClick={() => setViewFormReserva(true)}>Clique aqui e agende uma consulta.</a></p> */}
-              <p><Link to="#contato">Clique aqui e agende uma consulta.</Link></p>
+              <p>
+                <Link to="#contato">Clique aqui e agende uma consulta.</Link>
+              </p>
             </span>
           </div>
-          {/* {!viewFormReserva ? (
-            <aside onClick={() => setViewFormReserva(true)}>Agendar consulta</aside>
-          ) : (
-            <Form schema={schema} onSubmit={handleSubmit} initialData={initialData} id='#reserva'>
-              <h2 onClick={() => setViewFormReserva(false)}>Agende sua consulta</h2>
-              {!reservado ? (
-                <>
-                  <Input name="nome" placeholder="Seu nome" />
-                  <Input name="email" type="email" placeholder="Seu e-mail" />
-                  <Input name="telefone" placeholder="Telefone ou celular" />
-                  <Input name="assunto" placeholder="Assunto" />
-                  <Textarea name="mensagem" placeholder="Digite sua mensagem" />
-
-                  <button type="submit">Enviar</button>
-                </>
-              ) : (
-                <h3>Obrigado! Sua mensagem foi enviada com sucesso. Em breve retornaremos.</h3>
-              )}
-            </Form>
-          )} */}
+          <aside>
+            {blog.map(p => p.titulo !== produto.titulo && (
+              <div>
+                <nav>
+                  <Link to={`/blog/${p.url}/${p.id}`}>
+                    <img src={p.imagem.url} alt={p.nome} />
+                  </Link>
+                </nav>
+                <span>
+                  <Link to={`/blog/${p.url}/${p.id}`}>
+                    <h3>{p.titulo}</h3>
+                  </Link>
+                  <p>{p.descricao}</p>
+                </span>
+              </div>
+            ))}
+          </aside>
         </Prod>
       </Container>
     </>

@@ -5,6 +5,10 @@ import bannerProdutos from '~/assets/banner-produtos.jpg';
 
 export const Container = styled.div`
   background: #fff;
+
+  h1, h2, h3, h4, h5, h6, p, li, strong, a, input, button, span, textarea {
+    font-family: ${({ state }) => state?.font_serifa ? "'Source Serif 4', serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"} !important;
+  }
 `;
 
 export const Prod = styled.div`

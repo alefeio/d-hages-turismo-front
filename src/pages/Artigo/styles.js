@@ -11,18 +11,13 @@ export const Prod = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 2rem;
+  gap: 10rem;
   padding: 50px;
   width: 100%;
 
   div {
     border-radius: 4px;
     width: 100%;
-    display: flex;
-
-    p {
-      font-size: 2rem;
-    }
 
     section {
       font-size: 2rem;
@@ -42,11 +37,10 @@ export const Prod = styled.div`
     }
 
     nav {
-      max-width: 40%;
+      max-width: 100%;
 
       img {
-        margin: 0 auto 5rem;
-        border-radius: 2rem;
+        border-radius: ${({ client }) => `${client?.border_radius}rem`};
         width: 100%;
       }
     }
@@ -56,8 +50,8 @@ export const Prod = styled.div`
       margin: 2rem;
     }
 
-    h1 {
-      font-size: 4rem;
+    h1, h2, p, li, strong, a {
+      font-family: ${({ client }) => client?.font_serifa ? "'Source Serif 4', serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"};
     }
 
     ul {
@@ -71,26 +65,22 @@ export const Prod = styled.div`
         }
       }
     }
-
-    h3 {
-      margin-top: 10px;
-    }
-
-    h1 {
-      margin-bottom: 25px;
-    }
   }
 
   aside {
-    background: #ffd873;
-    border: 1px solid #999;
-    border-radius: 4px;
-    padding: 10px;
-    position: fixed;
-    right: 0;
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
+    width: 40%;
+    
+    nav {
+
+      img {
+        border-radius: ${({ client }) => `${client?.border_radius}rem`};
+        width: 100%;
+      }
+    }
+
+    div {      
+      margin: 0 0 5rem;
+    }
   }
 
   form {
@@ -179,7 +169,7 @@ export const Prod = styled.div`
     padding: 10px;
 
     aside {
-      position: fixed;
+      width: 100%;
     }
 
     form {

@@ -104,7 +104,7 @@ export default function Servico(props) {
           )}
         </title>
       </Helmet>
-      <Container>
+      <Container state={state}>
         <WhatsApp>
           <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
           <a href={`https://wa.me/55${state?.whatsapp}?text=${textWpp}`} target='_blank'>

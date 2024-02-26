@@ -6,6 +6,10 @@ import sorrisos from '~/assets/sorrisos.jpeg';
 export const Container = styled.div`
   background: ${({ state }) => `#${state?.bg_fundo}`};
   overflow: hidden;
+
+  h1, h2, h3, h4, h5, h6, p, li, strong, a, input, button, span, textarea {
+    font-family: ${({ state }) => state?.font_serifa ? "'Source Serif 4', serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"} !important;
+  }
 `;
 
 const breatheAnimation = keyframes`
@@ -160,7 +164,6 @@ export const Quemsomos = styled.div`
     padding: 0 2rem .5rem 0;
     font-size: 2.5rem;
     text-transform: uppercase;
-    font-family: ${({ client }) => client?.font_serifa ? "Garamond, Georgia, 'Times New Roman', Times, serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"};
   }
 
   p {
@@ -290,7 +293,6 @@ export const Equipe = styled.div`
       font-weight: normal;
       margin-bottom: 2rem;
       text-align: center;
-      font-family: ${({ client }) => client?.font_serifa ? "Garamond, Georgia, 'Times New Roman', Times, serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"};
     }
 
     p {
@@ -302,7 +304,6 @@ export const Equipe = styled.div`
       border-bottom: 2px solid #ffb156;
       margin: 1rem 0;
       padding: 0 2rem .5rem;
-      font-family: ${({ client }) => client?.font_serifa ? "Garamond, Georgia, 'Times New Roman', Times, serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"};
     }
 
     h3 {
@@ -533,7 +534,6 @@ export const Produtos = styled.div`
     font-size: 3rem;
     font-weight: normal;
     margin-bottom: 2rem;
-    font-family: ${({ client }) => client?.font_serifa ? "Garamond, Georgia, 'Times New Roman', Times, serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"};
   }
 
   h3 {
@@ -584,7 +584,6 @@ export const ListaProdutos = styled.ul`
         margin: 1rem;
         text-align: center;
         font-weight: bold;
-        font-family: ${({ client }) => client?.font_serifa ? "Garamond, Georgia, 'Times New Roman', Times, serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"};
       }
 
       h3 {

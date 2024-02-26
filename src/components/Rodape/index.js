@@ -69,8 +69,8 @@ export default function Rodape() {
   }, []);
 
   return (
-    <Container>
-      <Trabalhe id="contato" state={state} client={dominio} bg={deusa}>
+    <Container state={state} client={dominio} bg={deusa}>
+      <Trabalhe id="contato" state={state}>
         <div>
           <h2>{state?.rodape_titulo}</h2>
           <div dangerouslySetInnerHTML={{ __html: state?.rodape_texto }}></div>

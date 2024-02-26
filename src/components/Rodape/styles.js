@@ -6,7 +6,6 @@ export const Rod = styled.div`
   align-items: center;
   justify-content: flex-start;
   color: #fff;
-  background: ${({ state }) => `#${state?.second_color}`};
   border-top: 1px solid #fff;
   text-align: center;
   padding: 1rem 2rem;
@@ -39,10 +38,6 @@ export const Trabalhe = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  background-color: ${({ state }) => `#${state?.second_color}`};
-  background-image: url(${({ client, bg }) => client === 'linsemouraadvocacia' ? bg : 'none'});
-  background-position: bottom left;
-  background-repeat: no-repeat;
   padding: 10rem;
 
   h2, p, a {
@@ -137,5 +132,13 @@ export const Trabalhe = styled.div`
 
 
 export const Container = styled.div`
-  background: #fff;
+  background-color: ${({ state }) => `#${state?.second_color}`};
+  background-image: url(${({ client, bg }) => client === 'linsemouraadvocacia' ? bg : 'none'});
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  h1, h2, h3, h4, h5, h6, p, li, strong, a, input, button, span, textarea {
+    font-family: ${({ state }) => state?.font_serifa ? "'Source Serif 4', serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"} !important;
+  }
 `;

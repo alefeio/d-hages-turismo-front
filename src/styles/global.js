@@ -68,7 +68,7 @@ export default createGlobalStyle`
     cursor: pointer;
   }
 
-  p, li, h1, h2, h3, h4 {
+  p, li {
     text-align: justify !important;
   }
 `;
