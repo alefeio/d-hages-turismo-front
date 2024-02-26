@@ -39,7 +39,10 @@ export const Trabalhe = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  background: ${({ state }) => `#${state?.second_color}`};
+  background-color: ${({ state }) => `#${state?.second_color}`};
+  background-image: url(${({ client, bg }) => client === 'linsemouraadvocacia' ? bg : 'none'});
+  background-position: bottom left;
+  background-repeat: no-repeat;
   padding: 10rem;
 
   h2, p, a {

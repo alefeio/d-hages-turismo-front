@@ -516,8 +516,7 @@ export default function Home() {
                 <img src={lins} />
               </section>
               <aside>
-                <h2>Anazilda Lins</h2>
-                <h3>OAB-SP N 435.122</h3>
+                <h2>Anazilda Lins - OAB-SP N 435.122</h2>
                 <p>Graduada em Direito pela renomada Universidade Estácio de Sá, em Belém-PA,
                   e com transferência de sua inscrição na OAB para a cidade de São Paulo, Dra. Anazilda
                   iniciou sua carreira jurídica em um escritório de advocacia no Grande ABC/SP, além
@@ -533,8 +532,7 @@ export default function Home() {
             </div >
             <div>
               <aside>
-                <h2>Silvanice Moura</h2>
-                <h3>OAB-PA N 29.005</h3>
+                <h2>Silvanice Moura - OAB-PA N 29.005</h2>
                 <p>Formada em Direito pela Universidade Estácio de Sá, em Belém do Pará, a
                   advogada desenvolveu sua carreira em dois dos maiores bancos privados do Brasil.
                   Com sua vasta experiência na área bancária, adquiriu conhecimento especializado em
@@ -571,14 +569,12 @@ export default function Home() {
                     <img src={p.imagem.url} alt={p.nome} />
                   </Link>
                   <section>
-                    <h2>{p.titulo}</h2>
+                    <Link to={`blog/${p.url}/${p.id}`}><h2>{p.titulo}</h2></Link>
                     <p>{p.descricao}</p>
-                  </section>
-                  <Link to={`blog/${p.url}/${p.id}`}>
-                    <div>
+                    <Link to={`blog/${p.url}/${p.id}`}>
                       <span>Ler <MdAdd size={16} color="#FFF" /></span>
-                    </div>
-                  </Link>
+                    </Link>
+                  </section>
                 </li>
               ))}
             </ListaBlog>

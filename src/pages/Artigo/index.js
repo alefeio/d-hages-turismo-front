@@ -136,10 +136,11 @@ export default function Artigo(props) {
                 {produto.descricao}
               </h2>
               <section dangerouslySetInnerHTML={{ __html: produto.texto }}></section>
-              <p><a href='#' onClick={() => setViewFormReserva(true)}>Clique aqui e agende uma consulta.</a></p>
+              {/* <p><a href='#' onClick={() => setViewFormReserva(true)}>Clique aqui e agende uma consulta.</a></p> */}
+              <p><Link to="#contato">Clique aqui e agende uma consulta.</Link></p>
             </span>
           </div>
-          {!viewFormReserva ? (
+          {/* {!viewFormReserva ? (
             <aside onClick={() => setViewFormReserva(true)}>Agendar consulta</aside>
           ) : (
             <Form schema={schema} onSubmit={handleSubmit} initialData={initialData} id='#reserva'>
@@ -158,7 +159,7 @@ export default function Artigo(props) {
                 <h3>Obrigado! Sua mensagem foi enviada com sucesso. Em breve retornaremos.</h3>
               )}
             </Form>
-          )}
+          )} */}
         </Prod>
       </Container>
     </>

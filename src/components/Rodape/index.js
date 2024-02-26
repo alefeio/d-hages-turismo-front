@@ -15,6 +15,8 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import SiteContext from '~/context/site';
 
+import deusa from '~/assets/deusa-justica.png';
+
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
   telefone: Yup.string().required('Campo obrigatório!'),
@@ -26,15 +28,10 @@ const schema = Yup.object().shape({
 export default function Rodape() {
   const { logado } = store.getState().auth;
   const [dominio, setDominio] = useState('');
-  const [banners, setBanners] = useState([]);
-  const [produtos, setProdutos] = useState([]);
-  const [depoimentos, setDepoimentos] = useState([]);
-  const [textWpp, setTextWpp] = useState("Quero mais informações. Estou entrando em contato através do site.");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [enviado, setEnviado] = useState(false);
   const [sendNews, setSendNews] = useState(false);
-  const [busca, setBusca] = useState('');
 
   const { state } = useContext(SiteContext);
 
@@ -73,7 +70,7 @@ export default function Rodape() {
 
   return (
     <Container>
-      <Trabalhe id="contato" state={state}>
+      <Trabalhe id="contato" state={state} client={dominio} bg={deusa}>
         <div>
           <h2>{state?.rodape_titulo}</h2>
           <div dangerouslySetInnerHTML={{ __html: state?.rodape_texto }}></div>
