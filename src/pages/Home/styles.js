@@ -590,7 +590,7 @@ export const ListaProdutos = styled.ul`
 
       img {
         width: 100%;
-        height: ${({ client }) => `${client?.altura_foto}px`};
+        height: ${({ client }) => client?.altura_foto === 0 ? 'auto' : `${client?.altura_foto}px`};
       }
 
       div {
