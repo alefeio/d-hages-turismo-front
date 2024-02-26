@@ -1,7 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
 
-import porque from '~/assets/home/onibus.jpg';
 import sorrisos from '~/assets/sorrisos.jpeg';
 
 export const Container = styled.div`
@@ -550,6 +549,8 @@ export const ListaProdutos = styled.ul`
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    border-radius: ${({ client }) => `${client?.border_radius}rem`};
+    box-shadow: ${({ client }) => client?.sombra ? '1px 1px 10px #999' : 'none'};
 
     section {
       padding: 1rem;
@@ -565,9 +566,10 @@ export const ListaProdutos = styled.ul`
 
       h2 {
         color: ${({ client }) => client?.cor_titulosite};
-        margin: 2rem;
+        margin: 1rem;
         text-align: center;
         font-weight: bold;
+        font-family: ${({ client }) => client?.font_serifa ? "Garamond, Georgia, 'Times New Roman', Times, serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"};
       }
 
       h3 {
@@ -584,11 +586,11 @@ export const ListaProdutos = styled.ul`
       margin-top: auto;
       display: flex;
       align-items: center;
-      border-radius: 2rem;
+      border-radius: ${({ client }) => `${client?.border_radius}rem`};
 
       img {
         width: 100%;
-        height: 220px;
+        height: ${({ client }) => `${client?.altura_foto}px`};
       }
 
       div {
@@ -716,7 +718,7 @@ export const ListaBlog = styled.ul`
 
 
 export const Porque = styled.div`
-  background: url(porque) center center no-repeat;
+  background: url(${({ bg }) => bg}) center center no-repeat;
   background-size: cover;
   height: 100vh;
   display: flex;

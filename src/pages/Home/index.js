@@ -15,6 +15,7 @@ import wpp from '~/assets/wpp.png';
 import lins from '~/assets/lins.jpg';
 import moura from '~/assets/moura.jpg';
 import apresentacao from '~/assets/home/apresentacao.mp4';
+import porque from '~/assets/home/onibus.jpg';
 
 import {
   Banner,
@@ -606,7 +607,7 @@ export default function Home() {
           </Depoimentos>
         )}
         {dominio === 'dhagesturismo' && (
-          <Porque>
+          <Porque bg={porque}>
             <h2>
               POR QUE ESCOLHER
               <br />
