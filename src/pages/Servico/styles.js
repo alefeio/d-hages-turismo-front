@@ -49,7 +49,6 @@ export const Prod = styled.div`
       max-width: 40%;
 
       img {
-        margin: 0 auto 5rem;
         border-radius: 2rem;
         width: 100%;
       }
@@ -195,6 +194,11 @@ export const Prod = styled.div`
       padding: 0;
       margin: 0;
       width: 100%;
+      flex-direction: column;
+
+      nav {
+        max-width: 100%;
+      }
     }
   }
 `;
