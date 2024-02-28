@@ -11,6 +11,7 @@ import wpp from '~/assets/wpp.png';
 import { Helmet } from 'react-helmet';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 import SiteContext from '~/context/site';
+import { removerEspacosEAcentos } from '~/util/removerEspacosEAcentos';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
@@ -41,16 +42,6 @@ export default function Artigo(props) {
   function logit() {
     if (window.pageYOffset > 500) setDisplay('fixed');
     else setDisplay('relative');
-  }
-
-  function removerEspacosEAcentos(texto) {
-    // Remover espaços
-    let textoSemEspacos = texto.replace(/\s/g, '-');
-
-    // Remover acentuações
-    let textoSemAcentos = textoSemEspacos.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-    return textoSemAcentos.toLowerCase();
   }
 
   async function loadBlog() {

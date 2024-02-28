@@ -32,6 +32,7 @@ import { Helmet } from 'react-helmet';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 import { useSelector } from 'react-redux';
 import SiteContext from '~/context/site';
+import { removerEspacosEAcentos } from '~/util/removerEspacosEAcentos';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
@@ -55,16 +56,6 @@ export default function Blog() {
   const { state } = useContext(SiteContext);
 
   const perfil = useSelector((state) => state.usuario.perfil);
-
-  function removerEspacosEAcentos(texto) {
-    // Remover espaços
-    let textoSemEspacos = texto.replace(/\s/g, '-');
-
-    // Remover acentuações
-    let textoSemAcentos = textoSemEspacos.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-    return textoSemAcentos.toLowerCase();
-  }
 
   async function loadBlog() {
     const response = await api.get(`blog?client=${dominio}`);

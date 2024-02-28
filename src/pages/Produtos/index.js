@@ -9,6 +9,7 @@ import wpp from '~/assets/wpp.png';
 import { Container, Barra, ListaProdutos, Banner, WhatsApp, Produtos } from './styles';
 import { Helmet } from 'react-helmet';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
+import { removerEspacosEAcentos } from '~/util/removerEspacosEAcentos';
 
 export default function Pacotes() {
   const [produtos, setProdutos] = useState([]);
@@ -20,16 +21,6 @@ export default function Pacotes() {
   const [nextPage, setNextPage] = useState(false);
   const [busca, setBusca] = useState('');
   const [dominio, setDominio] = useState('');
-
-  function removerEspacosEAcentos(texto) {
-    // Remover espaços
-    let textoSemEspacos = texto.replace(/\s/g, '-');
-
-    // Remover acentuações
-    let textoSemAcentos = textoSemEspacos.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-    return textoSemAcentos.toLowerCase();
-  }
 
   async function loadProdutos() {
     const response = await api.get(`pacotes?client=${dominio}&page=${query}`);
