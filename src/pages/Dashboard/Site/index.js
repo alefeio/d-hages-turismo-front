@@ -22,8 +22,10 @@ export default function AdminSite() {
   const [rodape_texto, setRodape_texto] = useState('<p></p>');
   const [file, setFile] = useState('');
   const [logo, setLogo] = useState('');
+  const [favicon, setFavicon] = useState('');
   const [preview, setPreview] = useState('');
   const [previewLogo, setPreviewLogo] = useState('');
+  const [previewFavicon, setPreviewFavicon] = useState('');
   const [initialData, setInitialData] = useState({});
   const [produtoEdit, setProdutoEdit] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -39,10 +41,6 @@ export default function AdminSite() {
 
   async function loadProduto() {
     try {
-      const response = await api.get(`site?client=${dominio}`);
-
-      console.log(state);
-
       setProdutoEdit(state.id);
 
       setInitialData(state);
@@ -52,6 +50,9 @@ export default function AdminSite() {
 
       setLogo(state.logo.id);
       setPreviewLogo(state.logo.url);
+
+      setFavicon(state.favicon.id);
+      setPreviewFavicon(state.favicon.url);
 
       setDescricao(state.descricao);
       setRodape_texto(state.rodape_texto);
@@ -77,6 +78,19 @@ export default function AdminSite() {
 
     setLogo(id);
     setPreviewLogo(url);
+  }
+
+  async function handleFavicon(e) {
+    const data = new FormData();
+
+    data.append('file', e.target.files[0]);
+
+    const response = await api.post('files', data);
+
+    const { id, url } = response.data;
+
+    setFavicon(id);
+    setPreviewFavicon(url);
   }
 
   async function handleFile(e) {
@@ -111,6 +125,7 @@ export default function AdminSite() {
     newData.rodape_texto = rodape_texto;
     newData.img_id = file;
     newData.logo_id = logo;
+    newData.favicon_id = favicon;
     newData.font_serifa = fontSerifa;
     newData.sombra = sombra;
     newData.client = perfil.email.split('@')[1].split('.')[0];
@@ -140,6 +155,7 @@ export default function AdminSite() {
     newData.rodape_texto = rodape_texto;
     newData.img_id = file;
     newData.logo_id = logo;
+    newData.favicon_id = favicon;
     newData.font_serifa = fontSerifa;
     newData.sombra = sombra;
     newData.client = perfil.email.split('@')[1].split('.')[0];
@@ -194,6 +210,15 @@ export default function AdminSite() {
                 id="logo"
                 data-file={logo}
                 onChange={handleLogo}
+              />
+            </aside>
+            <aside>
+              {previewFavicon && <img src={previewFavicon} />}
+              Favicon: <input
+                type="file"
+                id="favicon"
+                data-file={favicon}
+                onChange={handleFavicon}
               />
             </aside>
           </span>
