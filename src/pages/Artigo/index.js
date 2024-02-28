@@ -37,7 +37,6 @@ export default function Artigo(props) {
   const { state } = useContext(SiteContext);
 
   const nome = props.match.params.nome;
-  const id = props.match.params.id;
 
   function logit() {
     if (window.pageYOffset > 500) setDisplay('fixed');
@@ -64,7 +63,7 @@ export default function Artigo(props) {
 
   async function loadProduto() {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    const response = await api.get(`blog/${nome}/${id}`);
+    const response = await api.get(`blog/${nome}`);
 
     console.log(response.data);
     setProduto(response.data);
@@ -79,7 +78,7 @@ export default function Artigo(props) {
 
   useEffect(() => {
     loadProduto();
-  }, [nome, id]);
+  }, [nome]);
 
   useEffect(() => {
     function watchScroll() {
@@ -152,12 +151,12 @@ export default function Artigo(props) {
             {blog.map(p => p.titulo !== produto.titulo && (
               <div>
                 <nav>
-                  <Link to={`/blog/${p.url}/${p.id}`}>
+                  <Link to={`/blog/${p.url}`}>
                     <img src={p.imagem.url} alt={p.nome} />
                   </Link>
                 </nav>
                 <span>
-                  <Link to={`/blog/${p.url}/${p.id}`}>
+                  <Link to={`/blog/${p.url}`}>
                     <h3>{p.titulo}</h3>
                   </Link>
                   <p>{p.descricao}</p>

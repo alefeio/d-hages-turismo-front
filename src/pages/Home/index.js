@@ -556,13 +556,13 @@ export default function Home() {
             <ListaBlog client={state}>
               {blog.map((p) => (
                 <li key={p.id}>
-                  <Link to={`blog/${p.url}/${p.id}`}>
+                  <Link to={`blog/${p.url}`}>
                     <img src={p.imagem.url} alt={p.nome} />
                   </Link>
                   <section>
-                    <Link to={`blog/${p.url}/${p.id}`}><h2>{p.titulo}</h2></Link>
+                    <Link to={`blog/${p.url}`}><h2>{p.titulo}</h2></Link>
                     <p>{p.descricao}</p>
-                    <Link to={`blog/${p.url}/${p.id}`}>
+                    <Link to={`blog/${p.url}`}>
                       <span>Ler <MdAdd size={16} color="#FFF" /></span>
                     </Link>
                   </section>

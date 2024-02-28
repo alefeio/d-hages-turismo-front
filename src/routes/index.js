@@ -38,7 +38,7 @@ export default function Routes() {
       <Route path="/roteiros/:nome/:id" component={Produto} />
       <Route path="/servicos/:nome/:id" component={Servico} />
       <Route path="/blog" exact component={Blog} />
-      <Route path="/blog/:nome/:id" component={Artigo} />
+      <Route path="/blog/:nome" component={Artigo} />
       <Route path="/contato" component={Contato} />
       <Route path="/contatoforms" component={Contatoforms} />
       <Route path="/login" component={Login} isLogado />
