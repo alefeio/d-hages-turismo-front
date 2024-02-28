@@ -386,6 +386,7 @@ export const Equipe = styled.div`
 
       &:last-child {
         flex-direction: column-reverse;
+        text-align: left;
       }
     }
 
@@ -657,11 +658,10 @@ export const ListaBlog = styled.ul`
       color: ${({ client }) => `#${client.textbutton_color}`};
       border: 0;
       overflow: hidden;
-      border-radius: ${({ client }) => `${client?.border_radius}rem`};
       max-width: ${({ client }) => client?.qtd_linhablog === 1 ? '40%' : '100%'};
 
       img {
-        width: 100%;
+        border-radius: ${({ client }) => `${client?.border_radius}rem`};
         height: ${({ client }) => client?.altura_foto === 0 ? 'auto' : `${client?.altura_foto}px`};
         width: ${({ client }) => client?.altura_foto === 0 ? 'auto' : `${client?.altura_foto + (client?.altura_foto / 2)}px`};
       }
@@ -681,11 +681,6 @@ export const ListaBlog = styled.ul`
           align-items: center;
           justify-content: center;
         }
-
-      &:hover {
-        background: ${({ client }) => darken(0.3, `#${client?.primary_color}`)};
-        color: #fff;
-      }
     }
 
     section {
@@ -693,7 +688,7 @@ export const ListaBlog = styled.ul`
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 1rem;
+      padding: 0 1rem;
 
       span {
         font-weight: bold;
@@ -733,13 +728,19 @@ export const ListaBlog = styled.ul`
   @media (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
     gap: 5rem;
+    margin: 0 1rem;
 
     li {
-      margin: 1rem;
       flex-direction: column;
 
       a {
+        width: 100%;
+        height: auto;
         max-width: 100%;
+
+        img {
+          width: 100%;
+        }
       }
     }
   }

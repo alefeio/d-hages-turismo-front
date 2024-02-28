@@ -24,13 +24,13 @@ export const Prod = styled.div`
     width: 100%;
     display: flex;
 
-    p {
-      font-size: 2rem;
-    }
-
     section {
-      font-size: 2rem;
+      font-size: 1.8rem;
       margin-bottom: 2rem;
+
+      p, li {
+        margin: 1rem 0;
+      }
 
       overflow: auto;
       table {

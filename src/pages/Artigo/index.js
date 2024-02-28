@@ -148,7 +148,6 @@ export default function Artigo(props) {
             </nav>
             <span>
               <h1>{produto.titulo}</h1>
-              <h2>{produto.descricao}</h2>
               <section
                 dangerouslySetInnerHTML={{ __html: produto.texto }}
               ></section>
@@ -178,5 +177,5 @@ export default function Artigo(props) {
         </Prod>
       </Container>
     </>
-  );
+  )
 }

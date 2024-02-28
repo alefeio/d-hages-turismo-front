@@ -11,17 +11,20 @@ export const Prod = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 10rem;
-  padding: 50px;
-  width: 100%;
+  gap: 7rem;
+  margin: 3rem;
 
   div {
     border-radius: 4px;
     width: 100%;
 
     section {
-      font-size: 2rem;
+      font-size: 1.8rem;
       margin-bottom: 2rem;
+
+      p, li {
+        margin: 1rem 0;
+      }
 
       overflow: auto;
       table {
@@ -50,8 +53,12 @@ export const Prod = styled.div`
       margin: 2rem;
     }
 
-    h1, h2, p, li, strong, a {
+    h1, h2, h3, p, li, strong {
       font-family: ${({ client }) => client?.font_serifa ? "'Source Serif 4', serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"};
+
+      a {
+        color: ${({ client }) => `#${client?.textbutton_color}`};
+      }
     }
 
     ul {
@@ -71,7 +78,6 @@ export const Prod = styled.div`
     width: 40%;
     
     nav {
-
       img {
         border-radius: ${({ client }) => `${client?.border_radius}rem`};
         width: 100%;
@@ -79,7 +85,7 @@ export const Prod = styled.div`
     }
 
     div {      
-      margin: 0 0 5rem;
+      margin: 0 0 3rem;
     }
   }
 
@@ -178,8 +184,6 @@ export const Prod = styled.div`
     }
 
     div {
-      padding: 0;
-      margin: 0;
       width: 100%;
     }
   }
