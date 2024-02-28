@@ -28,6 +28,9 @@ const SiteContextProvider = ({ children }) => {
 
     console.log(`site: ${JSON.stringify(response.data)}`);
     response.data && setState(response.data);
+
+    const favicon = document.getElementById("favicon");
+    favicon.href = response.data.favicon.url;
   }
 
   useEffect(() => {
