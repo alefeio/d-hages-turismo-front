@@ -5,6 +5,10 @@ import bannerProdutos from '~/assets/banner-produtos.jpg';
 
 export const Container = styled.div`
   background: #fff;
+
+  h1, h2, h3, h4, h5, h6, p, li, strong, a, input, button, span, textarea {
+    font-family: ${({ state }) => state?.font_serifa ? "'Source Serif 4', serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"} !important;
+  }
 `;
 
 export const Prod = styled.div`
@@ -20,13 +24,13 @@ export const Prod = styled.div`
     width: 100%;
     display: flex;
 
-    p {
-      font-size: 2rem;
-    }
-
     section {
-      font-size: 2rem;
+      font-size: 1.8rem;
       margin-bottom: 2rem;
+
+      p, li {
+        margin: 1rem 0;
+      }
 
       overflow: auto;
       table {
@@ -45,7 +49,6 @@ export const Prod = styled.div`
       max-width: 40%;
 
       img {
-        margin: 0 auto 5rem;
         border-radius: 2rem;
         width: 100%;
       }
@@ -191,6 +194,11 @@ export const Prod = styled.div`
       padding: 0;
       margin: 0;
       width: 100%;
+      flex-direction: column;
+
+      nav {
+        max-width: 100%;
+      }
     }
   }
 `;

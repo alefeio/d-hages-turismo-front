@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 import SiteContext from '~/context/site';
+import { removerEspacosEAcentos } from '~/util/removerEspacosEAcentos';
 
 export default function AdminBlog() {
   const [texto, setTexto] = useState('<p></p>');
@@ -86,6 +87,7 @@ export default function AdminBlog() {
   async function handleSubmit(data, { resetForm }) {
     setLoading(true);
     const newData = data;
+    newData.url = removerEspacosEAcentos(newData.titulo);
     newData.texto = texto;
     newData.img_id = file;
     newData.client = perfil.email.split('@')[1].split('.')[0];
@@ -114,6 +116,7 @@ export default function AdminBlog() {
   async function handleUpdate(data, { resetForm }) {
     setLoading(true);
     const newData = data;
+    newData.url = removerEspacosEAcentos(newData.titulo);
     newData.texto = texto;
     newData.img_id = file;
     newData.client = perfil.email.split('@')[1].split('.')[0];

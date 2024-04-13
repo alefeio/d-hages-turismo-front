@@ -14,6 +14,8 @@ import api from '~/services/api';
 import wpp from '~/assets/wpp.png';
 import lins from '~/assets/lins.jpg';
 import moura from '~/assets/moura.jpg';
+import apresentacao from '~/assets/home/apresentacao.mp4';
+import porque from '~/assets/home/onibus.jpg';
 
 import {
   Banner,
@@ -33,6 +35,7 @@ import { Helmet } from 'react-helmet';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 import { useSelector } from 'react-redux';
 import SiteContext from '~/context/site';
+import { removerEspacosEAcentos } from '~/util/removerEspacosEAcentos';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Campo obrigatório!'),
@@ -61,16 +64,6 @@ export default function Home() {
   const { state } = useContext(SiteContext);
 
   const perfil = useSelector((state) => state.usuario.perfil);
-
-  function removerEspacosEAcentos(texto) {
-    // Remover espaços
-    let textoSemEspacos = texto.replace(/\s/g, '-');
-
-    // Remover acentuações
-    let textoSemAcentos = textoSemEspacos.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-    return textoSemAcentos.toLowerCase();
-  }
 
   async function loadBanners() {
     const response = await api.get(`banners?client=${dominio}`);
@@ -433,8 +426,8 @@ export default function Home() {
                     <h3><span>Saída:</span> {p.saida.split('T')[0].split('-').reverse().join('/')}</h3>
                     <h3><span>Retorno:</span> {p.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
                     <h3><span>Valor por pessoa:</span></h3>
-                    <small>À vista: R$ {p.valoravista}</small><br />
-                    {p.valoraprazo && <small>{p.parcelas}x no cartão: R$ {p.valoraprazo}</small>}
+                    <h3><span>À vista:</span> R$ {p.valoravista}</h3>
+                    {p.valoraprazo && <h3><span>{p.parcelas}x no cartão:</span> R$ {p.valoraprazo}</h3>}
                   </section>
                   <Link to={`roteiros/${p.url}/${p.id}`}>
                     <div>
@@ -514,8 +507,7 @@ export default function Home() {
                 <img src={lins} />
               </section>
               <aside>
-                <h2>Anazilda Lins</h2>
-                <h3>OAB-SP N 435.122</h3>
+                <h2>Anazilda Lins - OAB-SP N 435.122</h2>
                 <p>Graduada em Direito pela renomada Universidade Estácio de Sá, em Belém-PA,
                   e com transferência de sua inscrição na OAB para a cidade de São Paulo, Dra. Anazilda
                   iniciou sua carreira jurídica em um escritório de advocacia no Grande ABC/SP, além
@@ -531,8 +523,7 @@ export default function Home() {
             </div >
             <div>
               <aside>
-                <h2>Silvanice Moura</h2>
-                <h3>OAB-PA N 29.005</h3>
+                <h2>Silvanice Moura - OAB-PA N 29.005</h2>
                 <p>Formada em Direito pela Universidade Estácio de Sá, em Belém do Pará, a
                   advogada desenvolveu sua carreira em dois dos maiores bancos privados do Brasil.
                   Com sua vasta experiência na área bancária, adquiriu conhecimento especializado em
@@ -565,18 +556,16 @@ export default function Home() {
             <ListaBlog client={state}>
               {blog.map((p) => (
                 <li key={p.id}>
-                  <Link to={`blog/${p.url}/${p.id}`}>
+                  <Link to={`blog/${p.url}`}>
                     <img src={p.imagem.url} alt={p.nome} />
                   </Link>
                   <section>
-                    <h2>{p.titulo}</h2>
+                    <Link to={`blog/${p.url}`}><h2>{p.titulo}</h2></Link>
                     <p>{p.descricao}</p>
-                  </section>
-                  <Link to={`blog/${p.url}/${p.id}`}>
-                    <div>
+                    <Link to={`blog/${p.url}`}>
                       <span>Ler <MdAdd size={16} color="#FFF" /></span>
-                    </div>
-                  </Link>
+                    </Link>
+                  </section>
                 </li>
               ))}
             </ListaBlog>
@@ -605,7 +594,7 @@ export default function Home() {
           </Depoimentos>
         )}
         {dominio === 'dhagesturismo' && (
-          <Porque>
+          <Porque bg={porque}>
             <h2>
               POR QUE ESCOLHER
               <br />

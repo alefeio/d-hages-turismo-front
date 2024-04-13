@@ -22,14 +22,18 @@ export default function AdminSite() {
   const [rodape_texto, setRodape_texto] = useState('<p></p>');
   const [file, setFile] = useState('');
   const [logo, setLogo] = useState('');
+  const [favicon, setFavicon] = useState('');
   const [preview, setPreview] = useState('');
   const [previewLogo, setPreviewLogo] = useState('');
+  const [previewFavicon, setPreviewFavicon] = useState('');
   const [initialData, setInitialData] = useState({});
   const [produtoEdit, setProdutoEdit] = useState(null);
   const [loading, setLoading] = useState(false);
   const [viewBanner, setViewBanner] = useState(false);
   const [textoBanner, setTextoBanner] = useState(false);
   const [dominio, setDominio] = useState('');
+  const [fontSerifa, setFontSerifa] = useState(false);
+  const [sombra, setSombra] = useState(false);
 
   const { state, loadSite } = useContext(SiteContext);
 
@@ -37,10 +41,6 @@ export default function AdminSite() {
 
   async function loadProduto() {
     try {
-      const response = await api.get(`site?client=${dominio}`);
-
-      console.log(state);
-
       setProdutoEdit(state.id);
 
       setInitialData(state);
@@ -51,11 +51,17 @@ export default function AdminSite() {
       setLogo(state.logo.id);
       setPreviewLogo(state.logo.url);
 
+      setFavicon(state.favicon.id);
+      setPreviewFavicon(state.favicon.url);
+
       setDescricao(state.descricao);
       setRodape_texto(state.rodape_texto);
 
       setViewBanner(state.banner);
       setTextoBanner(state.textonobanner);
+
+      setFontSerifa(state.font_serifa);
+      setSombra(state.sombra);
     } catch (error) {
       console.log(error);
     }
@@ -72,6 +78,19 @@ export default function AdminSite() {
 
     setLogo(id);
     setPreviewLogo(url);
+  }
+
+  async function handleFavicon(e) {
+    const data = new FormData();
+
+    data.append('file', e.target.files[0]);
+
+    const response = await api.post('files', data);
+
+    const { id, url } = response.data;
+
+    setFavicon(id);
+    setPreviewFavicon(url);
   }
 
   async function handleFile(e) {
@@ -106,6 +125,9 @@ export default function AdminSite() {
     newData.rodape_texto = rodape_texto;
     newData.img_id = file;
     newData.logo_id = logo;
+    newData.favicon_id = favicon;
+    newData.font_serifa = fontSerifa;
+    newData.sombra = sombra;
     newData.client = perfil.email.split('@')[1].split('.')[0];
 
     console.log('newData', newData);
@@ -133,6 +155,9 @@ export default function AdminSite() {
     newData.rodape_texto = rodape_texto;
     newData.img_id = file;
     newData.logo_id = logo;
+    newData.favicon_id = favicon;
+    newData.font_serifa = fontSerifa;
+    newData.sombra = sombra;
     newData.client = perfil.email.split('@')[1].split('.')[0];
 
     console.log(newData);
@@ -178,12 +203,6 @@ export default function AdminSite() {
         <h2>Administrar Site</h2>
         <Form onSubmit={!produtoEdit ? handleSubmit : handleUpdate} initialData={initialData}>
           <span>
-            Nome da empresa: <Input name="nome" placeholder="" />
-          </span>
-          <span>
-            Title (SEO): <Input name="title" placeholder="Insira palavras-chave de sua área de atuação" />
-          </span>
-          <span>
             <aside>
               {previewLogo && <img src={previewLogo} />}
               Logomarca: <input
@@ -193,6 +212,143 @@ export default function AdminSite() {
                 onChange={handleLogo}
               />
             </aside>
+            <aside>
+              {previewFavicon && <img src={previewFavicon} />}
+              Favicon: <input
+                type="file"
+                id="favicon"
+                data-file={favicon}
+                onChange={handleFavicon}
+              />
+            </aside>
+          </span>
+          <span>
+            Title (SEO): <Input name="title" placeholder="Insira palavras-chave de sua área de atuação" />
+          </span>
+          <span>
+            <aside>
+              <span>
+                Cor do menu:
+              </span>
+              <span><Input name="primary_color" placeholder="ffffff" /></span>
+            </aside>
+            <aside>
+              <span>Cor do rodapé:</span>
+              <span><Input name="second_color" placeholder="ffffff" /></span>
+            </aside>
+            <aside>
+              <span>Cor de títulos no site:</span>
+              <span><Input name="cor_titulosite" placeholder="ffffff" /></span>
+            </aside>
+            <aside>
+              <span>Cor de textos no site:</span>
+              <span><Input name="cor_textosite" placeholder="ffffff" /></span>
+            </aside>
+            <aside>
+              <span>Cor de fundo:</span>
+              <span><Input name="bg_fundo" placeholder="ffffff" /></span>
+            </aside>
+          </span>
+          <span>
+            <aside>
+              <span>Cor do texto: menu e botões:</span>
+              <span><Input name="textbutton_color" placeholder="ffffff" /></span>
+            </aside>
+            <aside>
+              <span>Arredondamento da borda:</span>
+              <span><Input name="border_radius" placeholder="Digite apenas números" type='number' /></span>
+            </aside>
+            <aside>
+              <span>Altura das fotos:</span>
+              <span><Input name="altura_foto" placeholder="Digite apenas números" type='number' /></span>
+            </aside>
+            <aside>
+              <span>Fonte<br />com serifa?</span>
+              <span>
+                <Input type='radio' name="font_serifa" onChange={() => setFontSerifa(true)} checked={!!fontSerifa} /> Sim
+              </span>
+              <span>
+                <Input type='radio' name="font_serifa" onChange={() => setFontSerifa(false)} checked={!fontSerifa} /> Não
+              </span>
+            </aside>
+            <aside>
+              <span>Sombra?</span>
+              <span>
+                <Input type='radio' name="sombra" onChange={() => setSombra(true)} checked={!!sombra} /> Sim
+              </span>
+              <span>
+                <Input type='radio' name="sombra" onChange={() => setSombra(false)} checked={!sombra} /> Não
+              </span>
+            </aside>
+          </span>
+          <hr />
+          <span>
+            <aside>
+              <span>
+                Banner:
+              </span>
+              <span>
+                <Input type='radio' name="banner" onChange={() => setViewBanner(true)} checked={!!viewBanner} /> Sim
+              </span>
+              <span>
+                <Input type='radio' name="banner" onChange={() => setViewBanner(false)} checked={!viewBanner} /> Não
+              </span>
+              {viewBanner && <><span>
+                Texto<br />no banner?
+              </span>
+                <span>
+                  <Input type='radio' name="textonobanner" onChange={() => setTextoBanner(true)} checked={!!textoBanner} /> Sim
+                </span>
+                <span>
+                  <Input type='radio' name="textonobanner" onChange={() => setTextoBanner(false)} checked={!textoBanner} /> Não
+                </span></>}
+            </aside>
+            {viewBanner && <><aside>
+              <span>
+                Altura do menu:
+              </span>
+              <span><Input name="altura_menu" placeholder="Digite apenas números" type='number' /> %</span>
+              <span>
+                Altura do banner:
+              </span>
+              <span><Input name="banner_h" placeholder="Digite apenas números" type='number' /> %</span>
+            </aside>
+              {textoBanner && <>
+                <aside>
+                  <span>
+                    Título do banner:
+                  </span>
+                  <span><Input name="titulobanner" placeholder="" /></span>
+                  <span>
+                    Subtítulo do banner:
+                  </span>
+                  <span><Input name="descricaobanner" placeholder="" /></span>
+                </aside>
+                <aside>
+                  <span>
+                    Cor Título banner:
+                  </span>
+                  <span><Input name="cor_titulobanner" placeholder="" /></span>
+                  <span>
+                    Cor Subtítulo banner:
+                  </span>
+                  <span><Input name="cor_descricaobanner" placeholder="" /></span>
+                </aside>
+                <aside>
+                  <span>
+                    Bg Título banner:
+                  </span>
+                  <span><Input name="bg_titulobanner" placeholder="" /></span>
+                  <span>
+                    Bg Subtítulo banner:
+                  </span>
+                  <span><Input name="bg_descricaobanner" placeholder="" /></span>
+                </aside>
+              </>}
+            </>}
+          </span>
+          <hr />
+          <span>
             <aside>
               {(
                 preview.split('.')[preview.split('.').length - 1] === 'webm'
@@ -222,6 +378,9 @@ export default function AdminSite() {
             </aside>
           </span>
           <span>
+            Nome da empresa: <Input name="nome" placeholder="" />
+          </span>
+          <span>
             Descrição da empresa:
             <CKEditor
               editor={ClassicEditor}
@@ -241,65 +400,7 @@ export default function AdminSite() {
               }}
             />
           </span>
-
-          <span>
-            <aside>
-              <span>
-                Banner:
-              </span>
-              <span>
-                <Input type='radio' name="banner" onChange={() => setViewBanner(true)} checked={!!viewBanner} /> Sim
-              </span>
-              <span>
-                <Input type='radio' name="banner" onChange={() => setViewBanner(false)} checked={!viewBanner} /> Não
-              </span>
-            </aside>
-            <aside>
-              <span>
-                Altura do banner:
-              </span>
-              <span><Input name="banner_h" placeholder="Digite apenas números" type='number' /> %</span>
-            </aside>
-            <aside>
-              <span>
-                Texto?
-              </span>
-              <span>
-                <Input type='radio' name="textonobanner" onChange={() => setTextoBanner(true)} checked={!!textoBanner} /> Sim
-              </span>
-              <span>
-                <Input type='radio' name="textonobanner" onChange={() => setTextoBanner(false)} checked={!textoBanner} /> Não
-              </span>
-            </aside>
-            <aside>
-              <span>
-                Título do banner:
-              </span>
-              <span><Input name="titulobanner" placeholder="" /></span>
-              <span>
-                Cor Título banner:
-              </span>
-              <span><Input name="cor_titulobanner" placeholder="" /></span>
-              <span>
-                Bg Título banner:
-              </span>
-              <span><Input name="bg_titulobanner" placeholder="" /></span>
-            </aside>
-            <aside>
-              <span>
-                Subtítulo do banner:
-              </span>
-              <span><Input name="descricaobanner" placeholder="" /></span>
-              <span>
-                Cor Subtítulo banner:
-              </span>
-              <span><Input name="cor_descricaobanner" placeholder="" /></span>
-              <span>
-                Bg Subtítulo banner:
-              </span>
-              <span><Input name="bg_descricaobanner" placeholder="" /></span>
-            </aside>
-          </span>
+          <hr />
           <span>
             {initialData.servicos && <aside>
               <span>
@@ -375,6 +476,7 @@ export default function AdminSite() {
               </span>
             </aside>
           </span>
+          <hr />
           <span>
             Endereço no Google Maps: <Input name="mapa" placeholder="Endereço no mapa" />
           </span>
@@ -409,39 +511,6 @@ export default function AdminSite() {
           </span>
           <span>
             Facebook: <Input name="facebook" placeholder="Ex: https://facebook.com/usuario" />
-          </span>
-          <span>
-            <aside>
-              <span>
-                Altura do menu:
-              </span>
-              <span><Input name="altura_menu" placeholder="Digite apenas números" type='number' /> %</span>
-            </aside>
-            <aside>
-              <span>
-                Cor do menu:
-              </span>
-              <span><Input name="primary_color" placeholder="ffffff" /> %</span>
-            </aside>
-            <span>
-              Cor do rodapé: <Input name="second_color" placeholder="ffffff" />
-            </span>
-          </span>
-          <span>
-            <span>
-              Cor de títulos no site: <Input name="cor_titulosite" placeholder="ffffff" />
-            </span>
-            <span>
-              Cor de textos no site: <Input name="cor_textosite" placeholder="ffffff" />
-            </span>
-          </span>
-          <span>
-            <span>
-              Cor de fundo: <Input name="bg_fundo" placeholder="ffffff" />
-            </span>
-            <span>
-              Cor do texto: menu e botões: <Input name="textbutton_color" placeholder="ffffff" />
-            </span>
           </span>
 
           <button disabled={loading} id='salvar' type="submit">Salvar</button>

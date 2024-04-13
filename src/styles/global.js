@@ -67,4 +67,8 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  p {
+    text-align: justify !important;
+  }
 `;

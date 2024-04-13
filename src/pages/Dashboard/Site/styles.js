@@ -19,9 +19,12 @@ export const Container = styled.div`
       width: 70%;
       margin: auto;
 
+      hr {
+        margin: 3rem 0;
+      }
+
       span {
         width: 100%;
-        float: inline-start;
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -32,9 +35,13 @@ export const Container = styled.div`
           flex-direction: column;
           align-items: center;
           justify-content: center;
+          margin: .5rem;
+
+          span {
+          }
 
           img, video {
-            max-width: 50%;
+            max-width: 100px;
           }
         }
       }

@@ -1,12 +1,15 @@
 import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
 
-import porque from '~/assets/home/onibus.jpg';
 import sorrisos from '~/assets/sorrisos.jpeg';
 
 export const Container = styled.div`
   background: ${({ state }) => `#${state?.bg_fundo}`};
   overflow: hidden;
+
+  h1, h2, h3, h4, h5, h6, p, li, strong, a, input, button, span, textarea {
+    font-family: ${({ state }) => state?.font_serifa ? "'Source Serif 4', serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"} !important;
+  }
 `;
 
 const breatheAnimation = keyframes`
@@ -34,12 +37,13 @@ export const Banner = styled.div`
     flex-direction: column;
 
     h2 {
-      font-size: 5rem;
+      font-size: 4rem;
       text-transform: uppercase;
       align-self: center;
-      padding: .5rem;
+      padding: .5rem 1rem;
       color: ${({ state }) => !state?.cor_descricaobanner ? '#fff' : `#${state?.cor_descricaobanner}`};
       background: ${({ state }) => !state?.bg_descricaobanner || state?.bg_descricaobanner === 'transparent' ? state?.bg_descricaobanner : `#${state?.bg_descricaobanner}`};
+      opacity: .8;
     }
 
     h3 {
@@ -282,73 +286,83 @@ export const Equipe = styled.div`
     max-width: 1300px;
     margin: auto;
     padding: 5rem;
-  }
 
-  h1 {
-    color: #4b4b4b;
-    font-size: 3rem;
-    font-weight: normal;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
+    h1 {
+      color: #4b4b4b;
+      font-size: 3rem;
+      font-weight: normal;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
 
-  p {
-    font-size: 1.7rem;
-  }
-
-  h2 {
-    color: ${({ client }) => `#${client?.cor_titulosite}`};
-    border-bottom: 2px solid #ffb156;
-    margin: 1rem 0;
-    padding: 0 2rem .5rem;
-  }
-
-  h3 {
-    margin: 1rem 2rem;
-  }
-
-  p {
-    margin: 1rem 2rem;
-  }
-
-  ol {
-    margin-left: 2rem;
-
-    li {
+    p {
       font-size: 1.7rem;
     }
-  }
 
-  div {
-    display: flex;
-    gap: 5rem;
+    h2 {
+      color: ${({ client }) => `#${client?.cor_titulosite}`};
+      border-bottom: 2px solid #ffb156;
+      margin: 1rem 0;
+      padding: 0 2rem .5rem;
+    }
 
-    section {
-      width: 100%;
-      text-align: center;
+    h3 {
+      margin: 1rem 2rem;
+    }
 
-      img {
-        width: 100%;
-        border-radius: 0 50px;
-      }
+    p {
+      margin: 1rem 2rem;
+    }
 
-      video {
-        width: 100%;
-        border-radius: 50px 0;
+    ol {
+      margin-left: 2rem;
+
+      li {
+        font-size: 1.7rem;
       }
     }
 
-    span {
+    div {
       display: flex;
-      flex: 1;
-      gap: 1rem;
-      flex-direction: column;
+      margin: 2rem 0;
+
+      section {
+        width: 100%;
+        text-align: center;
+
+        img {
+          width: 100%;
+          border-radius: 0 50px;
+        }
+
+        video {
+          width: 100%;
+          border-radius: 50px 0;
+        }
+      }
+
+      span {
+        display: flex;
+        flex: 1;
+        gap: 1rem;
+        flex-direction: column;
+      }
+
+      &:last-child {
+        h2 {
+          text-align: right;
+        }
+      }
     }
   }
 
   @media (max-width: 600px) {
     padding: 20px;
     background: none;
+
+    article {
+      padding: 0;
+    }
 
     img {
       width: 80%;
@@ -372,6 +386,7 @@ export const Equipe = styled.div`
 
       &:last-child {
         flex-direction: column-reverse;
+        text-align: left;
       }
     }
 
@@ -537,7 +552,12 @@ export const Produtos = styled.div`
 
 export const ListaProdutos = styled.ul`
   display: grid;
-  grid-template-columns: repeat(${({ client }) => client.qtdlinhaservicos}, 1fr);
+  grid-template-columns: repeat(${({ client }) =>
+    client.servicos ? client.qtdlinhaservicos
+      : client.produtos ? client.qtdlinhaprodutos
+        : client.pacotes ? client.qtd_linhapacotes
+          : 3
+  }, 1fr);
   grid-gap: 5rem;
   text-align: left;
 
@@ -545,6 +565,8 @@ export const ListaProdutos = styled.ul`
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    border-radius: ${({ client }) => `${client?.border_radius}rem`};
+    box-shadow: ${({ client }) => client?.sombra ? '1px 1px 10px #999' : 'none'};
 
     section {
       padding: 1rem;
@@ -560,8 +582,9 @@ export const ListaProdutos = styled.ul`
 
       h2 {
         color: ${({ client }) => client?.cor_titulosite};
-        margin: 2rem;
+        margin: 1rem;
         text-align: center;
+        font-weight: bold;
       }
 
       h3 {
@@ -578,10 +601,11 @@ export const ListaProdutos = styled.ul`
       margin-top: auto;
       display: flex;
       align-items: center;
-      border-radius: 1rem;
+      border-radius: ${({ client }) => `${client?.border_radius}rem`};
 
       img {
         width: 100%;
+        height: ${({ client }) => client?.altura_foto === 0 ? 'auto' : `${client?.altura_foto}px`};
       }
 
       div {
@@ -630,9 +654,41 @@ export const ListaBlog = styled.ul`
     align-items: flex-start;
     justify-content: flex-start;
 
+    a {
+      color: ${({ client }) => `#${client.textbutton_color}`};
+      border: 0;
+      overflow: hidden;
+      max-width: ${({ client }) => client?.qtd_linhablog === 1 ? '40%' : '100%'};
+
+      img {
+        border-radius: ${({ client }) => `${client?.border_radius}rem`};
+        height: ${({ client }) => client?.altura_foto === 0 ? 'auto' : `${client?.altura_foto}px`};
+        width: ${({ client }) => client?.altura_foto === 0 ? 'auto' : `${client?.altura_foto + (client?.altura_foto / 2)}px`};
+      }
+
+      div {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+        background: ${({ client }) => `#${client.primary_color}`};
+      }
+
+      span {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+    }
+
     section {
       flex: 1;
-      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 1rem;
 
       span {
         font-weight: bold;
@@ -651,43 +707,20 @@ export const ListaBlog = styled.ul`
         font-weight: normal;
       }
 
-      p {
-        font-size: 2rem;
-      }
-    }
+      a {
+        align-self: flex-start;
+        max-width: 100%;
 
-    a {
-      background: ${({ client }) => `#${client?.primary_color}`};
-      color: ${({ client }) => `#${client.textbutton_color}`};
-      border: 0;
-      overflow: hidden;
-      margin-top: auto;
-      border-radius: 1rem;
-      max-width: ${({ client }) => client?.qtd_linhablog === 1 ? '40%' : '100%'};
-
-      img {
-        width: 100%;
-      }
-
-      div {
-        width: 100%;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-        background: ${({ client }) => `#${client.primary_color}`};
-      }
-
-      span {
-          display: flex;
-          align-items: center;
-          justify-content: center;
+        span {
+          margin: 1rem 0;
+          border-radius: ${({ client }) => `${client?.border_radius}rem`};
+          background: ${({ client }) => `#${client?.primary_color}`};
+          padding: .5rem 1rem;
         }
 
-      &:hover {
-        background: ${({ client }) => darken(0.3, `#${client?.primary_color}`)};
-        color: #fff;
+        &:hover {
+          background: none;
+        }
       }
     }
   }
@@ -695,13 +728,19 @@ export const ListaBlog = styled.ul`
   @media (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
     gap: 5rem;
+    margin: 0 1rem;
 
     li {
-      margin: 1rem;
       flex-direction: column;
 
       a {
+        width: 100%;
+        height: auto;
         max-width: 100%;
+
+        img {
+          width: 100%;
+        }
       }
     }
   }
@@ -709,7 +748,7 @@ export const ListaBlog = styled.ul`
 
 
 export const Porque = styled.div`
-  background: url(porque) center center no-repeat;
+  background: url(${({ bg }) => bg}) center center no-repeat;
   background-size: cover;
   height: 100vh;
   display: flex;

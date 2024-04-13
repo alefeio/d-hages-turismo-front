@@ -104,7 +104,7 @@ export default function Servico(props) {
           )}
         </title>
       </Helmet>
-      <Container>
+      <Container state={state}>
         <WhatsApp>
           <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
           <a href={`https://wa.me/55${state?.whatsapp}?text=${textWpp}`} target='_blank'>
@@ -134,10 +134,13 @@ export default function Servico(props) {
                 {produto.nome}
               </h1>
               <section dangerouslySetInnerHTML={{ __html: produto.descricao }}></section>
-              <p><a href='#' onClick={() => setViewFormReserva(true)}>Clique aqui e agende uma consulta.</a></p>
+              {/* <p><a href='#' onClick={() => setViewFormReserva(true)}>Clique aqui e agende uma consulta.</a></p> */}
+              <p><Link to="#contato">Clique aqui e agende uma consulta.</Link></p>
             </span>
           </div>
-          {!viewFormReserva ? (
+
+          <></>
+          {/* {!viewFormReserva ? (
             <aside onClick={() => setViewFormReserva(true)}>Agendar consulta</aside>
           ) : (
             <Form schema={schema} onSubmit={handleSubmit} initialData={initialData} id='#reserva'>
@@ -156,7 +159,7 @@ export default function Servico(props) {
                 <h3>Obrigado! Sua mensagem foi enviada com sucesso. Em breve retornaremos.</h3>
               )}
             </Form>
-          )}
+          )} */}
         </Prod>
       </Container>
     </>
