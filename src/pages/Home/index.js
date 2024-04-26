@@ -447,7 +447,7 @@ export default function Home() {
             </aside>
           )}
         </Produtos>}
-        <Quemsomos client={state} id="sobre">
+        {state?.viewdescricao && <Quemsomos client={state} id="sobre">
           <div>
             <section>
               {(
@@ -475,7 +475,7 @@ export default function Home() {
               <div dangerouslySetInnerHTML={{ __html: state?.descricao }}></div>
             </div>
           </div >
-        </Quemsomos>
+        </Quemsomos>}
         {state?.servicos && <Produtos id="servicos" client={state}>
           <>
             <h2>{state?.servicos}</h2>

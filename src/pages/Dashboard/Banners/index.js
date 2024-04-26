@@ -19,6 +19,7 @@ export default function AdminBanners() {
   const [produtos, setProdutos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [dominio, setDominio] = useState('');
+  const [tipo, setTipo] = useState('');
 
   const perfil = useSelector((state) => state.usuario.perfil);
 
@@ -54,6 +55,7 @@ export default function AdminBanners() {
     const newData = data;
     newData.img_id = file;
     newData.client = perfil.email.split('@')[1].split('.')[0];
+    newData.link_tipo = tipo;
 
     try {
       await api.post('banner', newData);
@@ -101,16 +103,28 @@ export default function AdminBanners() {
         <Form onSubmit={handleSubmit}>
           {preview && <img src={preview} />}
           {/* <AvatarInput name="img_id" /> */}
-
+          <br /><br />
           <input
             type="file"
             id="imagem"
             data-file={file}
             onChange={handleFile}
           />
+          <br /><br />
+          Título: <Input name="titulo" placeholder="Título do banner" /><br /><br />
 
-          Título: <Input name="titulo" placeholder="Qual o destino?" />
+          Link: <Input name="link" placeholder="Link" /><br /><br />
 
+          Tipo:<br />
+
+          <div>
+            <span>
+              <Input type='radio' name="tipo" value='interno' onClick={() => setTipo('interno')} /> Interno
+            </span>
+            <span>
+              <Input type='radio' name="tipo" value='externo' onClick={() => setTipo('externo')} /> Externo
+            </span>
+          </div>
           <button disabled={loading} type="submit">Salvar</button>
         </Form>
       </section>
