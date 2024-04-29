@@ -106,7 +106,7 @@ export default function Pacotes() {
           <ListaProdutos>
             {produtos.map((p) => (
               <li key={p.id}>
-                <Link to={`roteiros/${p.url}/${p.id}`}>
+                <Link to={`roteiros/${p.id}/${p.url}`}>
                   <img src={p.imagem.url} alt={p.nome} />
                 </Link>
                 <section>
@@ -117,7 +117,7 @@ export default function Pacotes() {
                   <p>À vista: R$ {p.valoravista}</p>
                   {p.valoraprazo && <p>{p.parcelas}x no cartão: R$ {p.valoraprazo}</p>}
                 </section>
-                <Link to={`roteiros/${p.url}/${p.id}`}>
+                <Link to={`roteiros/${p.id}/${p.url}`}>
                   <div>
                     <MdAdd size={16} color="#FFF" />
                     <span>Informações</span>
