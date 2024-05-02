@@ -6,6 +6,8 @@ import bannerProdutos from '~/assets/banner-produtos.jpg';
 export const Container = styled.div`
   section {
     padding: 5rem;
+    display: flex;
+    flex-direction: column;
 
     h2 {
       margin-bottom: 2rem;
@@ -21,7 +23,17 @@ export const Container = styled.div`
 
       div {
         border-radius: 2rem;
-        margin: .5rem 0 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        span {
+          display: flex;
+          align-items: flex-start;
+          justify-content: flex-start;
+          margin-top: 1rem;
+        }
       }
 
       img {
@@ -32,8 +44,8 @@ export const Container = styled.div`
         border: 1px solid #ccc;
         border-radius: 2rem;
         padding: 1rem;
-        margin: .5rem 0 2rem;
         width: 100%;
+        margin: 0 1rem 0 0;
       }
 
       button {

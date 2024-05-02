@@ -33,6 +33,7 @@ export default function AdminSite() {
   const [textoBanner, setTextoBanner] = useState(false);
   const [dominio, setDominio] = useState('');
   const [fontSerifa, setFontSerifa] = useState(false);
+  const [sobreNos, setSobreNos] = useState(false);
   const [sombra, setSombra] = useState(false);
 
   const { state, loadSite } = useContext(SiteContext);
@@ -129,6 +130,7 @@ export default function AdminSite() {
     newData.font_serifa = fontSerifa;
     newData.sombra = sombra;
     newData.client = perfil.email.split('@')[1].split('.')[0];
+    newData.viewdescricao = sobreNos
 
     console.log('newData', newData);
 
@@ -159,6 +161,7 @@ export default function AdminSite() {
     newData.font_serifa = fontSerifa;
     newData.sombra = sombra;
     newData.client = perfil.email.split('@')[1].split('.')[0];
+    newData.viewdescricao = sobreNos
 
     console.log(newData);
 
@@ -348,6 +351,18 @@ export default function AdminSite() {
             </>}
           </span>
           <hr />
+          <span>
+            <aside>
+              <span>Sobre Nós:</span>
+              <span>Visível? {sobreNos ? 'Sim' : 'Não'}</span>
+              <span>
+                <Input type='radio' name="font_serifa" onChange={() => setSobreNos(true)} checked={!!sobreNos} /> Sim
+              </span>
+              <span>
+                <Input type='radio' name="font_serifa" onChange={() => setSobreNos(false)} checked={!sobreNos} /> Não
+              </span>
+            </aside>
+          </span>
           <span>
             <aside>
               {(

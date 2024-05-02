@@ -418,7 +418,7 @@ export default function Home() {
             <ListaProdutos client={state}>
               {produtos.map((p) => (
                 <li key={p.id}>
-                  <Link to={`roteiros/${p.url}/${p.id}`}>
+                  <Link to={`roteiros/${p.id}/${p.url}`}>
                     <img src={p.imagem.url} alt={p.nome} />
                   </Link>
                   <section>
@@ -429,7 +429,7 @@ export default function Home() {
                     <h3><span>À vista:</span> R$ {p.valoravista}</h3>
                     {p.valoraprazo && <h3><span>{p.parcelas}x no cartão:</span> R$ {p.valoraprazo}</h3>}
                   </section>
-                  <Link to={`roteiros/${p.url}/${p.id}`}>
+                  <Link to={`roteiros/${p.id}/${p.url}`}>
                     <div>
                       <MdAdd size={16} color="#FFF" />
                       <span>Informações</span>
@@ -447,7 +447,7 @@ export default function Home() {
             </aside>
           )}
         </Produtos>}
-        <Quemsomos client={state} id="sobre">
+        {state?.viewdescricao && <Quemsomos client={state} id="sobre">
           <div>
             <section>
               {(
@@ -475,7 +475,7 @@ export default function Home() {
               <div dangerouslySetInnerHTML={{ __html: state?.descricao }}></div>
             </div>
           </div >
-        </Quemsomos>
+        </Quemsomos>}
         {state?.servicos && <Produtos id="servicos" client={state}>
           <>
             <h2>{state?.servicos}</h2>
