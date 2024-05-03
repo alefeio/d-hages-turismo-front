@@ -43,12 +43,13 @@ export default function AdminBlog() {
     setProdutos(blog);
   }
 
-  async function loadProduto(id, edit = true) {
-    edit && setProdutoEdit(id);
+  async function loadProduto(url, edit = true) {
 
-    const response = await api.get(`blog/nome/${id}`);
-
+    const response = await api.get(`blog/${url}`);
+    
     console.log(response.data);
+    
+    edit && setProdutoEdit(response.data.id);
 
     setInitialData(response.data);
 
@@ -229,13 +230,13 @@ export default function AdminBlog() {
                 <section>
                   <h2>{p.titulo}</h2>
                 </section>
-                <a href='#top' onClick={() => loadProduto(p.id)}>
+                <a href='#top' onClick={() => loadProduto(p.url)}>
                   <div>
                     <MdEdit size={16} color="#FFF" />
                   </div>
                   <span>Editar</span>
                 </a>
-                <a href='#top' onClick={() => loadProduto(p.id, false)}>
+                <a href='#top' onClick={() => loadProduto(p.url, false)}>
                   <div>
                     <MdEdit size={16} color="#FFF" />
                   </div>

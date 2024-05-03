@@ -52,10 +52,15 @@ export default function AdminBanners() {
 
   async function handleSubmit(data, { resetForm }) {
     setLoading(true);
-    const newData = data;
-    newData.img_id = file;
-    newData.client = perfil.email.split('@')[1].split('.')[0];
-    newData.link_tipo = tipo;
+    console.log('data>>', data);
+    const newData = {
+      img_id: file,
+      titulo: data.titulo,
+      client: perfil.email.split('@')[1].split('.')[0],
+      link: data.link,
+      link_tipo: tipo
+    };
+    console.log('data>>', newData);
 
     try {
       await api.post('banner', newData);
@@ -119,10 +124,10 @@ export default function AdminBanners() {
 
           <div>
             <span>
-              <Input type='radio' name="tipo" value='interno' onClick={() => setTipo('interno')} /> Interno
+              <Input type='radio' name="link_tipo" value='interno' onClick={() => setTipo('interno')} /> Interno
             </span>
             <span>
-              <Input type='radio' name="tipo" value='externo' onClick={() => setTipo('externo')} /> Externo
+              <Input type='radio' name="link_tipo" value='externo' onClick={() => setTipo('externo')} /> Externo
             </span>
           </div>
           <button disabled={loading} type="submit">Salvar</button>
