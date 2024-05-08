@@ -173,32 +173,80 @@ export default function Home() {
       autoplay: true,
       centerPadding: 0,
       fade: true,
-      pauseOnHover: false
+      pauseOnHover: false,
     };
     return (
       <Slider {...settings}>
         {banners.map(banner => (
-          <div>
-            {(
-              banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'webm'
-              || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'mp4'
-              || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'mov'
-              || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'wmv'
-              || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'avi'
-              || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'html5'
-            )
-              ? (
-                <video autoplay="autoplay" loop="loop" muted>
-                  <source src={banner.imagem.url} type="video/mp4" />
-                  <object data="">
-                    <embed src={banner.imagem.url} />
-                  </object>
-                </video>
-              ) : (
-                <img src={banner.imagem.url} alt={banner.titulo} />
-              )
-            }
-          </div>
+          banner.link && banner.tipo_link == 'interno' ?
+            <div>
+              <Link key={banner.id} to={`blog/${banner.url}`}>
+                {(
+                  banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'webm'
+                  || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'mp4'
+                  || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'mov'
+                  || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'wmv'
+                  || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'avi'
+                  || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'html5'
+                )
+                  ? (
+                    <video autoplay="autoplay" loop="loop" muted>
+                      <source src={banner.imagem.url} type="video/mp4" />
+                      <object data="">
+                        <embed src={banner.imagem.url} />
+                      </object>
+                    </video>
+                  ) : (
+                    <img src={banner.imagem.url} alt={banner.titulo} />
+                  )
+                }
+              </Link>
+            </div>
+            : banner.link && banner.tipo_link == 'externo' ?
+              <div>
+                <a key={banner.id} href={banner.url} target='_blank'>
+                  {(
+                    banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'webm'
+                    || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'mp4'
+                    || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'mov'
+                    || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'wmv'
+                    || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'avi'
+                    || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'html5'
+                  )
+                    ? (
+                      <video autoplay="autoplay" loop="loop" muted>
+                        <source src={banner.imagem.url} type="video/mp4" />
+                        <object data="">
+                          <embed src={banner.imagem.url} />
+                        </object>
+                      </video>
+                    ) : (
+                      <img src={banner.imagem.url} alt={banner.titulo} />
+                    )
+                  }
+                </a>
+              </div>
+              : <div key={banner.id}>
+                {(
+                  banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'webm'
+                  || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'mp4'
+                  || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'mov'
+                  || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'wmv'
+                  || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'avi'
+                  || banner.imagem.url.split('.')[banner.imagem.url.split('.').length - 1] === 'html5'
+                )
+                  ? (
+                    <video autoplay="autoplay" loop="loop" muted>
+                      <source src={banner.imagem.url} type="video/mp4" />
+                      <object data="">
+                        <embed src={banner.imagem.url} />
+                      </object>
+                    </video>
+                  ) : (
+                    <img src={banner.imagem.url} alt={banner.titulo} />
+                  )
+                }
+              </div>
         ))}
       </Slider>
     );
@@ -352,6 +400,16 @@ export default function Home() {
               </section>
             </>
           )}
+          {state?.link && state?.tipo_link == 'interno' ?
+            <Link to={state?.url}>
+              <SimpleSlider />
+            </Link>
+            : state?.link && state?.tipo_link == 'interno' ?
+              <a url={state?.url} target='_blank'>
+                <SimpleSlider />
+              </a>
+              : <SimpleSlider />
+          }
           <SimpleSlider />
         </Banner>}
         {state?.pacotes && <Produtos id="pacotes" client={state}>

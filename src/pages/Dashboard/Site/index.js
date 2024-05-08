@@ -63,6 +63,7 @@ export default function AdminSite() {
 
       setFontSerifa(state.font_serifa);
       setSombra(state.sombra);
+      setSobreNos(state.viewdescricao)
     } catch (error) {
       console.log(error);
     }
@@ -162,8 +163,6 @@ export default function AdminSite() {
     newData.sombra = sombra;
     newData.client = perfil.email.split('@')[1].split('.')[0];
     newData.viewdescricao = sobreNos
-
-    console.log(newData);
 
     try {
       await api.put(`site/${produtoEdit}`, newData);
@@ -268,7 +267,7 @@ export default function AdminSite() {
             <aside>
               <span>Fonte<br />com serifa?</span>
               <span>
-                <Input type='radio' name="font_serifa" onChange={() => setFontSerifa(true)} checked={!!fontSerifa} /> Sim
+                <Input type='radio' name="font_serifa" onChange={() => setFontSerifa(true)} checked={fontSerifa} /> Sim
               </span>
               <span>
                 <Input type='radio' name="font_serifa" onChange={() => setFontSerifa(false)} checked={!fontSerifa} /> Não
@@ -422,7 +421,7 @@ export default function AdminSite() {
                 Itens por linha:
               </span>
               <span>
-                <Input name="qtdlinhaprodutos" placeholder="Digite apenas números" type='number' />
+                <Input name="qtdlinhaprodutos" placeholder="Digite apenas números" type='number' required />
               </span>
             </aside>}
             <aside>
@@ -437,7 +436,7 @@ export default function AdminSite() {
                 Itens por linha:
               </span>
               <span>
-                <Input name="qtdlinhaservicos" placeholder="Digite apenas números" type='number' />
+                <Input name="qtdlinhaservicos" placeholder="Digite apenas números" type='number' required />
               </span>
             </aside>}
             <aside>
@@ -452,7 +451,7 @@ export default function AdminSite() {
                 Itens por linha:
               </span>
               <span>
-                <Input name="qtd_linhablog" placeholder="Digite apenas números" type='number' />
+                <Input name="qtd_linhablog" placeholder="Digite apenas números" type='number' required />
               </span>
             </aside>}
             <aside>
@@ -467,7 +466,7 @@ export default function AdminSite() {
                 Itens por linha:
               </span>
               <span>
-                <Input name="qtd_linhapacotes" placeholder="Digite apenas números" type='number' />
+                <Input name="qtd_linhapacotes" placeholder="Digite apenas números" type='number' required />
               </span>
             </aside>}
             <aside>
@@ -482,7 +481,7 @@ export default function AdminSite() {
                 Itens por linha:
               </span>
               <span>
-                <Input name="qtdlinhadepoimentos" placeholder="Digite apenas números" type='number' />
+                <Input name="qtdlinhadepoimentos" placeholder="Digite apenas números" type='number' required />
               </span>
             </aside>}
             <aside>

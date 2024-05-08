@@ -18,6 +18,7 @@ export default function AdminBanners() {
   const [preview, setPreview] = useState('');
   const [produtos, setProdutos] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [link, setLink] = useState(false);
   const [dominio, setDominio] = useState('');
   const [tipo, setTipo] = useState('');
 
@@ -58,9 +59,10 @@ export default function AdminBanners() {
       titulo: data.titulo,
       client: perfil.email.split('@')[1].split('.')[0],
       link: data.link,
-      link_tipo: tipo
+      tipo_link: data.tipo_link,
+      url: data.url
     };
-    console.log('data>>', newData);
+    console.log('newData>>', newData);
 
     try {
       await api.post('banner', newData);
@@ -118,18 +120,38 @@ export default function AdminBanners() {
           <br /><br />
           Título: <Input name="titulo" placeholder="Título do banner" /><br /><br />
 
-          Link: <Input name="link" placeholder="Link" /><br /><br />
-
-          Tipo:<br />
+          Link?<br />
 
           <div>
             <span>
-              <Input type='radio' name="link_tipo" value='interno' onClick={() => setTipo('interno')} /> Interno
+              <Input type='radio' name="link" value={link} onClick={() => setLink(true)} /> Sim
             </span>
             <span>
-              <Input type='radio' name="link_tipo" value='externo' onClick={() => setTipo('externo')} /> Externo
+              <Input type='radio' name="link" value={link} onClick={() => setLink(false)} /> Não
             </span>
           </div>
+
+          {link &&
+            <>
+              <br />
+              Tipo:<br />
+
+              <div>
+                <span>
+                  <Input type='radio' name="tipo_link" value={tipo} onClick={() => setTipo('interno')} /> Interno
+                </span>
+                <span>
+                  <Input type='radio' name="tipo_link" value={tipo} onClick={() => setTipo('externo')} /> Externo
+                </span>
+              </div>
+              <br />
+
+              {tipo === 'interno' ? <p>Link: <Input name="url" placeholder="nome-da-url" /></p>
+              : tipo === 'externo' ? <p>Link: <Input name="url" placeholder="https://nome-da-url.com.br" /></p> : ''}
+              
+              <br /><br />
+            </>
+          }
           <button disabled={loading} type="submit">Salvar</button>
         </Form>
       </section>

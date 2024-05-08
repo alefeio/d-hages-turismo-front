@@ -30,6 +30,7 @@ export default function Cadastro() {
         <Input name="nome" placeholder="Seu nome" />
         <Input name="email" type="email" placeholder="Seu e-mail" />
         <Input name="password" type="password" placeholder="Sua senha" />
+        {/* <Input name="admin" value={true} placeholder="Admin" /> */}
         <button type="submit">Criar conta</button>
         <Link to="/login">Ir para o Login</Link>
       </Form>
