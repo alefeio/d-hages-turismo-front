@@ -92,7 +92,7 @@ export default function Header() {
     <Container state={state} scrollY={scrollY} bgMenu={bgMenu} viewMenu={viewMenu} >
       <Content viewMenu={viewMenu} state={state}>
         <Link to="/#home" onClick={altChecked}>
-          <img src={state?.logo?.url} alt={state?.nome} />
+          {state?.tipo_logo === 'imagem' ? <img src={state?.logo?.url} alt={state?.nome} /> : state?.tipo_logo === 'texto' ? <h1>{state?.logo_texto}</h1> : ''}
         </Link>
         <Toggle />
         <Nav exibir={checked} state={state}>

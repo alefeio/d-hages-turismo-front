@@ -651,7 +651,7 @@ export const ListaBlog = styled.ul`
     overflow: hidden;
     display: flex;
     flex-direction: ${({ client }) => client?.qtd_linhablog === 1 ? 'row' : 'column'};
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
 
     a {
@@ -659,11 +659,12 @@ export const ListaBlog = styled.ul`
       border: 0;
       overflow: hidden;
       max-width: ${({ client }) => client?.qtd_linhablog === 1 ? '40%' : '100%'};
+      width: 100%;
 
       img {
         border-radius: ${({ client }) => `${client?.border_radius}rem`};
         height: ${({ client }) => client?.altura_foto === 0 ? 'auto' : `${client?.altura_foto}px`};
-        width: ${({ client }) => client?.altura_foto === 0 ? 'auto' : `${client?.altura_foto + (client?.altura_foto / 2)}px`};
+        width: 100%;
       }
 
       div {

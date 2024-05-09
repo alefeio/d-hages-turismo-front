@@ -35,6 +35,7 @@ export default function AdminSite() {
   const [fontSerifa, setFontSerifa] = useState(false);
   const [sobreNos, setSobreNos] = useState(false);
   const [sombra, setSombra] = useState(false);
+  const [tipoLogo, settipoLogo] = useState('');
 
   const { state, loadSite } = useContext(SiteContext);
 
@@ -64,6 +65,7 @@ export default function AdminSite() {
       setFontSerifa(state.font_serifa);
       setSombra(state.sombra);
       setSobreNos(state.viewdescricao)
+      settipoLogo(state.tipo_logo)
     } catch (error) {
       console.log(error);
     }
@@ -131,7 +133,8 @@ export default function AdminSite() {
     newData.font_serifa = fontSerifa;
     newData.sombra = sombra;
     newData.client = perfil.email.split('@')[1].split('.')[0];
-    newData.viewdescricao = sobreNos
+    newData.viewdescricao = sobreNos;
+    newData.tipo_logo = tipoLogo;
 
     console.log('newData', newData);
 
@@ -162,7 +165,8 @@ export default function AdminSite() {
     newData.font_serifa = fontSerifa;
     newData.sombra = sombra;
     newData.client = perfil.email.split('@')[1].split('.')[0];
-    newData.viewdescricao = sobreNos
+    newData.viewdescricao = sobreNos;
+    newData.tipo_logo = tipoLogo;
 
     try {
       await api.put(`site/${produtoEdit}`, newData);
@@ -206,6 +210,15 @@ export default function AdminSite() {
         <Form onSubmit={!produtoEdit ? handleSubmit : handleUpdate} initialData={initialData}>
           <span>
             <aside>
+              <span>Tipo de logomarca:</span>
+              <span>
+                <Input type='radio' name="tipo_logo" checked={tipoLogo === 'imagem'} onChange={() => settipoLogo('imagem')} /> Imagem
+              </span>
+              <span>
+                <Input type='radio' name="tipo_logo" checked={tipoLogo === 'texto'} onChange={() => settipoLogo('texto')} /> Texto
+              </span>
+            </aside>
+            {tipoLogo === 'imagem' ? <aside>
               {previewLogo && <img src={previewLogo} />}
               Logomarca: <input
                 type="file"
@@ -213,7 +226,9 @@ export default function AdminSite() {
                 data-file={logo}
                 onChange={handleLogo}
               />
-            </aside>
+            </aside> : <aside>
+            Logomarca: <Input name="logo_texto" placeholder="Digite o nome da empresa" required />
+          </aside>}
             <aside>
               {previewFavicon && <img src={previewFavicon} />}
               Favicon: <input
@@ -262,7 +277,7 @@ export default function AdminSite() {
             </aside>
             <aside>
               <span>Altura das fotos:</span>
-              <span><Input name="altura_foto" placeholder="Digite apenas números" type='number' /></span>
+              <span><Input name="altura_foto" placeholder="Digite apenas números" type='number' required /></span>
             </aside>
             <aside>
               <span>Fonte<br />com serifa?</span>

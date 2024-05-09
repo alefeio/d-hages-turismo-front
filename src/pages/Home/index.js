@@ -605,7 +605,7 @@ export default function Home() {
           <>
             <h2>{state?.blog}</h2>
             <nav>
-              <Input name="buscaProduto" value={buscaBlog} placeholder='Pesquisar artigo' onChange={(e) => {
+              <Input name="buscaProduto" value={buscaBlog} placeholder='Pesquisar notícia' onChange={(e) => {
                 setBuscaBlog(e.target.value);
                 loadBuscaBlog(e.target.value);
               }} />
