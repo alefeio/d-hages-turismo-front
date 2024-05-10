@@ -35,6 +35,10 @@ export const Content = styled.div`
   height: ${({ state, viewMenu }) => viewMenu === 'relative' ? `${state?.altura_menu}vh` : '40px'};
   a {
     height: 100%;
+    display: flex;
+    align-items: center;
+    color: ${({ state }) => `#${state?.textbutton_color}`};
+
     img {
       height: 100%;
     }
