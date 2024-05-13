@@ -143,7 +143,7 @@ export default function Artigo(props) {
               ></section>
               {/* <p><a href='#' onClick={() => setViewFormReserva(true)}>Clique aqui e agende uma consulta.</a></p> */}
               <p>
-                <Link to="#contato">Clique aqui e agende uma consulta.</Link>
+                <Link to="#contato">Clique aqui e fale conosco.</Link>
               </p>
             </span>
           </div>

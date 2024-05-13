@@ -35,7 +35,7 @@ export default function Routes() {
       <Route path="/compraevenda" exact component={Compraevenda} />
       <Route path="/sobre" exact component={Sobre} />
       <Route path="/busca" component={Busca} />
-      <Route path="/roteiros/:nome/:id" component={Produto} />
+      <Route path="/roteiros/:id/:nome" component={Produto} />
       <Route path="/servicos/:nome/:id" component={Servico} />
       <Route path="/blog" exact component={Blog} />
       <Route path="/blog/:nome" component={Artigo} />

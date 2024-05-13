@@ -57,7 +57,7 @@ export const Prod = styled.div`
       font-family: ${({ client }) => client?.font_serifa ? "'Source Serif 4', serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"};
 
       a {
-        color: ${({ client }) => `#${client?.textbutton_color}`};
+        color: ${({ client }) => `#${client?.cor_link}`};
       }
     }
 

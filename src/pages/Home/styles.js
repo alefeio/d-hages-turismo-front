@@ -711,12 +711,13 @@ export const ListaBlog = styled.ul`
       a {
         align-self: flex-start;
         max-width: 100%;
+        padding: 2rem;
 
         span {
           margin: 1rem 0;
           border-radius: ${({ client }) => `${client?.border_radius}rem`};
           background: ${({ client }) => `#${client?.primary_color}`};
-          padding: .5rem 1rem;
+          padding: 1rem;
         }
 
         &:hover {

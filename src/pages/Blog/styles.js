@@ -5,10 +5,6 @@ import bannerProdutos from '~/assets/banner-produtos.jpg';
 
 export const Container = styled.div`
   background: #fff;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-around;
-  margin: 50px 0;
 `;
 
 export const ListaProdutos = styled.ul`
@@ -214,6 +210,8 @@ export const WhatsApp = styled.div`
   }
 `;
 
+
+
 export const ListaBlog = styled.ul`
   display: grid;
   grid-template-columns: repeat(${({ client }) => client.qtd_linhablog}, 1fr);
@@ -224,10 +222,45 @@ export const ListaBlog = styled.ul`
     overflow: hidden;
     display: flex;
     flex-direction: ${({ client }) => client?.qtd_linhablog === 1 ? 'row' : 'column'};
+    align-items: center;
+    justify-content: flex-start;
+
+    a {
+      color: ${({ client }) => `#${client.textbutton_color}`};
+      border: 0;
+      overflow: hidden;
+      max-width: ${({ client }) => client?.qtd_linhablog === 1 ? '40%' : '100%'};
+      width: 100%;
+
+      img {
+        border-radius: ${({ client }) => `${client?.border_radius}rem`};
+        height: ${({ client }) => client?.altura_foto === 0 ? 'auto' : `${client?.altura_foto}px`};
+        width: 100%;
+      }
+
+      div {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+        background: ${({ client }) => `#${client.primary_color}`};
+      }
+
+      span {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+    }
 
     section {
       flex: 1;
-      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 1rem;
 
       span {
         font-weight: bold;
@@ -245,40 +278,21 @@ export const ListaBlog = styled.ul`
         margin-top: .5rem;
         font-weight: normal;
       }
-    }
 
-    a {
-      background: ${({ client }) => `#${client?.primary_color}`};
-      color: ${({ client }) => `#${client.textbutton_color}`};
-      border: 0;
-      overflow: hidden;
-      margin-top: auto;
-      border-radius: 1rem;
-      max-width: ${({ client }) => client?.qtd_linhablog === 1 ? '40%' : '100%'};
+      a {
+        align-self: flex-start;
+        max-width: 100%;
 
-      img {
-        width: 100%;
-      }
-
-      div {
-        width: 100%;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-        background: ${({ client }) => `#${client.primary_color}`};
-      }
-
-      span {
-          display: flex;
-          align-items: center;
-          justify-content: center;  
+        span {
+          margin: 1rem 0;
+          border-radius: ${({ client }) => `${client?.border_radius}rem`};
+          background: ${({ client }) => `#${client?.primary_color}`};
+          padding: 1rem;
         }
 
-      &:hover {
-        background: ${({ client }) => darken(0.3, `#${client?.primary_color}`)};
-        color: #fff;
+        &:hover {
+          background: none;
+        }
       }
     }
   }
@@ -286,13 +300,19 @@ export const ListaBlog = styled.ul`
   @media (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
     gap: 5rem;
+    margin: 0 1rem;
 
     li {
-      margin: 1rem;
       flex-direction: column;
 
       a {
+        width: 100%;
+        height: auto;
         max-width: 100%;
+
+        img {
+          width: 100%;
+        }
       }
     }
   }

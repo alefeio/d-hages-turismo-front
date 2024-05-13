@@ -47,6 +47,9 @@ export default function Blog() {
   const [blog, setBlog] = useState([]);
   const [total, setTotal] = useState(0);
   const [totalBlog, setTotalBlog] = useState(0);
+  const [query, setQuery] = useState(1);
+  const [nextPage, setNextPage] = useState(false);
+  const [pageSize, setPageSize] = useState(12);
   const [textWpp, setTextWpp] = useState("Quero mais informações. Estou entrando em contato através do site.");
 
   const [busca, setBusca] = useState('');
@@ -58,11 +61,13 @@ export default function Blog() {
   const perfil = useSelector((state) => state.usuario.perfil);
 
   async function loadBlog() {
-    const response = await api.get(`blog?client=${dominio}`);
+    const response = await api.get(`blog?client=${dominio}&pageSize=${pageSize}`);
 
     console.log('blog', response);
 
     const { blog, total } = response.data;
+
+    const totalPage = Math.ceil(total / pageSize);
 
     const newData = blog.map(data => {
       data.url = removerEspacosEAcentos(data.titulo);
@@ -74,15 +79,23 @@ export default function Blog() {
 
     setBlog(newData);
     setTotalBlog(total);
+
+    if (query < totalPage) setNextPage(true);
+    else setNextPage(false);
   }
 
   async function loadBuscaProduto(busca) {
-    const response = await api.get(`busca?client=${dominio}&page=1&busca=${busca}`);
+    const response = await api.get(`buscablog?client=${dominio}&page=1&busca=${busca}`);
 
-    const { produtos, total } = response.data;
+    const { blog, total } = response.data;
 
-    setProdutos(produtos);
+    const totalPage = Math.ceil(total / pageSize);
+
+    setBlog(blog);
     setTotal(total);
+
+    if (query < totalPage) setNextPage(true);
+    else setNextPage(false);
   }
 
   useEffect(() => {
@@ -93,7 +106,7 @@ export default function Blog() {
     if (!blog.length) {
       buscaBlog ? dominio && loadBuscaProduto(busca) : dominio && loadBlog();
     }
-  }, [dominio, state]);
+  }, [dominio, state, pageSize]);
 
   useEffect(() => {
     // Chamar a função ao montar o componente
@@ -112,41 +125,42 @@ export default function Blog() {
             <img src={wpp} alt="Logo HCS" />
           </a>
         </WhatsApp>{state?.blog && <Produtos id="pacotes" client={state}>
-          <>
-            <h2>{state?.blog}</h2>
-            <nav>
-              <Input name="buscaProduto" value={busca} placeholder='Pesquisar roteiro' onChange={(e) => {
-                setBusca(e.target.value);
-                loadBuscaProduto(e.target.value);
-              }} />
-              <MdSearch size={26} color="#000" />
-            </nav>
-            <ListaBlog client={state}>
+          <h2>{state?.blog}</h2>
+          <nav>
+            <Input name="buscaProduto" value={busca} placeholder='Pesquisar roteiro' onChange={(e) => {
+              setBusca(e.target.value);
+              loadBuscaProduto(e.target.value);
+            }} />
+            <MdSearch size={26} color="#000" />
+          </nav>
+          <ListaBlog client={state}>
               {blog.map((p) => (
                 <li key={p.id}>
-                  <Link to={`roteiros/${p.url}/${p.id}`}>
-                    <img src={p.imagem.url} alt={p.nome} />
+                  <Link to={`blog/${p.url}`}>
+                    <img src={p.imagem.url} alt={p.titulo} />
                   </Link>
                   <section>
-                    <h2>{p.titulo}</h2>
+                    <Link to={`blog/${p.url}`}><h2>{p.titulo}</h2></Link>
                     <p>{p.descricao}</p>
-                  </section>
-                  <Link to={`roteiros/${p.url}/${p.id}`}>
-                    <div>
+                    <Link to={`blog/${p.url}`}>
                       <span>Ler <MdAdd size={16} color="#FFF" /></span>
-                    </div>
-                  </Link>
+                    </Link>
+                  </section>
                 </li>
               ))}
             </ListaBlog>
-          </>
-          {totalBlog > 12 && (
-            <aside>
-              <Link to='/roteiros'>
-                Ver todos
-              </Link>
-            </aside>
-          )}
+          <aside>
+            {query > 1 && <Link to={`?page=${query > 1 ? Number(query) - 1 : 1}`} onClick={() => {
+              setQuery(query > 1 ? Number(query) - 1 : 1);
+            }}>
+              Anterior
+            </Link>}
+            {nextPage && <Link to={`?page=${Number(query) + 1}`} onClick={() => {
+              setQuery(Number(query) + 1);
+            }}>
+              Próxima
+            </Link>}
+          </aside>
         </Produtos>}
       </Container >
     </>

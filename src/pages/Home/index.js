@@ -615,7 +615,7 @@ export default function Home() {
               {blog.map((p) => (
                 <li key={p.id}>
                   <Link to={`blog/${p.url}`}>
-                    <img src={p.imagem.url} alt={p.nome} />
+                    <img src={p.imagem.url} alt={p.titulo} />
                   </Link>
                   <section>
                     <Link to={`blog/${p.url}`}><h2>{p.titulo}</h2></Link>
@@ -630,7 +630,7 @@ export default function Home() {
           </>
           {totalBlog > 12 && (
             <aside>
-              <Link to='/roteiros'>
+              <Link to='/blog'>
                 Ver todos
               </Link>
             </aside>

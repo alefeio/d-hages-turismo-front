@@ -268,8 +268,12 @@ export default function AdminSite() {
           </span>
           <span>
             <aside>
-              <span>Cor do texto: menu e botões:</span>
+              <span>Cor do texto (menu e botões):</span>
               <span><Input name="textbutton_color" placeholder="ffffff" /></span>
+            </aside>
+            <aside>
+              <span>Cor dos links:</span>
+              <span><Input name="cor_link" placeholder="ffffff" /></span>
             </aside>
             <aside>
               <span>Arredondamento da borda:</span>
