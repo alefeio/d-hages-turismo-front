@@ -24,6 +24,7 @@ export default function AdminBlog() {
   const [produtos, setProdutos] = useState([]);
   const [initialData, setInitialData] = useState({});
   const [produtoEdit, setProdutoEdit] = useState(null);
+  const [pageSize, setPageSize] = useState(12);
   const [loading, setLoading] = useState(false);
   const [dominio, setDominio] = useState('');
 
