@@ -122,7 +122,7 @@ export default function Home() {
   }
 
   async function loadBuscaBlog(busca) {
-    const response = await api.get(`buscablog?client=${dominio}&page=1&busca=${buscaBlog}`);
+    const response = await api.get(`buscablog?client=${dominio}&pageSize=${pageSize}&page=1&busca=${buscaBlog}`);
 
     setBlog(response.data);
   }

@@ -85,7 +85,7 @@ export default function Blog() {
   }
 
   async function loadBuscaProduto(busca) {
-    const response = await api.get(`buscablog?client=${dominio}&page=1&busca=${busca}`);
+    const response = await api.get(`buscablog?client=${dominio}&pageSize=${pageSize}&page=1&busca=${busca}`);
 
     const { blog, total } = response.data;
 

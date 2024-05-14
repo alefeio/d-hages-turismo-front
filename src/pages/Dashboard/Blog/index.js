@@ -34,7 +34,7 @@ export default function AdminBlog() {
   const editorRef = useRef(null);
 
   async function loadProdutos() {
-    const response = await api.get(`blog?client=${dominio}`);
+    const response = await api.get(`blog?client=${dominio}&pageSize=${pageSize}`);
 
     const { blog } = response.data;
 
