@@ -58,6 +58,7 @@ export default function Home() {
   const [enviado, setEnviado] = useState(false);
   const [sendNews, setSendNews] = useState(false);
   const [busca, setBusca] = useState('');
+  const [pageSize, setPageSize] = useState(12);
   const [buscaBlog, setBuscaBlog] = useState('');
   const [dominio, setDominio] = useState('');
 
@@ -93,7 +94,7 @@ export default function Home() {
   }
 
   async function loadBlog() {
-    const response = await api.get(`blog?client=${dominio}`);
+    const response = await api.get(`blog?client=${dominio}&pageSize=${pageSize}`);
 
     console.log('blog', response);
 
