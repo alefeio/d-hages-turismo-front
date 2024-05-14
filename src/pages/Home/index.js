@@ -112,6 +112,23 @@ export default function Home() {
     setTotalBlog(total);
   }
 
+  async function loadBuscaBlog(busca) {
+    const response = await api.get(`buscablog?client=${dominio}&pageSize=${pageSize}&page=1&busca=${buscaBlog}`);
+
+    const { blog, total } = response.data;
+
+    const newData = blog.map(data => {
+      data.url = removerEspacosEAcentos(data.titulo);
+
+      return data;
+    })
+
+    console.log(`data: ${JSON.stringify(response.data)}`);
+
+    setBlog(newData);
+    setTotalBlog(total);
+  }
+
   async function loadBuscaProduto(busca) {
     const response = await api.get(`busca?client=${dominio}&page=1&busca=${busca}`);
 
@@ -119,12 +136,6 @@ export default function Home() {
 
     setProdutos(produtos);
     setTotal(total);
-  }
-
-  async function loadBuscaBlog(busca) {
-    const response = await api.get(`buscablog?client=${dominio}&pageSize=${pageSize}&page=1&busca=${buscaBlog}`);
-
-    setBlog(response.data);
   }
 
   async function loadDepoimentos() {
