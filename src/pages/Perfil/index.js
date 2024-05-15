@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 
@@ -12,11 +12,18 @@ import { Link } from 'react-router-dom';
 
 export default function Perfil() {
   const dispatch = useDispatch();
-
   const perfil = useSelector((state) => state.usuario.perfil);
 
+  const [admin, setAdmin] = useState(perfil.admin);
+
+  console.log('perfil', perfil)
+
+
   function handleSubmit(data) {
-    dispatch(updatePerfilRequest(data));
+    data.admin = admin;
+
+    console.log('data', data)
+    data.admin === true || data.admin === false && dispatch(updatePerfilRequest(data));
   }
 
   function handleLogout() {
@@ -43,6 +50,9 @@ export default function Perfil() {
 
           <Input name="nome" placeholder="Nome" />
           <Input name="email" type="email" placeholder="E-mail" />
+
+          <Input type='radio' name="admin" onChange={() => setAdmin(true)} checked={!!admin} /> Sim
+          <Input type='radio' name="admin" onChange={() => setAdmin(false)} checked={!admin} /> Não
 
           <hr />
 

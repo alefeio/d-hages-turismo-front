@@ -187,10 +187,10 @@ export default function AdminBlog() {
             onChange={handleFile}
           />
 
-          Título: <Input name="titulo" placeholder="Qual o destino?" />
+          Título: <Input name="titulo" placeholder="Título" />
           <br />
 
-          Descrição: <Input name="descricao" placeholder="Qual o destino?" />
+          Descrição: <Input name="descricao" placeholder="Descrição" />
           <br />
           Texto:
 

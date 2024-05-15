@@ -36,6 +36,8 @@ export default function AdminSite() {
   const [sobreNos, setSobreNos] = useState(false);
   const [sombra, setSombra] = useState(false);
   const [tipoLogo, settipoLogo] = useState('');
+  const [viewLogin, setViewLogin] = useState(false);
+  const [viewCadastro, setViewCadastro] = useState(false);
 
   const { state, loadSite } = useContext(SiteContext);
 
@@ -64,8 +66,10 @@ export default function AdminSite() {
 
       setFontSerifa(state.font_serifa);
       setSombra(state.sombra);
-      setSobreNos(state.viewdescricao)
-      settipoLogo(state.tipo_logo)
+      setSobreNos(state.viewdescricao);
+      settipoLogo(state.tipo_logo);
+      setViewLogin(state.view_login);
+      setViewCadastro(state.view_cadastro);
     } catch (error) {
       console.log(error);
     }
@@ -135,6 +139,8 @@ export default function AdminSite() {
     newData.client = perfil.email.split('@')[1].split('.')[0];
     newData.viewdescricao = sobreNos;
     newData.tipo_logo = tipoLogo;
+    newData.view_login = viewLogin;
+    newData.view_cadastro = viewCadastro;
 
     console.log('newData', newData);
 
@@ -167,6 +173,8 @@ export default function AdminSite() {
     newData.client = perfil.email.split('@')[1].split('.')[0];
     newData.viewdescricao = sobreNos;
     newData.tipo_logo = tipoLogo;
+    newData.view_login = viewLogin;
+    newData.view_cadastro = viewCadastro;
 
     try {
       await api.put(`site/${produtoEdit}`, newData);
@@ -210,6 +218,24 @@ export default function AdminSite() {
         <Form onSubmit={!produtoEdit ? handleSubmit : handleUpdate} initialData={initialData}>
           <span>
             <aside>
+              <span>Login visível?</span>
+              <span>
+                <Input type='radio' name="view_login" onChange={() => setViewLogin(true)} checked={viewLogin} /> Sim
+              </span>
+              <span>
+                <Input type='radio' name="view_login" onChange={() => setViewLogin(false)} checked={!viewLogin} /> Não
+              </span>
+            </aside>
+            <aside>
+              <span>Cadastro visível?</span>
+              <span>
+                <Input type='radio' name="view_cadastro" onChange={() => setViewCadastro(true)} checked={viewCadastro} /> Sim
+              </span>
+              <span>
+                <Input type='radio' name="view_cadastro" onChange={() => setViewCadastro(false)} checked={!viewCadastro} /> Não
+              </span>
+            </aside>
+            <aside>
               <span>Tipo de logomarca:</span>
               <span>
                 <Input type='radio' name="tipo_logo" checked={tipoLogo === 'imagem'} onChange={() => settipoLogo('imagem')} /> Imagem
@@ -227,8 +253,8 @@ export default function AdminSite() {
                 onChange={handleLogo}
               />
             </aside> : <aside>
-            Logomarca: <Input name="logo_texto" placeholder="Digite o nome da empresa" required />
-          </aside>}
+              Logomarca: <Input name="logo_texto" placeholder="Digite o nome da empresa" required />
+            </aside>}
             <aside>
               {previewFavicon && <img src={previewFavicon} />}
               Favicon: <input

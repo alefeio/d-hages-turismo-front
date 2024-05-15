@@ -142,6 +142,16 @@ export default function Header() {
                 CONTATO
               </Link>
             </li>
+            {state?.view_login && <li>
+              <Link to="/login" onClick={altChecked}>
+                LOGIN
+              </Link>
+            </li>}
+            {state?.view_cadastro && <li>
+              <Link to="/cadastro" onClick={altChecked}>
+                CADASTRO
+              </Link>
+            </li>}
             {logado && (
               <>
                 <li>
