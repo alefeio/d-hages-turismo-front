@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { logout } from '~/store/modules/auth/actions';
-import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 import SiteContext from '~/context/site';
 
 export default function MenuDash() {

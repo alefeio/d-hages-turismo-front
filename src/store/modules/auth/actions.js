@@ -12,10 +12,10 @@ export function loginSucesso(token, usuario) {
   };
 }
 
-export function cadastroRequest(nome, email, password) {
+export function cadastroRequest(nome, email, password, admin, codigo_up, client) {
   return {
     type: '@auth/CADASTRO_REQUEST',
-    payload: { nome, email, password },
+    payload: { nome, email, password, admin, codigo_up, client },
   };
 }
 
