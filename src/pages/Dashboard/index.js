@@ -23,35 +23,27 @@ export default function Dashboard() {
       {dominio === 'dhagesturismo' && (
         <Banner />
       )}
-      {perfil.admin ? (
-        <>
-          <Barra>
-            <ul>
-              <li>
-                Dashboard
-              </li>
-            </ul>
-          </Barra>
-          <section>
-            <MenuDash />
-            <div>
-              <div>
-                <h2>Mensagens do Site</h2>
-                <small>
-                  <Link onClick={() => setArquivadas(!arquivadas)}>
-                    {!arquivadas ? 'Ver arquivadas' : 'Ver ativas'}
-                  </Link>
-                </small>
-              </div>
-              <Contatoforms arquivadas={arquivadas} />
-            </div>
-          </section>
-        </>
-      ) : (
+      <Barra>
+        {/* <ul>
+          <li>
+            Dashboard
+          </li>
+        </ul> */}
+      </Barra>
+      <section>
+        <MenuDash />
         <div>
-
+          <div>
+            <h2>Mensagens do Site</h2>
+            <small>
+              <Link onClick={() => setArquivadas(!arquivadas)}>
+                {!arquivadas ? 'Ver arquivadas' : 'Ver ativas'}
+              </Link>
+            </small>
+          </div>
+          <Contatoforms arquivadas={arquivadas} />
         </div>
-      )}
+      </section>
     </Container>
   );
 }
