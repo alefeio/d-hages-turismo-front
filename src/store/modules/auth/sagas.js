@@ -17,11 +17,6 @@ export function* login({ payload }) {
 
     const { token, usuario } = response.data;
 
-    if (!usuario.admin) {
-      toast.error('Operação não autorizada!');
-      return;
-    }
-
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
     yield put(loginSucesso(token, usuario));
@@ -35,16 +30,29 @@ export function* login({ payload }) {
 
 export function* cadastro({ payload }) {
   try {
-    const { nome, email, password } = payload;
+    const { nome, email, password, admin, codigo_up, client } = payload;
 
     yield call(api.post, 'usuarios', {
       nome,
       email,
       password,
-      admin: true,
+      admin,
+      codigo_up,
+      client
     });
 
-    history.push('/login');
+    const response = yield call(api.post, 'sessions', {
+      email,
+      password,
+    });
+
+    const { token, usuario } = response.data;
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
+    yield put(loginSucesso(token, usuario));
+
+    history.push('/dashboard');
   } catch (error) {
     toast.error('Falha no cadastro! Verifique seus dados.');
 

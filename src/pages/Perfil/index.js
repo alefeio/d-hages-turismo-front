@@ -49,10 +49,12 @@ export default function Perfil() {
           {/* <AvatarInput name="img_id" /> */}
 
           <Input name="nome" placeholder="Nome" />
-          <Input name="email" type="email" placeholder="E-mail" />
+          <Input name="email" type="email" placeholder="E-mail" disabled />
+          Link para indicação
+          <Input name="email" type="email" placeholder="E-mail" disabled />
 
-          <Input type='radio' name="admin" onChange={() => setAdmin(true)} checked={!!admin} /> Sim
-          <Input type='radio' name="admin" onChange={() => setAdmin(false)} checked={!admin} /> Não
+          {/* <Input type='radio' name="admin" onChange={() => setAdmin(true)} checked={!!admin} /> Sim
+          <Input type='radio' name="admin" onChange={() => setAdmin(false)} checked={!admin} /> Não */}
 
           <hr />
 

@@ -55,6 +55,7 @@ export const Trabalhe = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 30px;
+    margin: 2rem;
 
     input {
       background: rgba(255, 255, 255, 1);
