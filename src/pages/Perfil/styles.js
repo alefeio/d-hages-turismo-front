@@ -18,8 +18,15 @@ export const Container = styled.div`
       margin: auto;
 
       div {
-        border-radius: 4px;
-        margin: .5rem 0 2rem;
+        display: flex;
+        align-items: flex-start;
+
+        img {
+          margin: 0 0 0 1rem;
+          width: 30px;
+          height: 30px;
+
+        }
       }
 
       img {
@@ -167,4 +174,10 @@ export const Barra = styled.div`
   ul li a {
     color: #4d4d4d;
   }
+`;
+
+export const Img = styled.img`
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
 `;

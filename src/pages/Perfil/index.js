@@ -5,9 +5,11 @@ import { Form, Input } from '@rocketseat/unform';
 import { logout } from '~/store/modules/auth/actions';
 import { updatePerfilRequest } from '~/store/modules/usuario/actions';
 
+import copy from '~/assets/copy.png';
+
 // import AvatarInput from './AvatarInput';
 
-import { Container, Banner, Barra } from './styles';
+import { Container, Banner, Barra, Img } from './styles';
 import { Link } from 'react-router-dom';
 
 export default function Perfil() {
@@ -26,9 +28,14 @@ export default function Perfil() {
     data.admin === true || data.admin === false && dispatch(updatePerfilRequest(data));
   }
 
-  function handleLogout() {
-    dispatch(logout());
-  }
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(`${window.location.href.split('//')[1].split('/')[0]}?email=${perfil.email}`);
+      console.log('Texto copiado para a área de transferência');
+    } catch (err) {
+      console.log('Falha ao copiar o texto', err);
+    }
+  };
 
   return (
     <Container>
@@ -51,7 +58,10 @@ export default function Perfil() {
           <Input name="nome" placeholder="Nome" />
           <Input name="email" type="email" placeholder="E-mail" disabled />
           Link para indicação
-          <Input name="email" type="email" placeholder="E-mail" disabled />
+          <div>
+            <Input name="codigo" id="text" type="email" placeholder="E-mail" value={`${window.location.href.split('//')[1].split('/')[0]}?email=${perfil.email}`} disabled />
+            <Img src={copy} alt="Copiar link de indicação" onClick={copyToClipboard} />
+          </div>
 
           {/* <Input type='radio' name="admin" onChange={() => setAdmin(true)} checked={!!admin} /> Sim
           <Input type='radio' name="admin" onChange={() => setAdmin(false)} checked={!admin} /> Não */}
