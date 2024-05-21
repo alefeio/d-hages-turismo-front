@@ -19,6 +19,8 @@ import SiteContext from '~/context/site';
 export default function Header() {
   const dispatch = useDispatch();
 
+  const params = new URLSearchParams(window.location.search);
+
   const [checked, setChecked] = useState(false);
   const [perfil, setPerfil] = useState();
   const [scrollY, setScrollY] = useState(0);
@@ -82,6 +84,14 @@ export default function Header() {
     // Chamar a função ao montar o componente
     setDominio(extrairDominioDaURLAtual());
   }, []);
+
+  useEffect(() => {
+    // Chamar a função ao montar o componente
+    if(params.size > 0) {
+      localStorage.setItem('codigo_up', String(params.toString().split('=')[1].split('%40').join('@')));
+      console.log('params.toString()', params.toString())
+    }
+  }, [params]);
 
   useEffect(() => {
     setBgMenu(state?.primary_color);

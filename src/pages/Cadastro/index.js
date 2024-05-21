@@ -15,7 +15,8 @@ const schema = Yup.object().shape({
     .min(6, 'Mínimo 6 caracteres.')
     .required('Campo obrigatório!'),
   admin: Yup.boolean(),
-  codigo_up: Yup.string().email('E=mail inválido!').required('Campo obrigatório!')
+  codigo_up: Yup.string().email('E=mail inválido!').required('Campo obrigatório!'),
+  client: Yup.string().required()
 });
 
 export default function Cadastro() {
@@ -37,14 +38,21 @@ export default function Cadastro() {
     <>
 
       <Form schema={schema} onSubmit={handleSubmit}>
-      <img src={state?.logo?.url} alt={state?.nome} />
+        <img src={state?.logo?.url} alt={state?.nome} />
         <br />
         <Input name="nome" placeholder="Seu nome" />
         <Input name="email" type="email" placeholder="Seu e-mail" />
         <Input name="password" type="password" placeholder="Sua senha" />
         <Input name="admin" type="hidden" value={false} />
         <Input name="client" type="hidden" value={dominio} />
-        <Input name="codigo_up" type="email" placeholder="Código do coordenador" />
+        {localStorage.getItem('codigo_up') ? (
+          <>
+            Código do Coordenador
+            <Input name="codigo_up" value={localStorage.getItem('codigo_up')} type="email" placeholder="Código do Coordenador" />
+          </>
+        ) : (
+          <Input name="codigo_up" type="email" placeholder="Código do Coordenador" />
+        )}
         <button type="submit">Criar conta</button>
         <Link to="/login">Ir para o Login</Link>
       </Form>

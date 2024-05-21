@@ -51,6 +51,7 @@ export const Container = styled.div`
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
+        margin: 1rem 0;
       }
 
       img {
@@ -66,7 +67,10 @@ export const Container = styled.div`
       }
 
       button {
-        margin: 1rem 0;
+        margin: 2rem auto !important;
+        text-align: center !important;
+        align-self: center !important;
+        width: 100%;
         padding: 1rem;
         background: #000;
         color: #fff;

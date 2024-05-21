@@ -19,17 +19,17 @@ const schema = Yup.object().shape({
 export default function Login() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth.loading);
-  const [dominio, setDominio] = useState('');
+  const [client, setClient] = useState('');
 
   const { state } = useContext(SiteContext);
 
   function handleSubmit({ email, password }) {
-    dispatch(loginRequest(email, password));
+    dispatch(loginRequest(email, password, client));
   }
 
   useEffect(() => {
     // Chamar a função ao montar o componente
-    setDominio(extrairDominioDaURLAtual());
+    setClient(extrairDominioDaURLAtual());
   }, []);
 
   return (

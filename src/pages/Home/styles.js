@@ -26,7 +26,6 @@ export const Banner = styled.div`
 
   section {
     position: absolute;
-    z-index: 100000000;
     left: 0;
     top: 40%;
     width: 100%;

@@ -8,11 +8,12 @@ import { loginSucesso, falha } from './actions';
 
 export function* login({ payload }) {
   try {
-    const { email, password } = payload;
+    const { email, password, client } = payload;
 
     const response = yield call(api.post, 'sessions', {
       email,
       password,
+      client
     });
 
     const { token, usuario } = response.data;
@@ -44,6 +45,7 @@ export function* cadastro({ payload }) {
     const response = yield call(api.post, 'sessions', {
       email,
       password,
+      client
     });
 
     const { token, usuario } = response.data;

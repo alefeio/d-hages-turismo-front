@@ -18,7 +18,7 @@ export const Container = styled.div`
   position: ${({ viewMenu }) => viewMenu};
   width: 100%;
   margin: auto !important;
-  z-index: 10000000000000000000000000000000000000000000000000000000000000;
+  z-index: 10;
   background-color: ${({ state, bgMenu }) => state?.primary_color === 'transparent' && bgMenu === 'transparent' ? state?.primary_color : `#${state?.primary_color}`};
 
   h1, h2, h3, h4, h5, h6, p, li, strong, a, input, button, span, textarea {

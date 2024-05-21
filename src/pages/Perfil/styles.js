@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
+  div.Toastify__toast {
+    z-index: 1000000000000000000000000000000000000000000000000000000000000 !important;
+  }
+
   section {
     padding: 5rem;
 

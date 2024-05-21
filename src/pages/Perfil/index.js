@@ -5,6 +5,8 @@ import { Form, Input } from '@rocketseat/unform';
 import { logout } from '~/store/modules/auth/actions';
 import { updatePerfilRequest } from '~/store/modules/usuario/actions';
 
+import { toast } from 'react-toastify';
+
 import copy from '~/assets/copy.png';
 
 // import AvatarInput from './AvatarInput';
@@ -31,7 +33,10 @@ export default function Perfil() {
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(`${window.location.href.split('//')[1].split('/')[0]}?email=${perfil.email}`);
-      console.log('Texto copiado para a área de transferência');
+      
+      toast.success(
+        'Seu código foi copiado para a área de transferência.'
+      );
     } catch (err) {
       console.log('Falha ao copiar o texto', err);
     }
@@ -57,9 +62,11 @@ export default function Perfil() {
 
           <Input name="nome" placeholder="Nome" />
           <Input name="email" type="email" placeholder="E-mail" disabled />
-          Link para indicação
+          Meu coordenador
+          <Input name="codigo_up" type="email" placeholder="Coordenador" disabled />
+          Meu link para indicação
           <div>
-            <Input name="codigo" id="text" type="email" placeholder="E-mail" value={`${window.location.href.split('//')[1].split('/')[0]}?email=${perfil.email}`} disabled />
+            <Input name="codigo" id="text" type="email" placeholder="E-mail" value={`${window.location.href.split('//')[1].split('/')[0]}?email=${perfil.codigo}`} disabled />
             <Img src={copy} alt="Copiar link de indicação" onClick={copyToClipboard} />
           </div>
 
