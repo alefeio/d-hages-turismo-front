@@ -372,6 +372,7 @@ export default function Home() {
     }
     !depoimentos.length && dominio && loadDepoimentos();
     console.log('state', state)
+    console.log('dominio', dominio)
   }, [dominio, state]);
 
   useEffect(() => {
@@ -383,6 +384,8 @@ export default function Home() {
     <>
       <Helmet>
         <title>{state?.title}</title>
+        {dominio === 'appnoticias' && <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5695208654992345"
+     crossorigin="anonymous"></script>}
       </Helmet>
       <Container state={state}>
         <WhatsApp>
