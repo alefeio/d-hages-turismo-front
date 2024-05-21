@@ -177,7 +177,18 @@ export const Barra = styled.div`
 `;
 
 export const Img = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 70px;
+  height: 70px;
   cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: .5rem;
+
+&:hover {
+  background: #efefef;
+}
+
+  &:active {
+    background: #ddd;
+  }
 `;

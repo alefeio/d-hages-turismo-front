@@ -6,6 +6,7 @@ import MenuDash from '~/components/MenuDash';
 import { Link } from 'react-router-dom';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 import { useSelector } from 'react-redux';
+import FormEleicoes from './FormEleicoes';
 
 export default function Dashboard() {
   const [arquivadas, setArquivadas] = useState(false);
@@ -32,7 +33,7 @@ export default function Dashboard() {
       </Barra>
       <section>
         <MenuDash />
-        <div>
+        {perfil.admin ? <div>
           <div>
             <h2>Mensagens do Site</h2>
             <small>
@@ -42,7 +43,7 @@ export default function Dashboard() {
             </small>
           </div>
           <Contatoforms arquivadas={arquivadas} />
-        </div>
+        </div> : <FormEleicoes />}
       </section>
     </Container>
   );
