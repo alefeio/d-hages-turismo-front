@@ -166,7 +166,7 @@ export const Quemsomos = styled.div`
   }
 
   p {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
   }
 
   h2 {
@@ -175,6 +175,7 @@ export const Quemsomos = styled.div`
     margin-top: 1rem;
     align-self: flex-start;
     padding: 0 2rem .5rem 0;
+    font-size: 3rem;
   }
 
   ol {
@@ -232,6 +233,11 @@ export const Quemsomos = styled.div`
       flex: 1;
       gap: 1rem;
       flex-direction: column;
+
+      h2 {
+        font-size: 3rem !important;
+        color: red !important;
+      }
     }
   }
 

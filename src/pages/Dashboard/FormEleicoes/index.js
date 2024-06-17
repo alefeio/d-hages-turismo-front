@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Choice, Form, Input, Select } from '@rocketseat/unform';
+import { Choice, Form, Input, Select, Check } from '@rocketseat/unform';
 
 import { logout } from '~/store/modules/auth/actions';
 import { updatePerfilRequest } from '~/store/modules/usuario/actions';
@@ -8,6 +8,8 @@ import { updatePerfilRequest } from '~/store/modules/usuario/actions';
 // import AvatarInput from './AvatarInput';
 
 import { Container } from './styles';
+import api from '~/services/api';
+import { toast } from 'react-toastify';
 
 const estados = [
   { id: 'AC', title: 'Acre' },
@@ -50,14 +52,89 @@ export default function FormEleicoes() {
   const [recado, setRecado] = useState('');
   const [cpf, setCpf] = useState('');
   const [cep, setCep] = useState('');
+  const [titulo, setTitulo] = useState('');
+  const [titulo_doc, setTitulo_doc] = useState('');
+  const [cnh_doc, setCnh_doc] = useState('');
+  const [renavam_doc, setRenavam_doc] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [initialData, setInitialData] = useState({});
 
   console.log('perfil', perfil)
 
-  function handleSubmit(data) {
-    data.admin = admin;
+  async function loadEleitor() {
+    try {
+      const response = await api.get('eleitor');
+      console.log('eleitor', response);
+      setInitialData(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-    console.log('data', data)
-    data.admin === true || data.admin === false && dispatch(updatePerfilRequest(data));
+  async function handleTituloDoc(e) {
+    const data = new FormData();
+
+    data.append('file', e.target.files[0]);
+
+    const response = await api.post('files', data);
+
+    const { id } = response.data;
+
+    setTitulo_doc(id);
+  }
+
+  async function handleCnhDoc(e) {
+    const data = new FormData();
+
+    data.append('file', e.target.files[0]);
+
+    const response = await api.post('files', data);
+
+    const { id } = response.data;
+
+    setCnh_doc(id);
+  }
+
+  async function handleRenavamDoc(e) {
+    const data = new FormData();
+
+    data.append('file', e.target.files[0]);
+
+    const response = await api.post('files', data);
+
+    const { id } = response.data;
+
+    setRenavam_doc(id);
+  }
+
+  async function handleSubmit(data, { resetForm }) {
+    setLoading(true);
+    const newData = data;
+
+    newData.whatsapp = whatsapp;
+    newData.celular = celular;
+    newData.recado = recado;
+    newData.cpf = cpf;
+    newData.cep = cep;
+    newData.titulo = titulo;
+    newData.titulo_doc = titulo_doc;
+    newData.cnh_doc = cnh_doc;
+    newData.renavam_doc = renavam_doc;
+    newData.client = perfil.email.split('@')[1].split('.')[0];
+
+    console.log('newData', newData);
+
+    try {
+      await api.post('eleitores', newData);
+
+      toast.success(
+        'Cadastro realizado com sucesso.'
+      );
+    } catch (error) {
+      toast.error('Erro ao realizar o cadastro. Tente novamente!');
+    } finally {
+      setLoading(false);
+    }
   }
 
   const mascaraCelular = (numero) => {
@@ -73,6 +150,28 @@ export default function FormEleicoes() {
     return `${parte1} ${parte2}-${parte3}`;
   };
 
+  const mascaraTitulo = (valor) => {
+    // Remove qualquer caractere que não seja um número
+    valor = valor.replace(/\D/g, '');
+
+    // Limita o comprimento máximo da entrada para 12 caracteres
+    valor = valor.substring(0, 12);
+
+    // Aplica a máscara
+    let valorFormatado = '';
+    if (valor.length > 0) {
+      valorFormatado += valor.substring(0, 4);
+    }
+    if (valor.length > 4) {
+      valorFormatado += ' ' + valor.substring(4, 8);
+    }
+    if (valor.length > 8) {
+      valorFormatado += ' ' + valor.substring(8, 12);
+    }
+
+    return valorFormatado;
+  };
+
   const mascaraCPF = (valor) => {
     // Remove qualquer caractere que não seja um número
     valor = valor.replace(/\D/g, '');
@@ -83,16 +182,16 @@ export default function FormEleicoes() {
     // Aplica a máscara
     let valorFormatado = '';
     if (valor.length > 0) {
-        valorFormatado += valor.substring(0, 3);
+      valorFormatado += valor.substring(0, 3);
     }
     if (valor.length > 3) {
-        valorFormatado += '.' + valor.substring(3, 6);
+      valorFormatado += '.' + valor.substring(3, 6);
     }
     if (valor.length > 6) {
-        valorFormatado += '.' + valor.substring(6, 9);
+      valorFormatado += '.' + valor.substring(6, 9);
     }
     if (valor.length > 9) {
-        valorFormatado += '-' + valor.substring(9, 11);
+      valorFormatado += '-' + valor.substring(9, 11);
     }
 
     return valorFormatado;
@@ -108,10 +207,10 @@ export default function FormEleicoes() {
     // Aplica a máscara
     let valorFormatado = '';
     if (valor.length > 0) {
-        valorFormatado += valor.substring(0, 5);
+      valorFormatado += valor.substring(0, 5);
     }
     if (valor.length > 5) {
-        valorFormatado += '-' + valor.substring(5, 8);
+      valorFormatado += '-' + valor.substring(5, 8);
     }
 
     return valorFormatado;
@@ -119,13 +218,18 @@ export default function FormEleicoes() {
 
   const handleChange = (e, tipo) => {
     const valor = e.target.value;
-    const valorFormatado = tipo === 'cpf' ? mascaraCPF(valor) : tipo === 'cep' ? mascaraCEP(valor) : mascaraCelular(valor);
+    const valorFormatado = tipo === 'cpf' ? mascaraCPF(valor) : tipo === 'cep' ? mascaraCEP(valor) : tipo === 'celular' || tipo === 'whatsapp' ? mascaraCelular(valor) : mascaraTitulo(valor);
     tipo === 'whatsapp' && setWhatsapp(valorFormatado);
     tipo === 'celular' && setCelular(valorFormatado);
     tipo === 'recado' && setRecado(valorFormatado);
     tipo === 'cpf' && setCpf(valorFormatado);
     tipo === 'cep' && setCep(valorFormatado);
+    tipo === 'titulo' && setTitulo(valorFormatado);
   };
+
+  useEffect(() => {
+    loadEleitor();
+  }, [perfil]);
 
   return (
     <Container>
@@ -158,7 +262,13 @@ export default function FormEleicoes() {
               <Input name="nome" placeholder="NOME COMPLETO COMO NO TÍTULO DE ELEITOR" required />
             </aside>
             <aside>
-              <small>CLIQUE AQUI PARA ENVIAR DO PRINT DO E- TITULO OU SEU TITULO DE ELEITOR FRENTE E VERSO EM PDF</small>
+              <small>ENVIE O PRINT DO E- TITULO OU SEU TITULO DE ELEITOR FRENTE E VERSO EM PDF OU JPG</small>
+              <input
+                type="file"
+                id="titulo_doc"
+                data-file={titulo_doc}
+                onChange={handleTituloDoc}
+              />
             </aside>
             <aside>
               <Input name="municipio" placeholder="MUNICÍPIO QUE NASCEU" required />
@@ -169,12 +279,12 @@ export default function FormEleicoes() {
                 style={{ width: '70px' }}
                 required
               />
-              <Input name="nascimento" type='date' placeholder="DATA DE NASCIMENTO" required />
+              DATA DE NASCIMENTO<Input name="nascimento" type='date' placeholder="DATA DE NASCIMENTO" required />
             </aside>
             <aside>
-              <Input name="titulo" placeholder="TÍTULO" required />
-              <Input name="zona" placeholder="ZONA" style={{ width: '70px' }} required />
-              <Input name="secao" placeholder="SEÇÃO" style={{ width: '100px' }} required />
+              <Input name="titulo" value={titulo} onChange={e => handleChange(e, 'titulo')} placeholder="TÍTULO DE ELEITOR" required />
+              <Input name="zona" placeholder="ZONA" type='number' style={{ width: '70px' }} required />
+              <Input name="secao" placeholder="SEÇÃO" type='number' style={{ width: '100px' }} required />
             </aside>
             <aside>
               <Input name="local_votacao" placeholder="LOCAL DE VOTAÇÃO" required />
@@ -190,7 +300,7 @@ export default function FormEleicoes() {
             <aside>
               <Input name="rg" placeholder="RG" required />
               <Select
-                name='uf_rg_expedicao'
+                name='uf_rg'
                 options={estados}
                 placeholder='UF EXPEDIÇÃO'
                 style={{ width: '150px' }}
@@ -199,58 +309,40 @@ export default function FormEleicoes() {
               <Input name="cpf" value={cpf} onChange={e => handleChange(e, 'cpf')} placeholder="CPF" required />
             </aside>
             <aside>
-              <Input name="endereco" placeholder="ENDEREÇO" required />
-              <Input name="numero" type='number' placeholder="Nº" style={{ width: '60px' }} required />
-              <Input name="complemento" placeholder="COMPLEMENTO" required />
-              <Input name="bairro" placeholder="BAIRRO" required />
+              <Input name="endereco_rua" placeholder="ENDEREÇO" required />
+              <Input name="endereco_numero" type='number' placeholder="Nº" style={{ width: '60px' }} required />
+              <Input name="endereco_complemento" placeholder="COMPLEMENTO" />
+              <Input name="endereco_bairro" placeholder="BAIRRO" required />
             </aside>
             <aside>
-              <Input name="ponto_referencia" placeholder="P. REFERÊNCIA" required />
-              <Input name="municipio" placeholder="MUNICÍPIO" required />
+              <Input name="endereco_referencia" placeholder="P. REFERÊNCIA" />
+              <Input name="endereco_municipio" placeholder="MUNICÍPIO" required />
               <Select
-                name='uf_endereco'
+                name='endereco_uf'
                 options={estados}
                 placeholder='UF'
                 style={{ width: '70px' }}
                 required
               />
-              <Input name="cep" value={cep} onChange={e => handleChange(e, 'cep')} placeholder="CEP" required />
+              <Input name="endereco_cep" value={cep} onChange={e => handleChange(e, 'cep')} placeholder="CEP" required />
             </aside>
             <aside>
               VOCÊ PODE TRABALHAR EM CAMPANHA POLÍTICA?
             </aside>
             <aside>
-              <Choice
-                name="trabalhar_na_campanha"
-                options={
-                  [
-                    { value: 'integral', label: 'TEMPO INTEGRAL' },
-                    { value: 'meio_periodo', label: 'MEIO PERIODO' },
-                    { value: 'fim_de_semana', label: 'FIM DE SEMANA' },
-                    { value: 'digital', label: 'NO FORMATO DIGITAL' },
-                  ]
-                }
-                multiple
-                required
-              />
+              <Check name="tipotrabalho_integral" label="TEMPO INTEGRAL" />
+              <Check name="tipotrabalho_meioperiodo" label="MEIO PERIODO" />
+              <Check name="tipotrabalho_fimdesemana" label="FIM DE SEMANA" />
+              <Check name="tipotrabalho_digital" label="NO FORMATO DIGITAL" />
             </aside>
             <aside>
               EM QUAL FUNÇÃO? MARQUE SOMENTE AS OPÇÕES QUE VOCÊ TEM CONDIÇÕES DE TRABALHAR
             </aside>
             <aside>
-              <Choice
-                name="funcao_na_campanha"
-                options={
-                  [
-                    { value: 'coordenador', label: '1 - COORDENADOR(A) DE EQUIPES' },
-                    { value: 'rede_apoio', label: '2 - REDE DE APOIO' },
-                    { value: 'motorista', label: '3 - MOTORISTA' },
-                    { value: 'alugar_carro_moto', label: 'ALUGAR CARRO OU MOTO' },
-                  ]
-                }
-                multiple
-                required
-              />
+              <Check name="cargotrabalho_coordenador" label="1 - COORDENADOR(A) DE EQUIPES" />
+              <Check name="cargotrabalho_redeapoio" label="2 - REDE DE APOIO" />
+              <Check name="cargotrabalho_motorista" label="3 - MOTORISTA" />
+              <Check name="cargotrabalho_aluguelautomovel" label="ALUGAR CARRO OU MOTO" />
             </aside>
             <aside>
               <small>1 - MONTAR EQUIPE DE 10 ou MAIS PESSOAS, PARA TRABALHOS DE RUA COMO BANDEIRADAS, VISITAS (formiguinha), MOBILIZAÇÃO, ETC</small>
@@ -259,40 +351,32 @@ export default function FormEleicoes() {
               <small>2 - DIVULGAÇÃO E MOBILIZAÇÃO PELO WHATSAPP, TELEGRAM, REDES SOCIAIS (youtube, Instagram, Facebook, Tik Tok, Kawai)</small>
             </aside>
             <aside>
-              <small>3 - CASO OPTE POR TRABALHAR COMO MOTORISTA, CLIQUE AQUI PARA ENVIAR SUA CNH DIGITAL</small>
+              <small>3 - CASO OPTE POR TRABALHAR COMO MOTORISTA, ENVIE SUA CNH DIGITAL</small>
+              <input
+                type="file"
+                id="cnh_doc"
+                data-file={cnh_doc}
+                onChange={handleCnhDoc}
+              />
             </aside>
             <aside>
               VOCÊ POSSUI CARRO/MOTO?
-              <Choice
-                name="possui_veiculo"
-                options={
-                  [
-                    { value: 'carro', label: 'CARRO' },
-                    { value: 'moto', label: 'MOTO' },
-                  ]
-                }
-                multiple
-                style={{ width: '50px' }}
-                required
-              />
+              <Check name="possui_carro" label="CARRO" />
+              <Check name="possui_moto" label="MOTO" />
             </aside>
             <aside>
-              <small>CLIQUE AQUI PARA ENVIO DO RENAVAM EM PDF</small>
+              <small>SE SIM, ENVIE O RENAVAM EM PDF OU JPG</small>
+              <input
+                type="file"
+                id="renavam_doc"
+                data-file={renavam_doc}
+                onChange={handleRenavamDoc}
+              />
             </aside>
             <aside>
               VOCÊ QUER ALUGAR OU ADESIVAR SEUS VEÍCULOS?
-              <Choice
-                name="alugar_adesivar_veiculo"
-                options={
-                  [
-                    { value: 'alugar', label: 'ALUGAR' },
-                    { value: 'adesivar', label: 'ADESIVAR' },
-                  ]
-                }
-                multiple
-                style={{ width: '50px' }}
-                required
-              />
+              <Check name="alugar_veiculo" label="ALUGAR" />
+              <Check name="adesivar_veiculo" label="ADESIVAR" />
             </aside>
             <aside>
               <Input name="email" type='email' placeholder="QUAL O EMAIL QUE VOCÊ USA?" required />
@@ -301,10 +385,10 @@ export default function FormEleicoes() {
               <Input name="whatsapp" value={whatsapp} onChange={e => handleChange(e, 'whatsapp')} placeholder="QUAL SEU NÚMERO DE WHATSAPP?" required />
             </aside>
             <aside>
-              <Input name="celular" value={celular} onChange={e => handleChange(e, 'celular')} placeholder="VOCÊ POSSUI NÚMERO SÓ PARA RECEBER LIGAÇÕES, QUAL?" />
+              <Input name="numero_ligacao" value={celular} onChange={e => handleChange(e, 'celular')} placeholder="VOCÊ POSSUI NÚMERO SÓ PARA RECEBER LIGAÇÕES, QUAL?" />
             </aside>
             <aside>
-              <Input name="recado" value={recado} onChange={e => handleChange(e, 'recado')} placeholder="VOCÊ POSSUI ALGUM NÚMERO DE PARENTE OU AMIGO PARA RECADOS?" />
+              <Input name="numero_parente" value={recado} onChange={e => handleChange(e, 'recado')} placeholder="VOCÊ POSSUI ALGUM NÚMERO DE PARENTE OU AMIGO PARA RECADOS?" />
             </aside>
 
             <button type="submit">FINALIZAR CADASTRO</button>
