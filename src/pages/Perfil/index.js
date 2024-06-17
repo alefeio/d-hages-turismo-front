@@ -66,7 +66,7 @@ export default function Perfil() {
           <Input name="codigo_up" type="email" placeholder="Coordenador" disabled />
           Meu link para indicação
           <div>
-            <Input name="codigo" id="text" type="email" placeholder="E-mail" value={`${window.location.href.split('//')[1].split('/')[0]}?email=${perfil.codigo}`} disabled />
+            <Input name="codigo" id="text" type="email" placeholder="E-mail" value={`https://${window.location.href.split('//')[1].split('/')[0]}?email=${perfil.codigo}`} disabled />
             <Img src={copy} alt="Copiar link de indicação" onClick={copyToClipboard} />
           </div>
 
