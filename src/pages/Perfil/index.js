@@ -13,12 +13,14 @@ import copy from '~/assets/copy.png';
 
 import { Container, Banner, Barra, Img } from './styles';
 import { Link } from 'react-router-dom';
+import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 
 export default function Perfil() {
   const dispatch = useDispatch();
   const perfil = useSelector((state) => state.usuario.perfil);
 
   const [admin, setAdmin] = useState(perfil.admin);
+  const [dominio, setDominio] = useState('');
 
   console.log('perfil', perfil)
 
@@ -42,6 +44,11 @@ export default function Perfil() {
     }
   };
 
+  useEffect(() => {
+    // Chamar a função ao montar o componente
+    setDominio(extrairDominioDaURLAtual());
+  }, []);
+
   return (
     <Container>
       <Banner />
@@ -62,6 +69,7 @@ export default function Perfil() {
 
           <Input name="nome" placeholder="Nome" />
           <Input name="email" type="email" placeholder="E-mail" disabled />
+          {dominio === 'tafechado' && <>
           Meu coordenador
           <Input name="codigo_up" type="email" placeholder="Coordenador" disabled />
           Meu link para indicação
@@ -69,6 +77,8 @@ export default function Perfil() {
             <Input name="codigo" id="text" type="email" placeholder="E-mail" value={`https://${window.location.href.split('//')[1].split('/')[0]}?email=${perfil.codigo}`} disabled />
             <Img src={copy} alt="Copiar link de indicação" onClick={copyToClipboard} />
           </div>
+          </>}
+
 
           {/* <Input type='radio' name="admin" onChange={() => setAdmin(true)} checked={!!admin} /> Sim
           <Input type='radio' name="admin" onChange={() => setAdmin(false)} checked={!admin} /> Não */}
