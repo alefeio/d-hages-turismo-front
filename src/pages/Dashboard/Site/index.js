@@ -461,7 +461,7 @@ export default function AdminSite() {
           </span>
           <hr />
           <span>
-            {initialData.servicos && <aside>
+            {initialData.produtos && <aside>
               <span>
                 Itens por linha:
               </span>
@@ -521,7 +521,7 @@ export default function AdminSite() {
             </aside>
           </span>
           <span>
-            {initialData.pacotes && <aside>
+            {initialData.depoimentos && <aside>
               <span>
                 Itens por linha:
               </span>

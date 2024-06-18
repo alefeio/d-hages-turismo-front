@@ -34,6 +34,7 @@ export const Banner = styled.div`
     color: #fff;
     display: flex;
     flex-direction: column;
+    z-index: 10;
 
     h2 {
       font-size: 4rem;
@@ -85,10 +86,10 @@ export const Banner = styled.div`
     img {
       height: 100%;
       width: 100%;
-      animation-name: ${breatheAnimation};
+      /* animation-name: ${breatheAnimation};
       animation-duration: 12s;
       animation-direction: alternate;
-      animation-iteration-count: infinite;
+      animation-iteration-count: infinite; */
     }
     video {
       height: 100%;
