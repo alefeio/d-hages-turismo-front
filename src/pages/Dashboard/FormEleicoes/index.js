@@ -220,6 +220,18 @@ export default function FormEleicoes() {
     return valorFormatado;
   };
 
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(`https://www.tafechado.org.br?email=${perfil.email}`);
+
+      toast.success(
+        'Seu código foi copiado para a área de transferência.'
+      );
+    } catch (err) {
+      console.log('Falha ao copiar o texto', err);
+    }
+  };
+
   const handleChange = (e, tipo) => {
     const valor = e.target.value;
     const valorFormatado = tipo === 'cpf' ? mascaraCPF(valor) : tipo === 'cep' ? mascaraCEP(valor) : tipo === 'celular' || tipo === 'whatsapp' ? mascaraCelular(valor) : mascaraTitulo(valor);
@@ -430,10 +442,10 @@ export default function FormEleicoes() {
 
                   <p>Para compartilhar o seu banner no WhatsApp, clique na imagem abaixo.</p>
 
-                  <p>Ou clique aqui para copiar o seu link de compartilhamento.</p>
+                  <p style={{ cursor: 'pointer' }} onClick={copyToClipboard}>Ou clique aqui para copiar o seu link de compartilhamento.</p>
 
                   <a
-                    href={`https://wa.me?text=Teste`}
+                    href={`https://wa.me?text=Faça parte da equipe do Tá Fechado! Acesse: https://www.tafechado.org.br?email=${perfil.email}`}
                     target="_blank"
                   >
                     <img src={colaborador} />
