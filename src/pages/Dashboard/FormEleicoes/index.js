@@ -69,7 +69,7 @@ export default function FormEleicoes() {
       const response = await api.get('eleitor');
       console.log('eleitor', response);
       setInitialData(response.data);
-      setCadastroRealizado(true);
+      response.data.length && setCadastroRealizado(true);
     } catch (error) {
       console.log(error);
     }
