@@ -5,9 +5,9 @@ import { extrairDominioDaURLAtual } from "~/util/extrairDominioDaUrlAtual";
 //Valor default do contexto
 const DEFAULT_VALUE = {
   state: {
-    name: "Alexandre",
-    lastName: "Feio",
-    email: "alefeio@gmail.com",
+    name: "",
+    lastName: "",
+    email: "",
   },
   setState: () => {}, //função de inicialização
 };

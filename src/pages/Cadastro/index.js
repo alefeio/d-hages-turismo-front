@@ -43,7 +43,7 @@ export default function Cadastro() {
         <Input name="nome" placeholder="Seu nome" />
         <Input name="email" type="email" placeholder="Seu e-mail" />
         <Input name="password" type="password" placeholder="Sua senha" />
-        <Input name="admin" type="hidden" value={true} />
+        <Input name="admin" type="hidden" value={false} />
         <Input name="client" type="hidden" value={dominio} />
         {dominio === 'tafechado' ? <>
           {localStorage.getItem('codigo_up') ? (
