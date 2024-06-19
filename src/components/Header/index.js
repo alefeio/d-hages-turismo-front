@@ -87,7 +87,7 @@ export default function Header() {
 
   useEffect(() => {
     // Chamar a função ao montar o componente
-    if(params.size > 0) {
+    if (params.size > 0) {
       localStorage.setItem('codigo_up', String(params.toString().split('=')[1].split('%40').join('@')));
       console.log('params.toString()', params.toString())
     }
@@ -152,17 +152,7 @@ export default function Header() {
                 CONTATO
               </Link>
             </li>
-            {state?.view_login && <li>
-              <Link to="/login" onClick={altChecked}>
-                LOGIN
-              </Link>
-            </li>}
-            {state?.view_cadastro && <li>
-              <Link to="/cadastro" onClick={altChecked}>
-                CADASTRO
-              </Link>
-            </li>}
-            {logado && (
+            {logado ? (
               <>
                 <li>
                   <Link to='/dashboard'>
@@ -174,6 +164,19 @@ export default function Header() {
                     SAIR
                   </Link>
                 </li>
+              </>
+            ) : (
+              <>
+                {state?.view_login && <li>
+                  <Link to="/login" onClick={altChecked}>
+                    LOGIN
+                  </Link>
+                </li>}
+                {state?.view_cadastro && <li>
+                  <Link to="/cadastro" onClick={altChecked}>
+                    CADASTRO
+                  </Link>
+                </li>}
               </>
             )}
           </ul>
