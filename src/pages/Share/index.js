@@ -13,7 +13,7 @@ export default function Share() {
         <meta property="og:site_name" content="tafechado.org.br" />
         <meta property="og:title" content="Tá Fechado" />
         <meta property="og:description" content="Junte-se ao Tá Fechado!" />
-        <meta property="og:image:secure_url" itemprop="image" content={`https://tafechado.org.br/share/colaborador.png`} />
+        <meta property="og:image:secure_url" itemprop="image" content={`https://tafechado.org.br/static/media/colaborador.b15a6368.png`} />
         <meta property="og:type" content="website" />
       </Helmet>
       <Container>
