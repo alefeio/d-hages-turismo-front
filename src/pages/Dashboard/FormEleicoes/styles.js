@@ -39,6 +39,15 @@ export const Container = styled.div`
           background: ${darken(0.07, '#4c4738')};
         }
       }
+
+      a {
+        width: 50%;
+        margin: auto;
+
+        img {
+          width: 100%;
+        }
+      }
     }
 
     form {
@@ -52,6 +61,20 @@ export const Container = styled.div`
         justify-content: space-between;
         gap: 1rem;
         margin: 1rem 0;
+
+        span {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: left;
+
+          input, select {
+            width: 100%;
+          }
+
+          gap: 1rem;
+        }
       }
 
       img {
@@ -113,6 +136,10 @@ export const Container = styled.div`
     section {
       form {
         width: 100%;
+
+        aside {
+          flex-direction: column !important;
+        }
       }
     }
   }

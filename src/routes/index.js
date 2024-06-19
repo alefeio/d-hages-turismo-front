@@ -10,7 +10,7 @@ import Dashboard from '../pages/Dashboard';
 
 import Home from '../pages/Home';
 import Produtos from '../pages/Produtos';
-import Compraevenda from '../pages/Compraevenda';
+import Share from '../pages/Share';
 import Produto from '../pages/Produto';
 import Blog from '../pages/Blog';
 import Busca from '../pages/Busca';
@@ -32,7 +32,7 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/roteiros" exact component={Produtos} />
-      <Route path="/compraevenda" exact component={Compraevenda} />
+      <Route path="/share/:id" exact component={Share} />
       <Route path="/sobre" exact component={Sobre} />
       <Route path="/busca" component={Busca} />
       <Route path="/roteiros/:id/:nome" component={Produto} />

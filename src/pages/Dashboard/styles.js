@@ -5,7 +5,7 @@ import bannerProdutos from '~/assets/banner-produtos.jpg';
 
 export const Container = styled.div`
   section {
-    padding: 5rem;
+    padding: 2rem;
     display: flex;
 
     > ul {
