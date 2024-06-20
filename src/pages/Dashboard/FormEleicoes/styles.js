@@ -68,9 +68,10 @@ export const Container = styled.div`
           align-items: center;
           justify-content: center;
           text-align: left;
+          gap: .5rem;
 
           input, select {
-            width: 100%;
+            max-width: 100%;
           }
 
           gap: 1rem;

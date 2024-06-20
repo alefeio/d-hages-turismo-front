@@ -10,6 +10,7 @@ import { Container } from './styles';
 import api from '~/services/api';
 import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
+import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 
 const estados = [
   { id: 'AC', title: 'Acre' },
@@ -61,15 +62,22 @@ export default function FormEleicoes() {
   const [initialData, setInitialData] = useState({});
   const [cadastro, setCadastro] = useState(false);
   const [cadastroRealizado, setCadastroRealizado] = useState(false);
-
-  console.log('perfil', perfil)
+  const [dominio, setDominio] = useState('');
 
   async function loadEleitor() {
     try {
       const response = await api.get('eleitor');
-      console.log('eleitor', response);
-      setInitialData(response.data);
-      response.data.length && setCadastroRealizado(true);
+      console.log('eleitor', response.data);
+      const newResponse = response.data;
+      setWhatsapp(response.data.whatsapp)
+      setCelular(response.data.numero_ligacao)
+      setRecado(response.data.numero_parente)
+      setCpf(response.data.cpf)
+      setCep(response.data.cep)
+      setTitulo(response.data.titulo)
+      newResponse.nascimento = newResponse.nascimento.split('T')[0];
+      setInitialData(newResponse);
+      response.data && setCadastroRealizado(true);
     } catch (error) {
       console.log(error);
     }
@@ -121,9 +129,9 @@ export default function FormEleicoes() {
     newData.cpf = cpf;
     newData.cep = cep;
     newData.titulo = titulo;
-    newData.titulo_doc = titulo_doc;
-    newData.cnh_doc = cnh_doc;
-    newData.renavam_doc = renavam_doc;
+    if (titulo_doc) newData.titulo_doc = titulo_doc;
+    if (cnh_doc) newData.cnh_doc = cnh_doc;
+    if (renavam_doc) newData.renavam_doc = renavam_doc;
     newData.client = perfil.email.split('@')[1].split('.')[0];
 
     console.log('newData', newData);
@@ -245,7 +253,7 @@ export default function FormEleicoes() {
 
   useEffect(() => {
     loadEleitor();
-  }, [perfil]);
+  }, []);
 
   return (
     <>
@@ -262,7 +270,7 @@ export default function FormEleicoes() {
             <div>
               <h1>Cadastro do Eleitor</h1>
               <Form
-                initialData={perfil}
+                initialData={initialData}
                 onSubmit={handleSubmit}
               >
                 {/* <AvatarInput name="img_id" /> */}
@@ -275,6 +283,7 @@ export default function FormEleicoes() {
                   <input
                     type="file"
                     id="titulo_doc"
+                    name="titulo_doc"
                     data-file={titulo_doc}
                     onChange={handleTituloDoc}
                   />
@@ -350,7 +359,7 @@ export default function FormEleicoes() {
                       style={{ width: '70px' }}
                       required
                     />
-                    <Input name="endereco_cep" style={{ width: '130px' }} value={cep} onChange={e => handleChange(e, 'cep')} placeholder="CEP" required />
+                    <Input name="endereco_cep" value={cep} style={{ width: '130px' }} onChange={e => handleChange(e, 'cep')} placeholder="CEP" required />
                   </span>
                 </aside>
                 <aside>
@@ -359,10 +368,14 @@ export default function FormEleicoes() {
                 <aside>
                   <span>
                     <Check name="tipotrabalho_integral" label="TEMPO INTEGRAL" />
+                  </span>
+                  <span>
                     <Check name="tipotrabalho_meioperiodo" label="MEIO PERIODO" />
                   </span>
                   <span>
                     <Check name="tipotrabalho_fimdesemana" label="FIM DE SEMANA" />
+                  </span>
+                  <span>
                     <Check name="tipotrabalho_digital" label="NO FORMATO DIGITAL" />
                   </span>
                 </aside>
@@ -372,10 +385,14 @@ export default function FormEleicoes() {
                 <aside>
                   <span>
                     <Check name="cargotrabalho_coordenador" label="1 - COORDENADOR(A) DE EQUIPES" />
+                  </span>
+                  <span>
                     <Check name="cargotrabalho_redeapoio" label="2 - REDE DE APOIO" />
                   </span>
                   <span>
                     <Check name="cargotrabalho_motorista" label="3 - MOTORISTA" />
+                  </span>
+                  <span>
                     <Check name="cargotrabalho_aluguelautomovel" label="ALUGAR CARRO OU MOTO" />
                   </span>
                 </aside>
@@ -390,6 +407,7 @@ export default function FormEleicoes() {
                   <input
                     type="file"
                     id="cnh_doc"
+                    name="cnh_doc"
                     data-file={cnh_doc}
                     onChange={handleCnhDoc}
                   />
@@ -398,6 +416,8 @@ export default function FormEleicoes() {
                   VOCÊ POSSUI CARRO/MOTO?
                   <span>
                     <Check name="possui_carro" label="CARRO" />
+                  </span>
+                  <span>
                     <Check name="possui_moto" label="MOTO" />
                   </span>
                 </aside>
@@ -406,6 +426,7 @@ export default function FormEleicoes() {
                   <input
                     type="file"
                     id="renavam_doc"
+                    name="renavam_doc"
                     data-file={renavam_doc}
                     onChange={handleRenavamDoc}
                   />
@@ -414,6 +435,8 @@ export default function FormEleicoes() {
                   VOCÊ QUER ALUGAR OU ADESIVAR SEUS VEÍCULOS?
                   <span>
                     <Check name="alugar_veiculo" label="ALUGAR" />
+                  </span>
+                  <span>
                     <Check name="adesivar_veiculo" label="ADESIVAR" />
                   </span>
                 </aside>
