@@ -479,7 +479,6 @@ export default function FormEleicoes() {
               {cadastroRealizado ? (
                 <div>
                   <h1>ELEIÇÕES 2024</h1>
-                  <h2>BANNER DE COMPARTILHAMENTO</h2>
 
                   <p>Para compartilhar o seu banner, <strong>clique na imagem abaixo para salvá-la no formato PDF, com o seu link de compartilhamento</strong>.</p>
 
