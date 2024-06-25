@@ -266,7 +266,7 @@ export default function FormEleicoes() {
     win.document.write('</body></html>');
     win.document.close(); 	                                         // FECHA A JANELA
     win.print(); 	                                         // FECHA A JANELA
-                                                                // IMPRIME O CONTEUDO
+    // IMPRIME O CONTEUDO
   }
 
   useEffect(() => {
@@ -481,20 +481,14 @@ export default function FormEleicoes() {
                   <h1>ELEIÇÕES 2024</h1>
                   <h2>BANNER DE COMPARTILHAMENTO</h2>
 
-                  <p>Para compartilhar o seu banner no WhatsApp, clique na imagem abaixo.</p>
+                  <p>Para compartilhar o seu banner, <strong>clique na imagem abaixo para salvá-la no formato PDF, com o seu link de compartilhamento</strong>.</p>
 
-                  <p style={{ cursor: 'pointer' }} onClick={copyToClipboard}>Ou clique aqui para copiar o seu link de compartilhamento.</p>
+                  <p style={{ cursor: 'pointer' }} onClick={copyToClipboard}>Ou clique aqui para copiar apenas o seu link de compartilhamento.</p>
 
-                  <a
-                    href="#"
-                    onClick={criarPDF}
-                  >
-                    Clique aqui
-                  </a>
                   <div id="pdfHtml">
                     <a
-                      href={`https://www.tafechado.org.br?email=${perfil.email}`}
-                      target='_blank'
+                      href="#"
+                      onClick={criarPDF}
                     >
                       <img src={colaborador} />
                     </a>
