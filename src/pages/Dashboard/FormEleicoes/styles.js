@@ -135,7 +135,7 @@ export const Container = styled.div`
   @media(max-width: 600px) {
     section {
       form {
-        width: 100%;
+        width: 99%;
 
         aside {
           flex-direction: column !important;
