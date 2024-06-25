@@ -93,6 +93,8 @@ export default function Home() {
     setTotal(total);
   }
 
+  console.log('window.location.href', window.location.href);
+
   async function loadBlog() {
     const response = await api.get(`blog?client=${dominio}&pageSize=${pageSize}`);
 

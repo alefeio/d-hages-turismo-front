@@ -251,20 +251,20 @@ export default function FormEleicoes() {
     tipo === 'titulo' && setTitulo(valorFormatado);
   };
 
-  const criarPDF = async () => {
+  const criarPDF = () => {
     var meupdf = document.getElementById('pdfHtml').innerHTML;
     // CRIA UM OBJETO WINDOW
     var win = window.open('', '', 'height=867,width=613');
     // win
-    await win.document.write('<html><head>');
-    await win.document.write('<title>tafechado.org.br</title>');   // <title> CABEÇALHO DO PDF.
-    await win.document.write('</head>');
-    await win.document.write('<body>');
-    await win.document.write(`<a width='100%' height='100%' href='https://www.tafechado.org.br?email=${perfil.email}' target='_blank'>`);
-    await win.document.write("<img width='100%' height='100%' src='https://tafechado.org.br/static/media/colaborador.b15a6368.png' />");
-    await win.document.write('</a>');
-    await win.document.write('</body></html>');
-    await win.document.close(); 	                                         // FECHA A JANELA
+    win.document.write('<html><head>');
+    win.document.write('<title>tafechado.org.br</title>');   // <title> CABEÇALHO DO PDF.
+    win.document.write('</head>');
+    win.document.write('<body>');
+    win.document.write(`<a width='100%' height='100%' href='https://www.tafechado.org.br?email=${perfil.email}' target='_blank'>`);
+    win.document.write(`<img width='100%' height='100%' src="${colaborador}" />`);
+    win.document.write('</a>');
+    win.document.write('</body></html>');
+    win.document.close(); 	                                         // FECHA A JANELA
     win.print(); 	                                         // FECHA A JANELA
                                                                 // IMPRIME O CONTEUDO
   }
@@ -481,7 +481,7 @@ export default function FormEleicoes() {
                   <h1>ELEIÇÕES 2024</h1>
                   <h2>BANNER DE COMPARTILHAMENTO</h2>
 
-                  <p>Para compartilhar o banner com o seu link de indicação, clique na imagem abaixo.</p>
+                  <p>Para compartilhar o seu banner no WhatsApp, clique na imagem abaixo.</p>
 
                   <p style={{ cursor: 'pointer' }} onClick={copyToClipboard}>Ou clique aqui para copiar o seu link de compartilhamento.</p>
 
@@ -491,10 +491,10 @@ export default function FormEleicoes() {
                   >
                     Clique aqui
                   </a>
-                  <div>
+                  <div id="pdfHtml">
                     <a
-                      href="#"
-                      onClick={criarPDF}
+                      href={`https://www.tafechado.org.br?email=${perfil.email}`}
+                      target='_blank'
                     >
                       <img src={colaborador} />
                     </a>
