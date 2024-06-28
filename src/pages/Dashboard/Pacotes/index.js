@@ -43,7 +43,7 @@ export default function AdminPacotes() {
   async function loadProduto(id, edit = true) {
     edit && setProdutoEdit(id);
 
-    const response = await api.get(`pacotes/nome/${id}`);
+    const response = await api.get(`pacotes/${id}/nome`);
 
     console.log(response.data);
 

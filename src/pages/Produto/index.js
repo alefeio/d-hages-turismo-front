@@ -58,7 +58,7 @@ export default function Pacote(props) {
 
   async function loadProduto() {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    const response = await api.get(`pacotes/${nome}/${id}`);
+    const response = await api.get(`pacotes/${id}/${nome}`);
 
     console.log(response.data);
     setProduto(response.data);
