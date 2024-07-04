@@ -23,6 +23,8 @@ export default function Cadastro() {
   const dispatch = useDispatch();
   const [dominio, setDominio] = useState('');
 
+  const params = new URLSearchParams(window.location.search);
+
   const { state } = useContext(SiteContext);
 
   function handleSubmit({ nome, email, password, admin, client, codigo_up }) {
@@ -33,6 +35,16 @@ export default function Cadastro() {
     // Chamar a função ao montar o componente
     setDominio(extrairDominioDaURLAtual());
   }, []);
+
+  useEffect(() => {
+    // Chamar a função ao montar o componente
+    if (params.size > 0) {
+      localStorage.setItem('codigo_up', String(params.toString().split('=')[1].split('%40').join('@')));
+      console.log('params.toString()', params.toString())
+    }
+
+    console.log('params', params);
+  }, [params]);
 
   return (
     <>

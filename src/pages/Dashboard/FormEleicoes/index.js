@@ -230,7 +230,7 @@ export default function FormEleicoes() {
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(`https://www.tafechado.org.br?email=${perfil.email}`);
+      await navigator.clipboard.writeText(`https://www.tafechado.org.br/cadastro?email=${perfil.email}`);
 
       toast.success(
         'Seu código foi copiado para a área de transferência.'
@@ -260,7 +260,7 @@ export default function FormEleicoes() {
     win.document.write('<title>tafechado.org.br</title>');   // <title> CABEÇALHO DO PDF.
     win.document.write('</head>');
     win.document.write('<body>');
-    win.document.write(`<a width='100%' height='100%' href='https://www.tafechado.org.br?email=${perfil.email}' target='_blank'>`);
+    win.document.write(`<a width='100%' height='100%' href='https://www.tafechado.org.br/cadastro?email=${perfil.email}' target='_blank'>`);
     win.document.write(`<img width='100%' height='100%' src="${colaborador}" />`);
     win.document.write('</a>');
     win.document.write('</body></html>');
