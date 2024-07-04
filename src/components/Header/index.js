@@ -114,7 +114,7 @@ export default function Header() {
             </li>
             <li>
               <Link to="/#sobre" onClick={altChecked}>
-                SOBRE NÓS
+              {state?.nome}
               </Link>
             </li>
             {state?.servicos && <li>

@@ -575,7 +575,7 @@ export default function Home() {
           </>
         </Produtos>}
         {dominio === 'linsemouraadvocacia' && <Equipe client={state} id="equipe">
-          <article>
+          <article id="sobre">
             <h1>NOSSA EQUIPE</h1>
             <div>
               <section>
