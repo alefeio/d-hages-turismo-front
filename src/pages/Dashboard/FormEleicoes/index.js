@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Choice, Form, Input, Select, Check } from '@rocketseat/unform';
 
 import colaborador from '~/assets/colaborador.png';
+import coordenador from '~/assets/coordenador.png';
 
 // import AvatarInput from './AvatarInput';
 
@@ -240,6 +241,18 @@ export default function FormEleicoes() {
     }
   };
 
+  const copyToClipboardCoordenador = async () => {
+    try {
+      await navigator.clipboard.writeText(`https://www.tafechado.org.br/cadastro?email=${perfil.email}&perfil=admin`);
+
+      toast.success(
+        'Seu código foi copiado para a área de transferência.'
+      );
+    } catch (err) {
+      console.log('Falha ao copiar o texto', err);
+    }
+  };
+
   const handleChange = (e, tipo) => {
     const valor = e.target.value;
     const valorFormatado = tipo === 'cpf' ? mascaraCPF(valor) : tipo === 'cep' ? mascaraCEP(valor) : tipo === 'celular' || tipo === 'whatsapp' ? mascaraCelular(valor) : mascaraTitulo(valor);
@@ -251,7 +264,7 @@ export default function FormEleicoes() {
     tipo === 'titulo' && setTitulo(valorFormatado);
   };
 
-  const criarPDF = () => {
+  const criarPDFColaborador = () => {
     var meupdf = document.getElementById('pdfHtml').innerHTML;
     // CRIA UM OBJETO WINDOW
     var win = window.open('', '', 'height=867,width=613');
@@ -269,8 +282,31 @@ export default function FormEleicoes() {
     // IMPRIME O CONTEUDO
   }
 
+  const criarPDFCoordenador = () => {
+    var meupdf = document.getElementById('pdfHtml').innerHTML;
+    // CRIA UM OBJETO WINDOW
+    var win = window.open('', '', 'height=867,width=613');
+    // win
+    win.document.write('<html><head>');
+    win.document.write('<title>tafechado.org.br</title>');   // <title> CABEÇALHO DO PDF.
+    win.document.write('</head>');
+    win.document.write('<body>');
+    win.document.write(`<a width='100%' height='100%' href='https://www.tafechado.org.br/cadastro?email=${perfil.email}&perfil=admin' target='_blank'>`);
+    win.document.write(`<img width='100%' height='100%' src="${coordenador}" />`);
+    win.document.write('</a>');
+    win.document.write('</body></html>');
+    win.document.close(); 	                                         // FECHA A JANELA
+    win.print(); 	                                         // FECHA A JANELA
+    // IMPRIME O CONTEUDO
+  }
+
   useEffect(() => {
     loadEleitor();
+
+    console.log('perfil', perfil)
+
+    // Chamar a função ao montar o componente
+    setDominio(extrairDominioDaURLAtual());
   }, []);
 
   return (
@@ -283,237 +319,261 @@ export default function FormEleicoes() {
         <meta property="og:type" content="website" />
       </Helmet>
       <Container>
-        <section>
-          {inicioCadastro || editCadastro ? (
-            <div>
-              <h1>Cadastro do Eleitor</h1>
-              <Form
-                initialData={initialData}
-                onSubmit={handleSubmit}
-              >
-                {/* <AvatarInput name="img_id" /> */}
+        {!perfil.admin &&
+          <section>
+            {inicioCadastro || editCadastro ? (
+              <div>
+                <h1>Cadastro do Eleitor</h1>
+                <Form
+                  initialData={initialData}
+                  onSubmit={handleSubmit}
+                >
+                  {/* <AvatarInput name="img_id" /> */}
 
-                <aside>
-                  <Input name="nome" placeholder="NOME COMPLETO COMO NO TÍTULO DE ELEITOR" required />
-                </aside>
-                <aside>
-                  <small>ENVIE O PRINT DO E- TITULO OU SEU TITULO DE ELEITOR FRENTE E VERSO EM PDF OU JPG</small>
-                  <input
-                    type="file"
-                    id="titulo_doc"
-                    name="titulo_doc"
-                    data-file={titulo_doc}
-                    onChange={handleTituloDoc}
-                  />
-                </aside>
-                <aside>
-                  <span>
-                    <Input name="municipio" placeholder="MUNICÍPIO QUE NASCEU" required />
-                    <Select
-                      name='uf'
-                      options={estados}
-                      placeholder='UF'
-                      style={{ width: '70px' }}
-                      required
+                  <aside>
+                    <Input name="nome" placeholder="NOME COMPLETO COMO NO TÍTULO DE ELEITOR" required />
+                  </aside>
+                  <aside>
+                    <small>ENVIE O PRINT DO E- TITULO OU SEU TITULO DE ELEITOR FRENTE E VERSO EM PDF OU JPG</small>
+                    <input
+                      type="file"
+                      id="titulo_doc"
+                      name="titulo_doc"
+                      data-file={titulo_doc}
+                      onChange={handleTituloDoc}
                     />
-                  </span>
-                  <span>
-                    DATA DE NASCIMENTO<Input name="nascimento" type='date' placeholder="DATA DE NASCIMENTO" required />
-                  </span>
-                </aside>
-                <aside>
-                  <span>
-                    <Input name="titulo" value={titulo} onChange={e => handleChange(e, 'titulo')} placeholder="TÍTULO DE ELEITOR" required />
-                    <Input name="zona" placeholder="ZONA" type='number' style={{ width: '80px' }} required />
-                    <Input name="secao" placeholder="SEÇÃO" type='number' style={{ width: '80px' }} required />
-                  </span>
-                </aside>
-                <aside>
-                  <Input name="local_votacao" placeholder="LOCAL DE VOTAÇÃO" required />
-                  <span>
-                    <Input name="municipio_votacao" placeholder="MUNICÍPIO" required />
-                    <Select
-                      name='uf_votacao'
-                      options={estados}
-                      placeholder='UF'
-                      style={{ width: '70px' }}
-                      required
+                  </aside>
+                  <aside>
+                    <span>
+                      <Input name="municipio" placeholder="MUNICÍPIO QUE NASCEU" required />
+                      <Select
+                        name='uf'
+                        options={estados}
+                        placeholder='UF'
+                        style={{ width: '70px' }}
+                        required
+                      />
+                    </span>
+                    <span>
+                      DATA DE NASCIMENTO<Input name="nascimento" type='date' placeholder="DATA DE NASCIMENTO" required />
+                    </span>
+                  </aside>
+                  <aside>
+                    <span>
+                      <Input name="titulo" value={titulo} onChange={e => handleChange(e, 'titulo')} placeholder="TÍTULO DE ELEITOR" required />
+                      <Input name="zona" placeholder="ZONA" type='number' style={{ width: '80px' }} required />
+                      <Input name="secao" placeholder="SEÇÃO" type='number' style={{ width: '80px' }} required />
+                    </span>
+                  </aside>
+                  <aside>
+                    <Input name="local_votacao" placeholder="LOCAL DE VOTAÇÃO" required />
+                    <span>
+                      <Input name="municipio_votacao" placeholder="MUNICÍPIO" required />
+                      <Select
+                        name='uf_votacao'
+                        options={estados}
+                        placeholder='UF'
+                        style={{ width: '70px' }}
+                        required
+                      />
+                    </span>
+                  </aside>
+                  <aside>
+                    <span>
+                      <Input name="rg" placeholder="RG" required />
+                      <Select
+                        name='uf_rg'
+                        options={estados}
+                        placeholder='UF EXPEDIÇÃO'
+                        style={{ width: '150px' }}
+                        required
+                      />
+                    </span>
+                    <Input name="cpf" value={cpf} onChange={e => handleChange(e, 'cpf')} placeholder="CPF" required />
+                  </aside>
+                  <aside>
+                    <span>
+                      <Input name="endereco_rua" placeholder="ENDEREÇO" required />
+                      <Input name="endereco_numero" type='number' placeholder="Nº" style={{ width: '60px' }} required />
+                    </span>
+                  </aside>
+                  <aside>
+                    <span>
+                      <Input name="endereco_complemento" placeholder="COMPLEMENTO" />
+                      <Input name="endereco_bairro" placeholder="BAIRRO" required />
+                      <Input name="endereco_referencia" placeholder="P. REFERÊNCIA" />
+                    </span>
+                  </aside>
+                  <aside>
+                    <span>
+                      <Input name="endereco_municipio" placeholder="MUNICÍPIO" required />
+                      <Select
+                        name='endereco_uf'
+                        options={estados}
+                        placeholder='UF'
+                        style={{ width: '70px' }}
+                        required
+                      />
+                      <Input name="endereco_cep" value={cep} style={{ width: '130px' }} onChange={e => handleChange(e, 'cep')} placeholder="CEP" required />
+                    </span>
+                  </aside>
+                  <aside>
+                    VOCÊ PODE TRABALHAR EM CAMPANHA POLÍTICA?
+                  </aside>
+                  <aside>
+                    <span>
+                      <Check name="tipotrabalho_integral" label="TEMPO INTEGRAL" />
+                    </span>
+                    <span>
+                      <Check name="tipotrabalho_meioperiodo" label="MEIO PERIODO" />
+                    </span>
+                    <span>
+                      <Check name="tipotrabalho_fimdesemana" label="FIM DE SEMANA" />
+                    </span>
+                    <span>
+                      <Check name="tipotrabalho_digital" label="NO FORMATO DIGITAL" />
+                    </span>
+                  </aside>
+                  <aside>
+                    EM QUAL FUNÇÃO? MARQUE SOMENTE AS OPÇÕES QUE VOCÊ TEM CONDIÇÕES DE TRABALHAR
+                  </aside>
+                  <aside>
+                    <span>
+                      <Check name="cargotrabalho_coordenador" label="1 - COORDENADOR(A) DE EQUIPES" />
+                    </span>
+                    <span>
+                      <Check name="cargotrabalho_redeapoio" label="2 - REDE DE APOIO" />
+                    </span>
+                    <span>
+                      <Check name="cargotrabalho_motorista" label="3 - MOTORISTA" />
+                    </span>
+                    <span>
+                      <Check name="cargotrabalho_aluguelautomovel" label="ALUGAR CARRO OU MOTO" />
+                    </span>
+                  </aside>
+                  <aside>
+                    <small>1 - MONTAR EQUIPE DE 10 ou MAIS PESSOAS, PARA TRABALHOS DE RUA COMO BANDEIRADAS, VISITAS (formiguinha), MOBILIZAÇÃO, ETC</small>
+                  </aside>
+                  <aside>
+                    <small>2 - DIVULGAÇÃO E MOBILIZAÇÃO PELO WHATSAPP, TELEGRAM, REDES SOCIAIS (youtube, Instagram, Facebook, Tik Tok, Kawai)</small>
+                  </aside>
+                  <aside>
+                    <small>3 - CASO OPTE POR TRABALHAR COMO MOTORISTA, ENVIE SUA CNH DIGITAL</small>
+                    <input
+                      type="file"
+                      id="cnh_doc"
+                      name="cnh_doc"
+                      data-file={cnh_doc}
+                      onChange={handleCnhDoc}
                     />
-                  </span>
-                </aside>
-                <aside>
-                  <span>
-                    <Input name="rg" placeholder="RG" required />
-                    <Select
-                      name='uf_rg'
-                      options={estados}
-                      placeholder='UF EXPEDIÇÃO'
-                      style={{ width: '150px' }}
-                      required
+                  </aside>
+                  <aside>
+                    VOCÊ POSSUI CARRO/MOTO?
+                    <span>
+                      <Check name="possui_carro" label="CARRO" />
+                    </span>
+                    <span>
+                      <Check name="possui_moto" label="MOTO" />
+                    </span>
+                  </aside>
+                  <aside>
+                    <small>SE SIM, ENVIE O RENAVAM EM PDF OU JPG</small>
+                    <input
+                      type="file"
+                      id="renavam_doc"
+                      name="renavam_doc"
+                      data-file={renavam_doc}
+                      onChange={handleRenavamDoc}
                     />
-                  </span>
-                  <Input name="cpf" value={cpf} onChange={e => handleChange(e, 'cpf')} placeholder="CPF" required />
-                </aside>
-                <aside>
-                  <span>
-                    <Input name="endereco_rua" placeholder="ENDEREÇO" required />
-                    <Input name="endereco_numero" type='number' placeholder="Nº" style={{ width: '60px' }} required />
-                  </span>
-                </aside>
-                <aside>
-                  <span>
-                    <Input name="endereco_complemento" placeholder="COMPLEMENTO" />
-                    <Input name="endereco_bairro" placeholder="BAIRRO" required />
-                    <Input name="endereco_referencia" placeholder="P. REFERÊNCIA" />
-                  </span>
-                </aside>
-                <aside>
-                  <span>
-                    <Input name="endereco_municipio" placeholder="MUNICÍPIO" required />
-                    <Select
-                      name='endereco_uf'
-                      options={estados}
-                      placeholder='UF'
-                      style={{ width: '70px' }}
-                      required
-                    />
-                    <Input name="endereco_cep" value={cep} style={{ width: '130px' }} onChange={e => handleChange(e, 'cep')} placeholder="CEP" required />
-                  </span>
-                </aside>
-                <aside>
-                  VOCÊ PODE TRABALHAR EM CAMPANHA POLÍTICA?
-                </aside>
-                <aside>
-                  <span>
-                    <Check name="tipotrabalho_integral" label="TEMPO INTEGRAL" />
-                  </span>
-                  <span>
-                    <Check name="tipotrabalho_meioperiodo" label="MEIO PERIODO" />
-                  </span>
-                  <span>
-                    <Check name="tipotrabalho_fimdesemana" label="FIM DE SEMANA" />
-                  </span>
-                  <span>
-                    <Check name="tipotrabalho_digital" label="NO FORMATO DIGITAL" />
-                  </span>
-                </aside>
-                <aside>
-                  EM QUAL FUNÇÃO? MARQUE SOMENTE AS OPÇÕES QUE VOCÊ TEM CONDIÇÕES DE TRABALHAR
-                </aside>
-                <aside>
-                  <span>
-                    <Check name="cargotrabalho_coordenador" label="1 - COORDENADOR(A) DE EQUIPES" />
-                  </span>
-                  <span>
-                    <Check name="cargotrabalho_redeapoio" label="2 - REDE DE APOIO" />
-                  </span>
-                  <span>
-                    <Check name="cargotrabalho_motorista" label="3 - MOTORISTA" />
-                  </span>
-                  <span>
-                    <Check name="cargotrabalho_aluguelautomovel" label="ALUGAR CARRO OU MOTO" />
-                  </span>
-                </aside>
-                <aside>
-                  <small>1 - MONTAR EQUIPE DE 10 ou MAIS PESSOAS, PARA TRABALHOS DE RUA COMO BANDEIRADAS, VISITAS (formiguinha), MOBILIZAÇÃO, ETC</small>
-                </aside>
-                <aside>
-                  <small>2 - DIVULGAÇÃO E MOBILIZAÇÃO PELO WHATSAPP, TELEGRAM, REDES SOCIAIS (youtube, Instagram, Facebook, Tik Tok, Kawai)</small>
-                </aside>
-                <aside>
-                  <small>3 - CASO OPTE POR TRABALHAR COMO MOTORISTA, ENVIE SUA CNH DIGITAL</small>
-                  <input
-                    type="file"
-                    id="cnh_doc"
-                    name="cnh_doc"
-                    data-file={cnh_doc}
-                    onChange={handleCnhDoc}
-                  />
-                </aside>
-                <aside>
-                  VOCÊ POSSUI CARRO/MOTO?
-                  <span>
-                    <Check name="possui_carro" label="CARRO" />
-                  </span>
-                  <span>
-                    <Check name="possui_moto" label="MOTO" />
-                  </span>
-                </aside>
-                <aside>
-                  <small>SE SIM, ENVIE O RENAVAM EM PDF OU JPG</small>
-                  <input
-                    type="file"
-                    id="renavam_doc"
-                    name="renavam_doc"
-                    data-file={renavam_doc}
-                    onChange={handleRenavamDoc}
-                  />
-                </aside>
-                <aside>
-                  VOCÊ QUER ALUGAR OU ADESIVAR SEUS VEÍCULOS?
-                  <span>
-                    <Check name="alugar_veiculo" label="ALUGAR" />
-                  </span>
-                  <span>
-                    <Check name="adesivar_veiculo" label="ADESIVAR" />
-                  </span>
-                </aside>
-                <aside>
-                  <Input name="email" type='email' placeholder="QUAL O EMAIL QUE VOCÊ USA?" required />
-                </aside>
-                <aside>
-                  <Input name="whatsapp" value={whatsapp} onChange={e => handleChange(e, 'whatsapp')} placeholder="QUAL SEU NÚMERO DE WHATSAPP?" required />
-                </aside>
-                <aside>
-                  <Input name="numero_ligacao" value={celular} onChange={e => handleChange(e, 'celular')} placeholder="VOCÊ POSSUI NÚMERO SÓ PARA RECEBER LIGAÇÕES, QUAL?" />
-                </aside>
-                <aside>
-                  <Input name="numero_parente" value={recado} onChange={e => handleChange(e, 'recado')} placeholder="VOCÊ POSSUI ALGUM NÚMERO DE PARENTE OU AMIGO PARA RECADOS?" />
-                </aside>
+                  </aside>
+                  <aside>
+                    VOCÊ QUER ALUGAR OU ADESIVAR SEUS VEÍCULOS?
+                    <span>
+                      <Check name="alugar_veiculo" label="ALUGAR" />
+                    </span>
+                    <span>
+                      <Check name="adesivar_veiculo" label="ADESIVAR" />
+                    </span>
+                  </aside>
+                  <aside>
+                    <Input name="email" type='email' placeholder="QUAL O EMAIL QUE VOCÊ USA?" required />
+                  </aside>
+                  <aside>
+                    <Input name="whatsapp" value={whatsapp} onChange={e => handleChange(e, 'whatsapp')} placeholder="QUAL SEU NÚMERO DE WHATSAPP?" required />
+                  </aside>
+                  <aside>
+                    <Input name="numero_ligacao" value={celular} onChange={e => handleChange(e, 'celular')} placeholder="VOCÊ POSSUI NÚMERO SÓ PARA RECEBER LIGAÇÕES, QUAL?" />
+                  </aside>
+                  <aside>
+                    <Input name="numero_parente" value={recado} onChange={e => handleChange(e, 'recado')} placeholder="VOCÊ POSSUI ALGUM NÚMERO DE PARENTE OU AMIGO PARA RECADOS?" />
+                  </aside>
 
-                <button disabled={loading} type="submit">FINALIZAR CADASTRO</button>
-              </Form>
-            </div>
-          ) : (
-            <>
-              {cadastroRealizado ? (
-                <div>
-                  <h1>ELEIÇÕES 2024</h1>
+                  <button disabled={loading} type="submit">FINALIZAR CADASTRO</button>
+                </Form>
+              </div>
+            ) : (
+              <>
+                {cadastroRealizado ? (
+                  <div>
+                    <h1>ELEIÇÕES 2024</h1>
 
-                  <p>Para compartilhar o seu banner, <strong>clique na imagem abaixo para salvá-la no formato PDF, com o seu link de compartilhamento</strong>.</p>
+                    <p>Para compartilhar o seu banner, <strong>clique na imagem abaixo para salvá-la no formato PDF, com o seu link de compartilhamento</strong>.</p>
 
-                  <p style={{ cursor: 'pointer' }} onClick={copyToClipboard}>Ou clique aqui para copiar apenas o seu link de compartilhamento.</p>
+                    <p style={{ cursor: 'pointer' }} onClick={copyToClipboard}>Ou clique aqui para copiar apenas o seu link de compartilhamento.</p>
 
-                  <div id="pdfHtml">
-                    <a
-                      href="#"
-                      onClick={criarPDF}
-                    >
-                      <img src={colaborador} />
-                    </a>
+                    <div id="pdfHtml">
+                      <a
+                        href="#"
+                        onClick={!perfil.admin ? criarPDFColaborador : criarPDFCoordenador}
+                      >
+                        {!perfil.admin ? <img src={colaborador} />
+                          : <img src={coordenador} />}
+                      </a>
+                    </div>
+
                   </div>
+                ) : (
+                  <div>
+                    <h1>ELEIÇÕES 2024</h1>
+                    <h2>FICHA DE CADASTRO</h2>
 
-                </div>
-              ) : (
-                <div>
-                  <h1>ELEIÇÕES 2024</h1>
-                  <h2>FICHA DE CADASTRO</h2>
+                    <p>Para preencher esse cadastro, é necessário ter em mãos os seguintes documentos:</p>
 
-                  <p>Para preencher esse cadastro, é necessário ter em mãos os seguintes documentos:</p>
+                    <ol>
+                      <li>TÍTULO DE ELEITOR E PRINT DO E- TITULO PARA ENVIO COMO ANEXO - RG E CPF</li>
+                      <li>SE FOR MOTORISTA, ENVIO DA CARTEIRA DE MOTORISTA DIGITAL COMO ANEXO</li>
+                      <li>EMAIL QUE TENHA ACESSO</li>
+                      <li>SE TIVER CARRO OU MOTO PARA ALUGUEL OU ADESIVAÇÃO, RENAVAN</li>
+                      <li>ENDEREÇO COM CEP</li>
 
-                  <ol>
-                    <li>TÍTULO DE ELEITOR E PRINT DO E- TITULO PARA ENVIO COMO ANEXO - RG E CPF</li>
-                    <li>SE FOR MOTORISTA, ENVIO DA CARTEIRA DE MOTORISTA DIGITAL COMO ANEXO</li>
-                    <li>EMAIL QUE TENHA ACESSO</li>
-                    <li>SE TIVER CARRO OU MOTO PARA ALUGUEL OU ADESIVAÇÃO, RENAVAN</li>
-                    <li>ENDEREÇO COM CEP</li>
+                      <button type="submit" onClick={() => setInicioCadastro(true)}>INICIAR CADASTRO</button>
+                    </ol>
+                  </div>
+                )}
+              </>
+            )}
+          </section>
+        }
 
-                    <button type="submit" onClick={() => setInicioCadastro(true)}>INICIAR CADASTRO</button>
-                  </ol>
-                </div>
-              )}
-            </>
-          )}
+        <section>
+          {perfil.admin && dominio === 'tafechado' && <div>
+            <h1>ELEIÇÕES 2024</h1>
+
+            <p>Para compartilhar o banner com um coordenador, <strong>clique na imagem abaixo para salvá-la no formato PDF, com o seu link de compartilhamento</strong>.</p>
+
+            <p style={{ cursor: 'pointer' }} onClick={copyToClipboardCoordenador}>Ou clique aqui para copiar apenas o seu link de compartilhamento.</p>
+
+            <div id="pdfHtml">
+              <a
+                href="#"
+                onClick={criarPDFCoordenador}
+              >
+                {!perfil.admin ? <img src={colaborador} />
+                  : <img src={coordenador} />}
+              </a>
+            </div>
+
+          </div>}
         </section>
       </Container>
     </>

@@ -33,7 +33,8 @@ export default function Dashboard() {
       </Barra>
       <section>
         <MenuDash />
-        {perfil.admin ? <div>
+        {perfil.admin && <div>
+          {dominio === 'tafechado' && <FormEleicoes />}
           <div>
             <h2>Mensagens do Site</h2>
             <small>
@@ -43,7 +44,7 @@ export default function Dashboard() {
             </small>
           </div>
           <Contatoforms arquivadas={arquivadas} />
-        </div> : <FormEleicoes />}
+        </div>}
       </section>
     </Container>
   );
