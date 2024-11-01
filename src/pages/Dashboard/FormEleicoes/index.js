@@ -44,10 +44,8 @@ const estados = [
 ];
 
 export default function FormEleicoes() {
-  const dispatch = useDispatch();
   const perfil = useSelector((state) => state.usuario.perfil);
 
-  const [admin, setAdmin] = useState(perfil.admin);
   const [inicioCadastro, setInicioCadastro] = useState(false);
   const [editCadastro, setEditCadastro] = useState(false);
   const [whatsapp, setWhatsapp] = useState('');
@@ -61,7 +59,6 @@ export default function FormEleicoes() {
   const [renavam_doc, setRenavam_doc] = useState('');
   const [loading, setLoading] = useState(false);
   const [initialData, setInitialData] = useState({});
-  const [cadastro, setCadastro] = useState(false);
   const [cadastroRealizado, setCadastroRealizado] = useState(false);
   const [dominio, setDominio] = useState('');
 
@@ -555,26 +552,23 @@ export default function FormEleicoes() {
           </section>
         }
 
-        <section>
-          {perfil.admin && dominio === 'tafechado' && <div>
-            <h1>ELEIÇÕES 2024</h1>
+        {perfil.admin && dominio === 'tafechado' && <section>
+          <h1>ELEIÇÕES 2024</h1>
 
-            <p>Para compartilhar o banner com um coordenador, <strong>clique na imagem abaixo para salvá-la no formato PDF, com o seu link de compartilhamento</strong>.</p>
+          <p>Para compartilhar o banner com um coordenador, <strong>clique na imagem abaixo para salvá-la no formato PDF, com o seu link de compartilhamento</strong>.</p>
 
-            <p style={{ cursor: 'pointer' }} onClick={copyToClipboardCoordenador}>Ou clique aqui para copiar apenas o seu link de compartilhamento.</p>
+          <p style={{ cursor: 'pointer' }} onClick={copyToClipboardCoordenador}>Ou clique aqui para copiar apenas o seu link de compartilhamento.</p>
 
-            <div id="pdfHtml">
-              <a
-                href="#"
-                onClick={criarPDFCoordenador}
-              >
-                {!perfil.admin ? <img src={colaborador} />
-                  : <img src={coordenador} />}
-              </a>
-            </div>
-
-          </div>}
-        </section>
+          <div id="pdfHtml">
+            <a
+              href="#"
+              onClick={criarPDFCoordenador}
+            >
+              {!perfil.admin ? <img src={colaborador} />
+                : <img src={coordenador} />}
+            </a>
+          </div>
+        </section>}
       </Container>
     </>
   );

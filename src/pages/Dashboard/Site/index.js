@@ -136,7 +136,7 @@ export default function AdminSite() {
     newData.favicon_id = favicon;
     newData.font_serifa = fontSerifa;
     newData.sombra = sombra;
-    newData.client = perfil.email.split('@')[1].split('.')[0];
+    newData.client = dominio;
     newData.viewdescricao = sobreNos;
     newData.tipo_logo = tipoLogo;
     newData.view_login = viewLogin;
@@ -170,7 +170,7 @@ export default function AdminSite() {
     newData.favicon_id = favicon;
     newData.font_serifa = fontSerifa;
     newData.sombra = sombra;
-    newData.client = perfil.email.split('@')[1].split('.')[0];
+    newData.client = dominio;
     newData.viewdescricao = sobreNos;
     newData.tipo_logo = tipoLogo;
     newData.view_login = viewLogin;
