@@ -664,7 +664,6 @@ export const ListaBlog = styled.ul`
       color: ${({ client }) => `#${client.textbutton_color}`};
       border: 0;
       overflow: hidden;
-      max-width: ${({ client }) => client?.qtd_linhablog === 1 ? '40%' : '100%'};
       width: 100%;
 
       img {
@@ -707,15 +706,18 @@ export const ListaBlog = styled.ul`
 
       h2 {
         color: ${({ client }) => client?.cor_titulosite};
+        font-size: .9rem;
       }
 
       h3 {
+        margin-top: .5rem;
+        font-weight: normal;
       }
 
       a {
         align-self: flex-start;
         max-width: 100%;
-        padding: 2rem;
+        padding: 1rem 0;
 
         span {
           margin: 1rem 0;
