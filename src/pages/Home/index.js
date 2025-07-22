@@ -12,9 +12,9 @@ import "slick-carousel/slick/slick-theme.css";
 import api from '~/services/api';
 
 import wpp from '~/assets/wpp.png';
+import insta from '~/assets/insta.png';
 import lins from '~/assets/lins.jpg';
 import moura from '~/assets/moura.jpg';
-import apresentacao from '~/assets/home/apresentacao.mp4';
 import porque from '~/assets/home/onibus.jpg';
 
 import {
@@ -26,6 +26,7 @@ import {
   Ondeestamos,
   Container,
   WhatsApp,
+  Insta,
   Email,
   ListaProdutos,
   ListaBlog,
@@ -390,12 +391,17 @@ export default function Home() {
      crossorigin="anonymous"></script>}
       </Helmet>
       <Container state={state}>
-        <WhatsApp>
+        {state?.whatsapp && <WhatsApp>
           <Input name="whatsapp" value={textWpp} onChange={(e) => setTextWpp(e.target.value)} />
           <a href={`https://wa.me//55${state?.whatsapp}?text=${textWpp}`} target='_blank'>
-            <img src={wpp} alt="Logo HCS" />
+            <img src={wpp} alt="WhatsApp" />
           </a>
-        </WhatsApp>
+        </WhatsApp>}
+        {state?.instagram && <Insta>
+          <a href={state?.instagram} target='_blank'>
+            <img src={insta} alt="Instagram" />
+          </a>
+        </Insta>}
         {state?.banner && <Banner id="home" state={state}>
           {state?.textonobanner && (
             <>

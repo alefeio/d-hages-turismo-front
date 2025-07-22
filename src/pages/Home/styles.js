@@ -145,6 +145,17 @@ export const WhatsApp = styled.div`
   }
 `;
 
+export const Insta = styled.div`
+  position: fixed;
+  right: 1.5%;
+  bottom: .5%;
+  z-index: 10000000000000;
+
+  img {
+    width: 50px;
+  }
+`;
+
 export const Quemsomos = styled.div`
   display: flex;
   align-items: flex-end;
