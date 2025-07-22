@@ -635,10 +635,10 @@ export default function Home() {
                     <img src={p.imagem.url} alt={p.titulo} />
                   </Link>
                   <section>
-                    <Link to={`blog/${p.url}`}><h2>{p.titulo}</h2></Link>
+                    <Link to={`blog/${p.url}`}><h3>{p.titulo}</h3></Link>
                     <p>{p.descricao}</p>
                     <Link to={`blog/${p.url}`}>
-                      <span>Ler <MdAdd size={16} color="#FFF" /></span>
+                      <span>Ler <MdAdd size={16} /></span>
                     </Link>
                   </section>
                 </li>

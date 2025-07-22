@@ -710,8 +710,6 @@ export const ListaBlog = styled.ul`
       }
 
       h3 {
-        margin-top: .5rem;
-        font-weight: normal;
       }
 
       a {
