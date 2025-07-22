@@ -706,7 +706,7 @@ export const ListaBlog = styled.ul`
 
       h2 {
         color: ${({ client }) => client?.cor_titulosite};
-        font-size: 1.5rem;
+        font-size: 2rem;
       }
 
       h3 {
