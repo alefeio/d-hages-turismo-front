@@ -717,7 +717,7 @@ export const ListaBlog = styled.ul`
       a {
         align-self: flex-start;
         max-width: 100%;
-        padding: 1rem 0;
+        padding: 1rem 0 0;
 
         span {
           margin: 1rem 0;
