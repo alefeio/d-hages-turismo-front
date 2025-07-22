@@ -621,13 +621,13 @@ export default function Home() {
         {state?.blog && <Produtos id="blog" client={state}>
           <>
             <h2>{state?.blog}</h2>
-            <nav>
+            {/* <nav>
               <Input name="buscaProduto" value={buscaBlog} placeholder='Pesquisar notícia' onChange={(e) => {
                 setBuscaBlog(e.target.value);
                 loadBuscaBlog(e.target.value);
               }} />
               <MdSearch size={26} color="#000" />
-            </nav>
+            </nav> */}
             <ListaBlog client={state}>
               {blog.map((p) => (
                 <li key={p.id}>
