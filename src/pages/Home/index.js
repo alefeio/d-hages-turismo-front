@@ -506,7 +506,7 @@ export default function Home() {
                   </section>
                   <Link to={`roteiros/${p.id}/${p.url}`}>
                     <div>
-                      <MdAdd size={16} color="#FFF" />
+                      <MdAdd size={16} />
                       <span>Informações</span>
                     </div>
                   </Link>
@@ -565,7 +565,7 @@ export default function Home() {
                   </section>
                   <Link to={`servicos/${p.url}/${p.id}`}>
                     <div>
-                      <MdAdd size={16} color="#FFF" />
+                      <MdAdd size={16} />
                       <span>Informações</span>
                     </div>
                   </Link>
