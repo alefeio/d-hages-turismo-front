@@ -135,7 +135,7 @@ export default function Servico(props) {
               </h1>
               <section dangerouslySetInnerHTML={{ __html: produto.descricao }}></section>
               {/* <p><a href='#' onClick={() => setViewFormReserva(true)}>Clique aqui e agende uma consulta.</a></p> */}
-              <p><Link to="#contato">Clique aqui e agende uma consulta.</Link></p>
+              {/* <p><Link to="#contato">Clique aqui e agende uma consulta.</Link></p> */}
             </span>
           </div>
 
