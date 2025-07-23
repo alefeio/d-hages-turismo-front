@@ -70,10 +70,8 @@ export default function Artigo(props) {
     setImagem(response.data.imagem.url);
 
     setInitialData({
-      assunto: response.data.nome,
+      assunto: response.data.titulo,
     });
-
-    setTextWpp(`Quero + inf. sobre ${response.data.nome}`);
   }
 
   useEffect(() => {
@@ -102,7 +100,7 @@ export default function Artigo(props) {
   return (
     <>
       <Helmet>
-        <title>{produto.nome}</title>
+        <title>{produto.titulo}</title>
       </Helmet>
       <Container>
         <WhatsApp>
@@ -152,7 +150,7 @@ export default function Artigo(props) {
               <div>
                 <nav>
                   <Link to={`/blog/${p.url}`}>
-                    <img src={p.imagem.url} alt={p.nome} />
+                    <img src={p.imagem.url} alt={p.titulo} />
                   </Link>
                 </nav>
                 <span>
