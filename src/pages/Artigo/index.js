@@ -13,24 +13,12 @@ import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 import SiteContext from '~/context/site';
 import { removerEspacosEAcentos } from '~/util/removerEspacosEAcentos';
 
-const schema = Yup.object().shape({
-  nome: Yup.string().required('Campo obrigatório!'),
-  email: Yup.string()
-    .email('E-mail inválido!')
-    .required('Campo obrigatório!'),
-  telefone: Yup.string().required('Campo obrigatório!'),
-  assunto: Yup.string(),
-  mensagem: Yup.string().required('Campo obrigatório!'),
-});
-
 export default function Artigo(props) {
   const [produto, setProduto] = useState({});
   const [imagem, setImagem] = useState();
   const [initialData, setInitialData] = useState({});
   const [display, setDisplay] = useState('relative');
   const [textWpp, setTextWpp] = useState('');
-  const [viewFormReserva, setViewFormReserva] = useState(false);
-  const [reservado, setReservado] = useState(false);
   const [dominio, setDominio] = useState('');
   const [blog, setBlog] = useState([]);
 
@@ -65,7 +53,7 @@ export default function Artigo(props) {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     const response = await api.get(`blog/${nome}`);
 
-    console.log(response.data);
+    console.log("loadProduto: ", response.data);
     setProduto(response.data);
     setImagem(response.data.imagem.url);
 
@@ -139,13 +127,9 @@ export default function Artigo(props) {
               <section
                 dangerouslySetInnerHTML={{ __html: produto.texto }}
               ></section>
-              {/* <p><a href='#' onClick={() => setViewFormReserva(true)}>Clique aqui e agende uma consulta.</a></p> */}
-              <p>
-                <Link to="#contato">Clique aqui e fale conosco.</Link>
-              </p>
             </span>
           </div>
-          <aside>
+          {/* <aside>
             {blog.map(p => p.titulo !== produto.titulo && (
               <div>
                 <nav>
@@ -161,7 +145,7 @@ export default function Artigo(props) {
                 </span>
               </div>
             ))}
-          </aside>
+          </aside> */}
         </Prod>
       </Container>
     </>
