@@ -147,7 +147,7 @@ export const WhatsApp = styled.div`
 
 export const Insta = styled.div`
   position: fixed;
-  right: 1.5%;
+  left: 1.5%;
   bottom: .5%;
   z-index: 10000000000000;
 
