@@ -102,7 +102,7 @@ export default function Artigo(props) {
   return (
     <>
       <Helmet>
-        <title>{produto.saida && `IOPA - ${produto.nome}`}</title>
+        <title>{produto.nome}</title>
       </Helmet>
       <Container>
         <WhatsApp>
