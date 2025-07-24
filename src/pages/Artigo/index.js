@@ -36,7 +36,7 @@ export default function Artigo(props) {
     setImagem(response.data.imagem.url);
 
     setInitialData({
-      assunto: response.data.titulo,
+      assunto: response.data.titulo || "",
     });
   }
 
@@ -61,9 +61,6 @@ export default function Artigo(props) {
 
   return (
     <>
-      <Helmet>
-        <title>{produto.titulo}</title>
-      </Helmet>
       <Container>
         <WhatsApp>
           <Input
@@ -95,29 +92,12 @@ export default function Artigo(props) {
           <div>
             <img src={imagem} alt="Produto" />
             <span>
-              <h1>{produto.titulo}</h1>
+              <h1>{produto && produto.titulo}</h1>
               <section
                 dangerouslySetInnerHTML={{ __html: produto.texto }}
               ></section>
             </span>
           </div>
-          {/* <aside>
-            {blog.map(p => p.titulo !== produto.titulo && (
-              <div>
-                <nav>
-                  <Link to={`/blog/${p.url}`}>
-                    <img src={p.imagem.url} alt={p.titulo} />
-                  </Link>
-                </nav>
-                <span>
-                  <Link to={`/blog/${p.url}`}>
-                    <h3>{p.titulo}</h3>
-                  </Link>
-                  <p>{p.descricao}</p>
-                </span>
-              </div>
-            ))}
-          </aside> */}
         </Prod>
       </Container>
     </>
