@@ -187,6 +187,8 @@ export const Prod = styled.div`
       img {
         float: none;
         margin: 1rem;
+        width: 80%;
+        margin: auto;
       }
     }
   }
