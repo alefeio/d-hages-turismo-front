@@ -93,9 +93,7 @@ export default function Artigo(props) {
         </Barra>
         <Prod client={state} display={display}>
           <div>
-            <nav>
-              <img src={imagem} alt="Produto" />
-            </nav>
+            <img src={imagem} alt="Produto" />
             <span>
               <h1>{produto.titulo}</h1>
               <section

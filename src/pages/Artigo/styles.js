@@ -39,13 +39,11 @@ export const Prod = styled.div`
       }
     }
 
-    nav {
-      max-width: 100%;
-
-      img {
-        border-radius: ${({ client }) => `${client?.border_radius}rem`};
-        width: 100%;
-      }
+    img {
+      border-radius: ${({ client }) => `${client?.border_radius}rem`};
+      width: 40%;
+      float: left;
+      margin: 0 1rem 1rem 0;
     }
 
     span {
