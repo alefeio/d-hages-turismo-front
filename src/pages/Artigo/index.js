@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import api from '~/services/api';
-import { Form, Input, Textarea } from '@rocketseat/unform';
-import * as Yup from 'yup';
-import { toast } from 'react-toastify';
+import { Input } from '@rocketseat/unform';
 
-import { Container, Barra, Banner, Prod, WhatsApp } from './styles';
+import { Container, Barra, Prod, WhatsApp } from './styles';
 
 import wpp from '~/assets/wpp.png';
 import { Helmet } from 'react-helmet';
 import { extrairDominioDaURLAtual } from '~/util/extrairDominioDaUrlAtual';
 import SiteContext from '~/context/site';
-import { removerEspacosEAcentos } from '~/util/removerEspacosEAcentos';
 
 export default function Artigo(props) {
   const [produto, setProduto] = useState({});
@@ -20,7 +17,6 @@ export default function Artigo(props) {
   const [display, setDisplay] = useState('relative');
   const [textWpp, setTextWpp] = useState('');
   const [dominio, setDominio] = useState('');
-  const [blog, setBlog] = useState([]);
 
   const { state } = useContext(SiteContext);
 
@@ -29,24 +25,6 @@ export default function Artigo(props) {
   function logit() {
     if (window.pageYOffset > 500) setDisplay('fixed');
     else setDisplay('relative');
-  }
-
-  async function loadBlog() {
-    const response = await api.get(`blog?client=${dominio}`);
-
-    console.log('blog', response);
-
-    const { blog, total } = response.data;
-
-    const newData = blog.map(data => {
-      data.url = removerEspacosEAcentos(data.titulo);
-
-      return data;
-    });
-
-    console.log(`data: ${JSON.stringify(response.data)}`);
-
-    setBlog(newData);
   }
 
   async function loadProduto() {
@@ -75,10 +53,6 @@ export default function Artigo(props) {
       window.removeEventListener('scroll', logit);
     };
   });
-
-  useEffect(() => {
-    !blog.length && loadBlog();
-  }, [dominio, state]);
 
   useEffect(() => {
     // Chamar a função ao montar o componente
