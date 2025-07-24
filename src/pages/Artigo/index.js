@@ -94,7 +94,7 @@ export default function Artigo(props) {
             <span>
               <h1>{produto && produto.titulo}</h1>
               <section
-                dangerouslySetInnerHTML={{ __html: produto.texto ? produto.texto : "Sem conteúdo." }}
+                dangerouslySetInnerHTML={{ __html: produto.texto ? produto.texto : "Sem conteúdo por aqui." }}
               ></section>
             </span>
           </div>
