@@ -183,6 +183,11 @@ export const Prod = styled.div`
 
     div {
       width: 100%;
+
+      img {
+        float: none;
+        margin: 1rem;
+      }
     }
   }
 `;
