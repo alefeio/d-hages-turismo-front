@@ -189,6 +189,7 @@ export const Prod = styled.div`
         margin: 1rem;
         width: 80%;
         margin: auto;
+        text-align: center;
       }
     }
   }
