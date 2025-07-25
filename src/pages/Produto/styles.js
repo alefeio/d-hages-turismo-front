@@ -73,7 +73,7 @@ export const Prod = styled.div`
   }
 
   aside {
-    width: 20%;
+    width: 5%;
     
     nav {
       img {
