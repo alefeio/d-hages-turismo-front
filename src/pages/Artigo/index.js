@@ -28,6 +28,7 @@ export default function Artigo(props) {
   }
 
   async function loadProduto() {
+    console.log('nome', nome)
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     const response = await api.get(`blog/${nome}`);
 
