@@ -41,9 +41,9 @@ export const Prod = styled.div`
 
     img {
       border-radius: ${({ client }) => `${client?.border_radius}rem`};
-      width: 40%;
+      width: 30%;
       float: left;
-      margin: 0 1rem 1rem 0;
+      margin: 0 3rem 1rem 0;
     }
 
     span {
