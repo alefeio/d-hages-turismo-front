@@ -121,12 +121,12 @@ export default function Pacote(props) {
         </Barra>
         <Prod display={display}>
           <div>
+            <img src={imagem} alt="Produto" />
             {produto.saida && <h1>
               {produto.nome} - {produto.saida.split('T')[0].split('-')[1] === produto.retorno.split('T')[0].split('-')[1]
                 ? produto.saida.split('T')[0].split('-').reverse()[0]
                 : produto.saida.split('T')[0].split('-').reverse().join('/')} a {produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}
             </h1>}
-            <img src={imagem} alt="Produto" />
             <h2>Destino: {produto.nome}</h2>
             <h3>Saída: {produto.saida && produto.saida.split('T')[0].split('-').reverse().join('/')}</h3>
             <h3>Retorno: {produto.retorno && produto.retorno.split('T')[0].split('-').reverse().join('/')}</h3>
