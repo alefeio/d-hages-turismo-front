@@ -11,15 +11,21 @@ export const Prod = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 2rem;
-  padding: 50px;
-  width: 100%;
+  gap: 7rem;
+  margin: 3rem;
 
   div {
     border-radius: 4px;
-    width: 70%;
+    width: 100%;
 
     section {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+
+      p, li {
+        margin: 1rem 0;
+      }
+
       overflow: auto;
       table {
         width: 100% !important;
@@ -34,14 +40,23 @@ export const Prod = styled.div`
     }
 
     img {
-      width: 100%;
-      margin: 0 auto 5rem;
-      border-radius: 2rem;
+      border-radius: ${({ client }) => `${client?.border_radius}rem`};
+      width: 30%;
+      float: left;
+      margin: 0 3rem 1rem 0;
     }
 
-    h1 {
-      font-size: 4rem;
-      text-align: center;
+    span {
+      flex: 1;
+      margin: 2rem;
+    }
+
+    h1, h2, h3, p, li, strong {
+      font-family: ${({ client }) => client?.font_serifa ? "'Source Serif 4', serif" : "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"};
+
+      a {
+        color: ${({ client }) => `#${client?.cor_link}`};
+      }
     }
 
     ul {
@@ -55,30 +70,25 @@ export const Prod = styled.div`
         }
       }
     }
-
-    h3 {
-      margin-top: 10px;
-    }
-
-    h1 {
-      margin-bottom: 25px;
-    }
   }
 
   aside {
-    background: #ffd873;
-    border: 1px solid #999;
-    border-radius: 4px;
-    padding: 10px;
-    position: ${props => props.display};
-    right: 0;
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
+    width: 40%;
+    
+    nav {
+      img {
+        border-radius: ${({ client }) => `${client?.border_radius}rem`};
+        width: 100%;
+      }
+    }
+
+    div {      
+      margin: 0 0 3rem;
+    }
   }
 
   form {
-    position: ${props => props.display};
+    position: fixed;
     right: 0;
     bottom: 10%;
     width: 25%;
@@ -163,7 +173,7 @@ export const Prod = styled.div`
     padding: 10px;
 
     aside {
-      position: fixed;
+      width: 100%;
     }
 
     form {
@@ -172,9 +182,15 @@ export const Prod = styled.div`
     }
 
     div {
-      padding: 0;
-      margin: 0;
       width: 100%;
+
+      img {
+        float: none;
+        margin: 1rem;
+        width: 80%;
+        margin: auto;
+        text-align: center;
+      }
     }
   }
 `;
