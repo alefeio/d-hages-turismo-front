@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { darken } from 'polished';
 
 import icosearch from '~/assets/ico-search.jpg';
 
