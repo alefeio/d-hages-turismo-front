@@ -424,11 +424,12 @@ export const Equipe = styled.div`
 `;
 
 export const Depoimentos = styled.div`
-  text-align: center;
-  width: 100%;
   display: grid;
   grid-template-columns: repeat(${({ client }) => client.qtd_linhablog}, 1fr);
   grid-gap: 5rem;
+  width: 100%;
+  max-width: 1300px;
+  margin: auto;
 
   section {
     width: 100%;
