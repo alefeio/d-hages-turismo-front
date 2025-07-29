@@ -62,9 +62,7 @@ export const Nav = styled.nav`
 
   ul li a {
     font-size: 16px;
-    font-weight: bold;
     color: ${({ state }) => `#${state?.textbutton_color}`};
-    margin: 1rem;
     padding: 1rem;
     transition: 0.2s;
 
@@ -108,8 +106,14 @@ export const Nav = styled.nav`
     }
 
     ul li {
+      width: 100%;
       padding: 0.5rem;
       color: ${({ state }) => `#${state?.textbutton_color}`};
+      border-bottom: .5px solid ${({ state }) => state?.primary_color && darken(0.07, `#${state?.primary_color}`)};
+
+      &:last-child {
+        border-bottom: 0;
+      }
     }
 
     ul li a {
