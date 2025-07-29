@@ -109,7 +109,7 @@ export default function Header() {
           <ul>
             <li>
               <Link to="/#home" onClick={altChecked}>
-                HOME
+                Home
               </Link>
             </li>
             <li>
@@ -139,29 +139,29 @@ export default function Header() {
             </li>}
             {state?.mapa && <li>
               <Link to="/#ondeestamos" onClick={altChecked}>
-                ONDE ESTAMOS
+                Onde Estamos
               </Link>
             </li>}
             <li>
               <a href={`https://wa.me/55${state?.whatsapp}?text=Olá! Estou entrando em contato através do site.`} target='_blank' onClick={altChecked}>
-                WHATSAPP
+                WhatsApp
               </a>
             </li>
             <li>
               <Link to="/#contato" onClick={altChecked}>
-                CONTATO
+                Contato
               </Link>
             </li>
             {logado ? (
               <>
                 <li>
                   <Link to='/dashboard'>
-                    ADM
+                    Adm
                   </Link>
                 </li>
                 <li>
                   <Link onClick={handleLogout}>
-                    SAIR
+                    Sair
                   </Link>
                 </li>
               </>
