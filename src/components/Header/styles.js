@@ -68,8 +68,6 @@ export const Nav = styled.nav`
     font-size: 16px;
     font-weight: bold;
     color: ${({ state }) => `#${state?.textbutton_color}`};
-    margin: 1rem;
-    padding: 1rem;
     transition: 0.2s;
 
     &:hover {
