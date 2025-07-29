@@ -184,7 +184,7 @@ export default function Home() {
       speed: 10000,
       slidesToShow: 1,
       slidesToScroll: 1,
-      autoplaySpeed: 5000,
+      autoplaySpeed: 10000,
       autoplay: true,
       centerPadding: 0,
       fade: true,
