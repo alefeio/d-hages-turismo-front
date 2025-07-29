@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { darken } from 'polished';
 
 import icosearch from '~/assets/ico-search.jpg';
 
@@ -45,15 +46,11 @@ export const Content = styled.div`
   }
 
   @media(max-width: 600px) {
-    padding: 1rem;
     height: ${({ state, viewMenu }) => viewMenu === 'relative' ? `${state?.altura_menu*1.3}vh` : '40px'};
   }
 `;
 
 export const Nav = styled.nav`
-  display: flex;
-  flex: 1;
-
   ul {
     display: flex;
     flex: 1;
@@ -99,34 +96,24 @@ export const Nav = styled.nav`
   @media (max-width: 1025px) {
     background-color: ${({ state, bgMenu }) => state?.primary_color === 'transparent' && bgMenu === 'transparent' ? state?.primary_color : `#${state?.primary_color}`};
     display: ${(props) => (props.exibir ? 'flex' : 'none')};
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     position: fixed;
     width: 100%;
-    height: 100%;
     top: 0;
     left: 0;
 
     ul {
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
     }
 
     ul li {
-      margin: 5px;
       padding: 0.5rem;
       color: ${({ state }) => `#${state?.textbutton_color}`};
     }
 
     ul li a {
-      font-size: 2.4rem;
       color: ${({ state }) => `#${state?.textbutton_color}`};
-
-      &:hover {
-        color: #c2a549;
-      }
     }
   }
 `;
