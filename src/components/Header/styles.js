@@ -105,7 +105,6 @@ export const Nav = styled.nav`
     justify-content: center;
     position: fixed;
     width: 100%;
-    height: 100%;
     top: 0;
     left: 0;
 
@@ -116,7 +115,6 @@ export const Nav = styled.nav`
 
     ul li {
       margin: 5px;
-      padding: 0.5rem;
       border-bottom: 1px solid ${({ state }) => state?.second_color && darken(0.07, `#${state?.second_color}`)};
       width: 100%;
     }
