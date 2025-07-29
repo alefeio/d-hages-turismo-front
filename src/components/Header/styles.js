@@ -118,6 +118,7 @@ export const Nav = styled.nav`
       margin: 5px;
       padding: 0.5rem;
       border-bottom: 1px solid ${({ state }) => state?.second_color && darken(0.07, `#${state?.second_color}`)};
+      width: 100%;
     }
 
     ul li a {
