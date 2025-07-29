@@ -86,10 +86,6 @@ export const Banner = styled.div`
     img {
       height: 100%;
       width: 100%;
-      /* animation-name: ${breatheAnimation};
-      animation-duration: 12s;
-      animation-direction: alternate;
-      animation-iteration-count: infinite; */
     }
     video {
       height: 100%;
