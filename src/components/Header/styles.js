@@ -97,6 +97,7 @@ export const Nav = styled.nav`
   }
 
   @media (max-width: 1025px) {
+    background-color: ${({ state, bgMenu }) => state?.primary_color === 'transparent' && bgMenu === 'transparent' ? state?.primary_color : `#${state?.primary_color}`};
     display: ${(props) => (props.exibir ? 'flex' : 'none')};
     flex-direction: column;
     align-items: center;
@@ -106,22 +107,21 @@ export const Nav = styled.nav`
     height: 100%;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.9);
 
     ul {
       flex-direction: column;
-      align-items: center;
       justify-content: center;
     }
 
     ul li {
       margin: 5px;
       padding: 0.5rem;
+      border-bottom: 1px solid ${({ state }) => state?.second_color && darken(0.07, `#${state?.second_color}`)};
     }
 
     ul li a {
       font-size: 2.4rem;
-      color: #fff;
+      color: ${({ state }) => `#${state?.textbutton_color}`};
 
       &:hover {
         color: #c2a549;
