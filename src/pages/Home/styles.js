@@ -463,7 +463,7 @@ export const Depoimentos = styled.div`
     div {
       width: 100%;
       display: flex;
-      align-items: baseline;
+      align-items: flex-start;
       justify-content: space-around;
       gap: 2rem;
 
