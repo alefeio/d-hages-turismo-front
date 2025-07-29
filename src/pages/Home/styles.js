@@ -424,7 +424,7 @@ export const Equipe = styled.div`
 `;
 
 export const Depoimentos = styled.div`
-  background: ${({ state }) => `#${state.primary_color}`};
+  background: ${({ client }) => `#${client?.primary_color}`};
   text-align: center;
   width: 100%;
 
