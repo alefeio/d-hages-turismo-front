@@ -585,7 +585,7 @@ export const ListaProdutos = styled.ul`
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    border-radius: ${({ client }) => `${client?.border_radius}rem`};
+    border-radius: ${({ client }) => `${client?.border_radius}px`};
     box-shadow: ${({ client }) => client?.sombra ? '1px 1px 10px #999' : 'none'};
 
     section {
@@ -621,7 +621,7 @@ export const ListaProdutos = styled.ul`
       margin-top: auto;
       display: flex;
       align-items: center;
-      border-radius: ${({ client }) => `${client?.border_radius}rem`};
+      border-radius: ${({ client }) => `${client?.border_radius}px`};
 
       img {
         width: 100%;
@@ -681,7 +681,7 @@ export const ListaBlog = styled.ul`
       width: 100%;
 
       img {
-        border-radius: ${({ client }) => `${client?.border_radius}rem`};
+        border-radius: ${({ client }) => `${client?.border_radius}px`};
         height: ${({ client }) => client?.altura_foto === 0 ? 'auto' : `${client?.altura_foto}px`};
         width: 100%;
       }
@@ -735,7 +735,7 @@ export const ListaBlog = styled.ul`
 
         span {
           margin: 1rem 0;
-          border-radius: ${({ client }) => `${client?.border_radius}rem`};
+          border-radius: ${({ client }) => `${client?.border_radius}px`};
           background: ${({ client }) => `#${client?.primary_color}`};
           padding: 1rem;
         }
