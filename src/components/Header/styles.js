@@ -1,5 +1,4 @@
 import styled, { keyframes } from 'styled-components';
-import { darken } from 'polished';
 
 import icosearch from '~/assets/ico-search.jpg';
 
@@ -46,6 +45,7 @@ export const Content = styled.div`
   }
 
   @media(max-width: 600px) {
+    padding: 1rem;
     height: ${({ state, viewMenu }) => viewMenu === 'relative' ? `${state?.altura_menu*1.3}vh` : '40px'};
   }
 `;
@@ -55,6 +55,10 @@ export const Nav = styled.nav`
   flex: 1;
 
   ul {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
     list-style: none;
     flex-wrap: wrap;
   }
@@ -63,6 +67,8 @@ export const Nav = styled.nav`
     font-size: 16px;
     font-weight: bold;
     color: ${({ state }) => `#${state?.textbutton_color}`};
+    margin: 1rem;
+    padding: 1rem;
     transition: 0.2s;
 
     &:hover {
@@ -98,6 +104,7 @@ export const Nav = styled.nav`
     justify-content: center;
     position: fixed;
     width: 100%;
+    height: 100%;
     top: 0;
     left: 0;
 
@@ -108,8 +115,8 @@ export const Nav = styled.nav`
 
     ul li {
       margin: 5px;
+      padding: 0.5rem;
       border-bottom: 1px solid ${({ state }) => state?.second_color && darken(0.07, `#${state?.second_color}`)};
-      width: 100%;
     }
 
     ul li a {
