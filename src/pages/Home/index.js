@@ -181,7 +181,7 @@ export default function Home() {
     var settings = {
       dots: true,
       infinite: true,
-      speed: 4000,
+      speed: 2000,
       slidesToShow: 1,
       slidesToScroll: 1,
       autoplaySpeed: 8000,
