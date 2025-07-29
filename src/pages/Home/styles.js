@@ -437,7 +437,7 @@ export const Depoimentos = styled.div`
     margin: auto;
 
     h2 {
-      color: #ffd873;
+      color: ${({ client }) => `#${client.textbutton_color}`};
       font-size: 3rem;
       font-weight: normal;
       text-align: center;

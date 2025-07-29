@@ -660,7 +660,7 @@ export default function Home() {
           )}
         </Produtos>}
         {state?.depoimentos && (
-          <Depoimentos id="depoimentos">
+          <Depoimentos id="depoimentos" client={state}>
             <section>
               <h2>{state?.depoimentos}</h2>
               <SimpleSlider2 />
