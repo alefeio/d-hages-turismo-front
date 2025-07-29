@@ -99,7 +99,7 @@ export const Banner = styled.div`
   }
 
   @media(max-width: 600px) {
-    height: ${({ state }) => `${state?.banner_h / 1.5}vh`};
+    height: ${({ state }) => `${state?.banner_h / 2}vh`};
 
     section {
       h2 {

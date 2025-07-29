@@ -181,7 +181,7 @@ export default function Home() {
     var settings = {
       dots: true,
       infinite: true,
-      speed: 5000,
+      speed: 10000,
       slidesToShow: 1,
       slidesToScroll: 1,
       autoplaySpeed: 5000,
@@ -427,7 +427,7 @@ export default function Home() {
             <Link to={state?.url}>
               <SimpleSlider />
             </Link>
-            : state?.link && state?.tipo_link == 'interno' ?
+            : state?.link && state?.tipo_link !== 'interno' ?
               <a url={state?.url} target='_blank'>
                 <SimpleSlider />
               </a>
