@@ -666,11 +666,11 @@ export default function Home() {
               <SimpleSlider2 />
               {/* <h3>AVALIAÇÕES NO GOOGLE</h3> */}
               <SimpleSlider3 />
-              <p>
+              {/* <p>
                 <a href='https://g.page/r/CVJZFvP8DiABEB0/review' target='_blank'>
                   Já viajou conosco? Clique aqui para avaliar nossa empresa
                 </a>
-              </p>
+              </p> */}
             </section>
           </Depoimentos>
         )}
