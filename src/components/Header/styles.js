@@ -110,13 +110,14 @@ export const Nav = styled.nav`
 
     ul {
       flex-direction: column;
+      align-items: center;
       justify-content: center;
     }
 
     ul li {
       margin: 5px;
       padding: 0.5rem;
-      border-bottom: 1px solid ${({ state }) => state?.second_color && darken(0.07, `#${state?.second_color}`)};
+      color: ${({ state }) => `#${state?.textbutton_color}`};
     }
 
     ul li a {
