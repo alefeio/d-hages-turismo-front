@@ -40,7 +40,7 @@ export const Prod = styled.div`
     }
 
     img {
-      border-radius: ${({ client }) => `${client?.border_radius}rem`};
+      border-radius: ${({ client }) => `${client?.border_radius}px`};
       width: 30%;
       float: left;
       margin: 0 3rem 1rem 0;
@@ -77,7 +77,7 @@ export const Prod = styled.div`
     
     nav {
       img {
-        border-radius: ${({ client }) => `${client?.border_radius}rem`};
+        border-radius: ${({ client }) => `${client?.border_radius}px`};
         width: 100%;
       }
     }
