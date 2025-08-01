@@ -491,6 +491,7 @@ export const Depoimentos = styled.div`
       div {
         width: 100vw;
         img {
+          width: 100%;
         }
       }
     }
