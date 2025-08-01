@@ -486,6 +486,14 @@ export const Depoimentos = styled.div`
   @media (max-width: 720px) {
     overflow: hidden;
     padding: 0;
+
+    section {
+      div {
+        width: 100vw;
+        img {
+        }
+      }
+    }
   }
 `;
 
