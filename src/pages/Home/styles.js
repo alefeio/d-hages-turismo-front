@@ -493,7 +493,7 @@ export const Depoimentos = styled.div`
         margin: auto;
 
         img {
-          width: 100vw;
+          width: 100%;
         }
       }
     }
