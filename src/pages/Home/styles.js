@@ -489,11 +489,11 @@ export const Depoimentos = styled.div`
 
     section {
       div {
-        width: 90vw;
+        width: 100vw;
         margin: auto;
 
         img {
-          width: 100%;
+          width: 100vw;
         }
       }
     }
