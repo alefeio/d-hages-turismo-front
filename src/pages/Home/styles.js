@@ -433,8 +433,6 @@ export const Depoimentos = styled.div`
 
   section {
     width: 100%;
-    display: flex;
-    flex-direction: column;
     max-width: 1300px;
     padding: 10rem 0;
     margin: auto;
