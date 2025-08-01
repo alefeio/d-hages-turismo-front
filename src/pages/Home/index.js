@@ -387,8 +387,6 @@ export default function Home() {
     <>
       <Helmet>
         <title>{state?.title}</title>
-        {dominio === 'appnoticias' && <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5695208654992345"
-     crossorigin="anonymous"></script>}
       </Helmet>
       <Container state={state}>
         {state?.whatsapp && <WhatsApp>
