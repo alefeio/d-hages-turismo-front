@@ -489,7 +489,9 @@ export const Depoimentos = styled.div`
 
     section {
       div {
-        width: 100vw;
+        width: 90vw;
+        margin: auto;
+
         img {
           width: 100%;
         }
