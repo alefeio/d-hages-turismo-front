@@ -387,15 +387,6 @@ export default function Home() {
     <>
       <Helmet>
         <title>{state?.title}</title>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17411208522">
-        </script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments)}
-          gtag('js', new Date());
-
-          gtag('config', 'AW-17411208522');
-        </script>
       </Helmet>
       <Container state={state}>
         {state?.whatsapp && <WhatsApp>
