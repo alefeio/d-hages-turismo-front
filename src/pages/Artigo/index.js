@@ -63,7 +63,7 @@ export default function Artigo(props) {
   return (
     <>
       <Helmet>
-        <title>{produto?.titulo}</title>
+        <title>My Dress :: {produto?.titulo}</title>
       </Helmet>
       <Container>
         <WhatsApp>
